@@ -17,26 +17,39 @@ final class CategoriesViewController: UIViewController {
         return tableView
     }()
     
+    private let headerView: HeaderView = {
+        let headerView = HeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return headerView
+    }()
+    
     private let categories = Categories.dummyData
     
     // MARK: - Private LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(headerView)
         view.addSubview(tableView)
         view.backgroundColor = .white
         setupTableView()
         setupTableViewConstraints()
+        headerView.titleLabel.text = "Categories"
     }
     
     // MARK: - Private Methods
     private func setupTableViewConstraints() {
+        
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
+            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 30),
+            
+            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 26),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)        ])
     }
     
     private func setupTableView() {
@@ -61,8 +74,6 @@ extension CategoriesViewController: UITableViewDataSource {
         }
         return cell
     }
-    
-
 }
 
 #Preview {

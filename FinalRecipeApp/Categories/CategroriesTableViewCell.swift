@@ -95,7 +95,6 @@ final class CategroriesTableViewCell: UITableViewCell {
             categoryImage.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -9),
             categoryImage.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 5),
             categoryImage.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 240)
-    
         ])
     }
 }
