@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CategroriesTableViewCell: UITableViewCell {
+final class CategrorieTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     private var mainStackView: UIStackView = {
@@ -59,7 +59,7 @@ final class CategroriesTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure
-    func configure(with model: Categories) {
+    func configure(with model: Category) {
         categoryName.text = model.name
         categoryImage.image = model.image
     }
@@ -100,7 +100,7 @@ final class CategroriesTableViewCell: UITableViewCell {
 }
 
 #Preview {
-    let cell = CategroriesTableViewCell()
+    let cell = CategrorieTableViewCell()
     cell.configure(with: .init(name: "name", image: UIImage(named: "image 1")!))
     return cell
 }

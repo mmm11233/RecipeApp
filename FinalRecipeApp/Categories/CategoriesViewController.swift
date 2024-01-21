@@ -10,6 +10,8 @@ import UIKit
 final class CategoriesViewController: UIViewController {
     
     // MARK: - Properties
+    let viewModel = CategoriesViewModel()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,9 +25,7 @@ final class CategoriesViewController: UIViewController {
         
         return headerView
     }()
-    
-    private let categories = Categories.dummyData
-    
+        
     // MARK: - Private LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,21 +55,21 @@ final class CategoriesViewController: UIViewController {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(CategroriesTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "cell")
     }
 }
 
 extension CategoriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        categories.count
+        viewModel.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let categories = categories[indexPath.row]
+        let category = viewModel.categories[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        if let categoriesViewControllerCell = cell as? CategroriesTableViewCell {
-            categoriesViewControllerCell.configure(with: categories)
+        if let categoriesViewControllerCell = cell as? CategrorieTableViewCell {
+            categoriesViewControllerCell.configure(with: category)
             return categoriesViewControllerCell
         }
         return cell
