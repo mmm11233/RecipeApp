@@ -84,12 +84,18 @@ final class CategroriesTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            mainStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 14),
-            mainStackView.rightAnchor.constraint(equalTo: self.rightAnchor,constant: -14),
-            mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5),
+            mainStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
+            mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -9),
             
-            categoryImage.heightAnchor.constraint(equalToConstant: 50),
-            categoryImage.widthAnchor.constraint(equalToConstant: 50),
+            categoryName.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor),
+            categoryName.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
+            
+            categoryImage.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor),
+            categoryImage.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -9),
+            categoryImage.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 5),
+            categoryImage.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 240)
+    
         ])
     }
 }
@@ -98,25 +104,4 @@ final class CategroriesTableViewCell: UITableViewCell {
     let cell = CategroriesTableViewCell()
     cell.configure(with: .init(name: "name", image: UIImage(named: "image 1")!))
     return cell
-}
-
-
-extension UIColor {
-    convenience init(hexString: String) {
-        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt64()
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }
 }
