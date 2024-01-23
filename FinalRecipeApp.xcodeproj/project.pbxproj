@@ -20,6 +20,8 @@
 		39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFA2B5D4C9F007232FA /* HexColor.swift */; };
 		39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFC2B5D4DEE007232FA /* HeaderView.swift */; };
 		39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */; };
+		39832C052B5EEDFB007232FA /* DishesComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832C042B5EEDFB007232FA /* DishesComponentView.swift */; };
+		39832C072B5F0F76007232FA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832C062B5F0F76007232FA /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		39832BFA2B5D4C9F007232FA /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
 		39832BFC2B5D4DEE007232FA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		39832C042B5EEDFB007232FA /* DishesComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesComponentView.swift; sourceTree = "<group>"; };
+		39832C062B5F0F76007232FA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 				39832BE42B57BC0E007232FA /* App */,
 				39832BE52B57BCA6007232FA /* OnBoarding */,
 				39832BEA2B59DCAE007232FA /* Categories */,
+				39832C012B5EA416007232FA /* MainPage */,
 				39832BD92B57BC00007232FA /* Assets.xcassets */,
 				39832BDB2B57BC00007232FA /* LaunchScreen.storyboard */,
 				39832BDE2B57BC00007232FA /* Info.plist */,
@@ -124,6 +129,7 @@
 			children = (
 				39832BF72B5AB4A0007232FA /* ShadowView.swift */,
 				39832BFC2B5D4DEE007232FA /* HeaderView.swift */,
+				39832C042B5EEDFB007232FA /* DishesComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -142,6 +148,14 @@
 				39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */,
 			);
 			path = CategorieTableViewCelll;
+			sourceTree = "<group>";
+		};
+		39832C012B5EA416007232FA /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				39832C062B5F0F76007232FA /* MainView.swift */,
+			);
+			path = MainPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39832BE92B59C185007232FA /* OnBoardingImageComponent.swift in Sources */,
+				39832C072B5F0F76007232FA /* MainView.swift in Sources */,
 				39832BF02B5A9522007232FA /* model.swift in Sources */,
 				39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
@@ -225,6 +240,7 @@
 				39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */,
 				39832BE72B595227007232FA /* OnBoardingPage.swift in Sources */,
 				39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */,
+				39832C052B5EEDFB007232FA /* DishesComponentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
