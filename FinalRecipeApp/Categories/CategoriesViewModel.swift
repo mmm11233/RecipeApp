@@ -8,12 +8,16 @@
 import UIKit
 
 final class CategoriesViewModel {
+    
+    // MARK: - Properties
     var categories: [Category] = []
     
+    // MARK: - Init
     init() {
         setupCategories()
     }
     
+    // MARK: - Private Methods
     private func setupCategories() {
         self.categories = [
             Category(

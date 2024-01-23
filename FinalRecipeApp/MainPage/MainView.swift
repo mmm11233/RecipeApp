@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    
     // MARK: - Properties
-
     private let gridLayout: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())

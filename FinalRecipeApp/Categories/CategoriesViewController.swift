@@ -59,6 +59,7 @@ final class CategoriesViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
 extension CategoriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.categories.count
