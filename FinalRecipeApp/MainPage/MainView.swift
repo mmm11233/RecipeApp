@@ -40,6 +40,26 @@ struct MainView: View {
     }
 }
 
+
+struct MainViewRepresentable: UIViewControllerRepresentable {
+    // Define the Context type
+    typealias Context = UIViewControllerRepresentableContext<Self>
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        let hostingController = UIHostingController(rootView: MainView())
+        hostingController.title = "SwiftUI"
+        return hostingController
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // Update the view controller if needed
+    }
+}
+
+
+
+
+
 #Preview {
     MainView()
 }

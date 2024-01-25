@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-final class OnBoardingPage: UIViewController {
+final class OnBoarding: UIViewController {
     
     // MARK: - Properties
     private let mainImage: UIImageView = {
@@ -38,12 +38,17 @@ final class OnBoardingPage: UIViewController {
         return label
     }()
     
+     var onTap: (() -> Void)?
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tapGesture)
     }
+    
     
     // MARK: - Methods
     private func setupUI() {
@@ -52,7 +57,7 @@ final class OnBoardingPage: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-
+        
         view.addSubview(appTitle)
         
         NSLayoutConstraint.activate([
@@ -75,9 +80,13 @@ final class OnBoardingPage: UIViewController {
             appTitle.bottomAnchor.constraint(equalTo: ellipseImage.topAnchor, constant: -45)
         ])
     }
+    
+    @objc private func handleTap() {
+           onTap?()
+       }
 }
 
 #Preview {
-    let vc = OnBoardingPage()
+    let vc = OnBoarding()
     return vc
 }

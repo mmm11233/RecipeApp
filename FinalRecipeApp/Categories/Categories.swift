@@ -6,7 +6,7 @@
 //
 import UIKit
 
-final class CategoriesViewController: UIViewController {
+final class Categories: UIViewController {
     
     // MARK: - Properties
     let viewModel = CategoriesViewModel()
@@ -60,7 +60,7 @@ final class CategoriesViewController: UIViewController {
 }
 
 // MARK: - Extensions
-extension CategoriesViewController: UITableViewDataSource {
+extension Categories: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.categories.count
     }
@@ -78,6 +78,6 @@ extension CategoriesViewController: UITableViewDataSource {
 }
 
 #Preview {
-    let vc = CategoriesViewController()
+    let vc = Categories()
     return vc
 }
