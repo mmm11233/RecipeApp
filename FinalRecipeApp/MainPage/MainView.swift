@@ -8,26 +8,31 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    // MARK: - Properties
     @StateObject var viewModel: MainViewModel = .init()
     @State var path = NavigationPath()
     
-    // MARK: - Properties
     private let gridLayout: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
+    // MARK: - Body
     var body: some View {
         NavigationStack{
             Text("What is in your kitchen?")
-                .font(.system(size: 28, weight: .bold))
+                .font(.custom("AmericanTypewriter-CondensedBold", size: 30))
                 .foregroundColor(.black)
                 .padding(.top, 10)
             ScrollView {
                 LazyVGrid(columns: gridLayout, spacing: 16) {
-                    ForEach(0..<viewModel.dishes.count) { _ in
-                        DishesComponentView()
-                            .padding(5)
+                    ForEach(viewModel.dishes) { dish in
+                        DishesComponentView(imageUrl: dish.pictureURL,
+                                            name: dish.name,
+                                            calorie: dish.calories,
+                                            prepareTime: dish.preparingTime)
+                        .padding(5)
                     }
                 }
                 .padding()
@@ -39,25 +44,6 @@ struct MainView: View {
         
     }
 }
-
-
-struct MainViewRepresentable: UIViewControllerRepresentable {
-    // Define the Context type
-    typealias Context = UIViewControllerRepresentableContext<Self>
-
-    func makeUIViewController(context: Context) -> UIViewController {
-        let hostingController = UIHostingController(rootView: MainView())
-        hostingController.title = "SwiftUI"
-        return hostingController
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // Update the view controller if needed
-    }
-}
-
-
-
 
 
 #Preview {

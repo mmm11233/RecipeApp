@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct DishesComponentView: View {
+    var imageUrl: String
+    var name: String
+    var calorie: Int
+    var prepareTime: Int
     
     // MARK: - Body
     var body: some View {
@@ -24,15 +28,15 @@ extension DishesComponentView {
     
     // MARK: - DishesImageView
     private var dishesImageView: some View {
-        Image(systemName: "photo")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(height: 120)
+        AsyncImage(url: URL(string: imageUrl))
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 170,height: 150)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
     // MARK: -NameDishesView
     private var nameDishesView: some View {
-        Text("Chorizo & mozzarella gnocchi bake")
+        Text(name)
             .lineLimit(2)
             .font(.callout)
             .fontWeight(.semibold)
@@ -52,7 +56,7 @@ extension DishesComponentView {
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 13)
                 .frame(width: 11)
-            Text("350 Kcal")
+            Text("\(calorie) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
         }
@@ -66,14 +70,13 @@ extension DishesComponentView {
                 .frame(height: 13)
                 .frame(width: 11)
             
-            Text("20 min")
+            Text("\(prepareTime) min")
                 .font(.caption)
                 .padding(.horizontal, 5)
         }
     }
 }
 
-
 #Preview {
-    DishesComponentView()
+    DishesComponentView(imageUrl: "photo", name: "Chorizo & mozzarella gnocchi bake", calorie: 350, prepareTime: 20)
 }
