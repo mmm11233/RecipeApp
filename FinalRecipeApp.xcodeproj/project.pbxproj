@@ -22,6 +22,10 @@
 		39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */; };
 		39832C052B5EEDFB007232FA /* DishesComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832C042B5EEDFB007232FA /* DishesComponentView.swift */; };
 		39832C072B5F0F76007232FA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832C062B5F0F76007232FA /* MainView.swift */; };
+		39C69AFE2B5FD162000EA66C /* NetSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 39C69AFD2B5FD162000EA66C /* NetSwift */; };
+		39C69B002B5FD19E000EA66C /* DishModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69AFF2B5FD19E000EA66C /* DishModel.swift */; };
+		39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B012B5FD43F000EA66C /* MainViewModel.swift */; };
+		39C69B052B5FDD3B000EA66C /* DeshesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B042B5FDD3B000EA66C /* DeshesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,9 @@
 		39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		39832C042B5EEDFB007232FA /* DishesComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesComponentView.swift; sourceTree = "<group>"; };
 		39832C062B5F0F76007232FA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		39C69AFF2B5FD19E000EA66C /* DishModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishModel.swift; sourceTree = "<group>"; };
+		39C69B012B5FD43F000EA66C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		39C69B042B5FDD3B000EA66C /* DeshesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeshesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C69AFE2B5FD162000EA66C /* NetSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +82,7 @@
 		39832BCF2B57BBFF007232FA /* FinalRecipeApp */ = {
 			isa = PBXGroup;
 			children = (
+				39C69B032B5FDD18000EA66C /* Managers */,
 				39832BF92B5D4C75007232FA /* Extensions */,
 				39832BF62B5AB487007232FA /* Components */,
 				39832BF52B5AB473007232FA /* Models */,
@@ -120,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				39832BEF2B5A9522007232FA /* model.swift */,
+				39C69AFF2B5FD19E000EA66C /* DishModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -154,8 +164,17 @@
 			isa = PBXGroup;
 			children = (
 				39832C062B5F0F76007232FA /* MainView.swift */,
+				39C69B012B5FD43F000EA66C /* MainViewModel.swift */,
 			);
 			path = MainPage;
+			sourceTree = "<group>";
+		};
+		39C69B032B5FDD18000EA66C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				39C69B042B5FDD3B000EA66C /* DeshesManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +193,9 @@
 			dependencies = (
 			);
 			name = FinalRecipeApp;
+			packageProductDependencies = (
+				39C69AFD2B5FD162000EA66C /* NetSwift */,
+			);
 			productName = FinalRecipeApp;
 			productReference = 39832BCD2B57BBFF007232FA /* FinalRecipeApp.app */;
 			productType = "com.apple.product-type.application";
@@ -202,6 +224,9 @@
 				Base,
 			);
 			mainGroup = 39832BC42B57BBFF007232FA;
+			packageReferences = (
+				39C69AFC2B5FD162000EA66C /* XCRemoteSwiftPackageReference "package" */,
+			);
 			productRefGroup = 39832BCE2B57BBFF007232FA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,12 +258,15 @@
 				39832BF02B5A9522007232FA /* model.swift in Sources */,
 				39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
+				39C69B052B5FDD3B000EA66C /* DeshesManager.swift in Sources */,
+				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */,
 				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */,
 				39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */,
 				39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */,
 				39832BE72B595227007232FA /* OnBoardingPage.swift in Sources */,
+				39C69B002B5FD19E000EA66C /* DishModel.swift in Sources */,
 				39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */,
 				39832C052B5EEDFB007232FA /* DishesComponentView.swift in Sources */,
 			);
@@ -391,6 +419,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -418,6 +447,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,6 +483,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		39C69AFC2B5FD162000EA66C /* XCRemoteSwiftPackageReference "package" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mmm11233/package.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		39C69AFD2B5FD162000EA66C /* NetSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39C69AFC2B5FD162000EA66C /* XCRemoteSwiftPackageReference "package" */;
+			productName = NetSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 39832BC52B57BBFF007232FA /* Project object */;
 }

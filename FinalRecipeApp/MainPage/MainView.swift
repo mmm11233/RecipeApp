@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject var viewModel: MainViewModel = .init()
+    @State var path = NavigationPath()
     
     // MARK: - Properties
     private let gridLayout: [GridItem] = [
@@ -15,18 +17,27 @@ struct MainView: View {
         GridItem(.flexible())
     ]
     
-    // MARK: - Body
-       var body: some View {
-           ScrollView {
-               LazyVGrid(columns: gridLayout, spacing: 16) {
-                   ForEach(0..<10) { _ in
-                       DishesComponentView()
-                           .padding(10)
-                   }
-               }
-               .padding()
-           }
-       }
+    var body: some View {
+        NavigationStack{
+            Text("What is in your kitchen?")
+                .font(.system(size: 28, weight: .bold))
+                .foregroundColor(.black)
+                .padding(.top, 10)
+            ScrollView {
+                LazyVGrid(columns: gridLayout, spacing: 16) {
+                    ForEach(0..<viewModel.dishes.count) { _ in
+                        DishesComponentView()
+                            .padding(5)
+                    }
+                }
+                .padding()
+            }
+            .onAppear {
+                viewModel.fetchDishes()
+            }
+        }
+        
+    }
 }
 
 #Preview {
