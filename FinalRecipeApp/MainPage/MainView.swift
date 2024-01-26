@@ -13,21 +13,21 @@ struct MainView: View {
     @StateObject var viewModel: MainViewModel = .init()
     @State var path = NavigationPath()
     
-    private let gridLayout: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-
+    var items: [GridItem] {
+      Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
+    }
     
     // MARK: - Body
     var body: some View {
+        Spacer()
         NavigationStack{
-            Text("Find Your Next Recipe?")
-                .font(.custom("AmericanTypewriter-CondensedBold", size: 30))
-                .foregroundColor(.black)
-                .padding(.top, 10)
-            ScrollView {
-                LazyVGrid(columns: gridLayout, spacing: 16) {
+            
+            TitleView(title: "Find Your Next Recipe")
+            
+            SearchBarComponentView(searchText: $viewModel.searchText)
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: items, spacing: 10) {
                     ForEach(viewModel.filteredDishes) { dish in
                         DishesComponentView(imageUrl: dish.pictureURL,
                                             name: dish.name,
@@ -35,17 +35,13 @@ struct MainView: View {
                                             prepareTime: dish.preparingTime)
                         .padding(5)
                     }
-
                 }
-                .searchable(text: $viewModel.searchText)
-
-                .padding()
+                .padding(.horizontal)
             }
             .onAppear {
                 viewModel.fetchDishes()
             }
         }
-        
     }
 }
 

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DishesComponentView: View {
+    
+    // MARK: - Properties
     var imageUrl: String
     var name: String
     var calorie: Int
@@ -26,31 +28,30 @@ struct DishesComponentView: View {
 // MARK: - Components
 extension DishesComponentView {
     
-    // MARK: - DishesImageView
+    // MARK: - Views
     private var dishesImageView: some View {
-          AsyncImage(url: URL(string: imageUrl)) { phase in
-              switch phase {
-              case .empty:
-                  ProgressView()
-              case .success(let image):
-                  image
-                      .resizable()
-                      .scaledToFill()
-                      .frame(width: 150, height: 130)
-                      .clipShape(RoundedRectangle(cornerRadius: 20))
-              case .failure:
-                  Image(systemName: "photo")
-                      .resizable()
-                      .scaledToFill()
-                      .frame(width: 150, height: 130)
-                      .clipShape(RoundedRectangle(cornerRadius: 20))
-              @unknown default:
-                  EmptyView()
-              }
-          }
-      }
+        AsyncImage(url: URL(string: imageUrl)) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 130)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            case .failure:
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 130)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            @unknown default:
+                EmptyView()
+            }
+        }
+    }
     
-    // MARK: -NameDishesView
     private var nameDishesView: some View {
         Text(name)
             .lineLimit(2)
