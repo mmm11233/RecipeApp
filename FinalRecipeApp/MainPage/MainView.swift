@@ -17,24 +17,28 @@ struct MainView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+
     
     // MARK: - Body
     var body: some View {
         NavigationStack{
-            Text("What is in your kitchen?")
+            Text("Find Your Next Recipe?")
                 .font(.custom("AmericanTypewriter-CondensedBold", size: 30))
                 .foregroundColor(.black)
                 .padding(.top, 10)
             ScrollView {
                 LazyVGrid(columns: gridLayout, spacing: 16) {
-                    ForEach(viewModel.dishes) { dish in
+                    ForEach(viewModel.filteredDishes) { dish in
                         DishesComponentView(imageUrl: dish.pictureURL,
                                             name: dish.name,
                                             calorie: dish.calories,
                                             prepareTime: dish.preparingTime)
                         .padding(5)
                     }
+
                 }
+                .searchable(text: $viewModel.searchText)
+
                 .padding()
             }
             .onAppear {

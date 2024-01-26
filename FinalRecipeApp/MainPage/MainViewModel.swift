@@ -12,8 +12,14 @@ final class MainViewModel: ObservableObject {
     
     //MARK: - Properties
     @Published var dishes: [Dish] = []
-    @Published var error: String?
-    @Published var showAlert = false
+    @Published var searchText: String = ""
+
+    var filteredDishes: [Dish] {
+           guard !searchText.isEmpty else { return dishes }
+           return dishes.filter { dish in
+               dish.name.lowercased().contains(searchText.lowercased())
+           }
+       }
     
     //MARK: - Init
     init() {

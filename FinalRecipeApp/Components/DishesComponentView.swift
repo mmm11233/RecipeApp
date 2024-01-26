@@ -28,11 +28,27 @@ extension DishesComponentView {
     
     // MARK: - DishesImageView
     private var dishesImageView: some View {
-        AsyncImage(url: URL(string: imageUrl))
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 170,height: 150)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-    }
+          AsyncImage(url: URL(string: imageUrl)) { phase in
+              switch phase {
+              case .empty:
+                  ProgressView()
+              case .success(let image):
+                  image
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: 150, height: 130)
+                      .clipShape(RoundedRectangle(cornerRadius: 20))
+              case .failure:
+                  Image(systemName: "photo")
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: 150, height: 130)
+                      .clipShape(RoundedRectangle(cornerRadius: 20))
+              @unknown default:
+                  EmptyView()
+              }
+          }
+      }
     
     // MARK: -NameDishesView
     private var nameDishesView: some View {
@@ -53,9 +69,8 @@ extension DishesComponentView {
         HStack(spacing: 1) {
             Image(systemName: "flame.fill")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 13)
-                .frame(width: 11)
+                .scaledToFit()
+                .frame(width: 11, height: 13)
             Text("\(calorie) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
@@ -66,9 +81,8 @@ extension DishesComponentView {
         HStack(spacing: 1) {
             Image(systemName: "clock.fill")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 13)
-                .frame(width: 11)
+                .scaledToFit()
+                .frame(width: 11, height: 13)
             
             Text("\(prepareTime) min")
                 .font(.caption)
