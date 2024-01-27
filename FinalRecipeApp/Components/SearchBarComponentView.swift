@@ -13,6 +13,7 @@ struct SearchBarComponentView: View {
     @Binding var searchText: String
     @State private var isSearching: Bool = false
     
+    
     // MARK: - Body
     var body: some View {
         searchBarView
@@ -32,6 +33,7 @@ struct SearchBarComponentView: View {
             })
             .foregroundColor(.primary)
             
+            
             if isSearching {
                 Button(action: {
                     searchText = ""
@@ -42,10 +44,15 @@ struct SearchBarComponentView: View {
                 }
             }
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 16)
-        .background(Color(.systemBackground))
-        .cornerRadius(10)
-        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 14)
+        .background(Color(.init(hexString: "F1F1F1")))
+        .clipShape(Capsule())
+        .padding(.leading, 30)
+        .padding(.trailing, 30)
     }
+}
+
+#Preview {
+    SearchBarComponentView(searchText: .constant(""))
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DishesComponentView: View {
     
+    
     // MARK: - Properties
     var imageUrl: String
     var name: String
@@ -18,7 +19,7 @@ struct DishesComponentView: View {
     // MARK: - Body
     var body: some View {
         VStack{
-            dishesImageView
+            dishesImageViewContent
             nameDishesView
             additionalInfoHStack
         }
@@ -29,29 +30,41 @@ struct DishesComponentView: View {
 extension DishesComponentView {
     
     // MARK: - Views
-    private var dishesImageView: some View {
+    private var dishesImageViewContent: some View {
         AsyncImage(url: URL(string: imageUrl)) { phase in
             switch phase {
             case .empty:
-                ProgressView()
+                dishesImageView(image: nil, isLoading: true)
             case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 150, height: 130)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                dishesImageView(image: image, isLoading: false)
             case .failure:
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 150, height: 130)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                dishesImageView(image: Image(systemName: "photo"), isLoading: false)
             @unknown default:
                 EmptyView()
             }
         }
     }
-    
+
+    private func dishesImageView(image: Image?, isLoading: Bool) -> some View {
+        ZStack {
+            if let image = image {
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 130)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            } else {
+                Color.clear
+                    .frame(width: 150, height: 130) // Set the desired frame for the clear color
+            }
+
+            if isLoading {
+                ProgressView()
+                    .frame(width: 150, height: 130) // Set the same frame as the image
+            }
+        }
+    }
+
     private var nameDishesView: some View {
         Text(name)
             .lineLimit(2)

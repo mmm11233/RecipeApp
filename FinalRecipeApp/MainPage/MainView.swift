@@ -13,20 +13,22 @@ struct MainView: View {
     @StateObject var viewModel: MainViewModel = .init()
     @State var path = NavigationPath()
     
+    
     var items: [GridItem] {
-      Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
+        Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
     }
     
     // MARK: - Body
     var body: some View {
         Spacer()
+        
         NavigationStack{
             
             TitleView(title: "Find Your Next Recipe")
             
-            SearchBarComponentView(searchText: $viewModel.searchText)
-            
             ScrollView(.vertical, showsIndicators: false) {
+                SearchBarComponentView(searchText: $viewModel.searchText)
+
                 LazyVGrid(columns: items, spacing: 10) {
                     ForEach(viewModel.filteredDishes) { dish in
                         DishesComponentView(imageUrl: dish.pictureURL,
@@ -44,7 +46,6 @@ struct MainView: View {
         }
     }
 }
-
 
 #Preview {
     MainView()
