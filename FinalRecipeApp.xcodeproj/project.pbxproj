@@ -13,6 +13,13 @@
 		39832BDD2B57BC00007232FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39832BDB2B57BC00007232FA /* LaunchScreen.storyboard */; };
 		39832BE72B595227007232FA /* OnBoardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BE62B595227007232FA /* OnBoardingPage.swift */; };
 		39832BE92B59C185007232FA /* OnBoardingImageComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BE82B59C185007232FA /* OnBoardingImageComponent.swift */; };
+		39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */; };
+		39832BF02B5A9522007232FA /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BEF2B5A9522007232FA /* CategoryModel.swift */; };
+		39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BF12B5A9D12007232FA /* CategoriesViewController.swift */; };
+		39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BF72B5AB4A0007232FA /* ShadowView.swift */; };
+		39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFA2B5D4C9F007232FA /* HexColor.swift */; };
+		39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFC2B5D4DEE007232FA /* HeaderView.swift */; };
+		39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		39832BDE2B57BC00007232FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39832BE62B595227007232FA /* OnBoardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPage.swift; sourceTree = "<group>"; };
 		39832BE82B59C185007232FA /* OnBoardingImageComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingImageComponent.swift; sourceTree = "<group>"; };
+		39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategrorieTableViewCell.swift; sourceTree = "<group>"; };
+		39832BEF2B5A9522007232FA /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		39832BF12B5A9D12007232FA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		39832BF72B5AB4A0007232FA /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		39832BFA2B5D4C9F007232FA /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		39832BFC2B5D4DEE007232FA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +70,12 @@
 		39832BCF2B57BBFF007232FA /* FinalRecipeApp */ = {
 			isa = PBXGroup;
 			children = (
-				39832BE52B57BCA6007232FA /* OnBoarding */,
+				39832BF92B5D4C75007232FA /* Extensions */,
+				39832BF62B5AB487007232FA /* Components */,
+				39832BF52B5AB473007232FA /* Models */,
 				39832BE42B57BC0E007232FA /* App */,
+				39832BE52B57BCA6007232FA /* OnBoarding */,
+				39832BEA2B59DCAE007232FA /* Categories */,
 				39832BD92B57BC00007232FA /* Assets.xcassets */,
 				39832BDB2B57BC00007232FA /* LaunchScreen.storyboard */,
 				39832BDE2B57BC00007232FA /* Info.plist */,
@@ -81,6 +99,49 @@
 				39832BE82B59C185007232FA /* OnBoardingImageComponent.swift */,
 			);
 			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		39832BEA2B59DCAE007232FA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				39832C002B5D667B007232FA /* CategorieTableViewCelll */,
+				39832BF12B5A9D12007232FA /* CategoriesViewController.swift */,
+				39832BFE2B5D666C007232FA /* CategoriesViewModel.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		39832BF52B5AB473007232FA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				39832BEF2B5A9522007232FA /* CategoryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		39832BF62B5AB487007232FA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				39832BF72B5AB4A0007232FA /* ShadowView.swift */,
+				39832BFC2B5D4DEE007232FA /* HeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		39832BF92B5D4C75007232FA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				39832BFA2B5D4C9F007232FA /* HexColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		39832C002B5D667B007232FA /* CategorieTableViewCelll */ = {
+			isa = PBXGroup;
+			children = (
+				39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */,
+			);
+			path = CategorieTableViewCelll;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +215,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				39832BE92B59C185007232FA /* OnBoardingImageComponent.swift in Sources */,
+				39832BF02B5A9522007232FA /* CategoryModel.swift in Sources */,
+				39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
+				39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */,
+				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */,
+				39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */,
+				39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */,
 				39832BE72B595227007232FA /* OnBoardingPage.swift in Sources */,
+				39832BFF2B5D666C007232FA /* CategoriesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

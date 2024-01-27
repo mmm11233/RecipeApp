@@ -10,7 +10,7 @@ import SwiftUI
 
 final class OnBoardingPage: UIViewController {
     
-    //MARK: properties
+    // MARK: - Properties
     private let mainImage: UIImageView = {
         return createImageView(with: "image 8")
     }()
@@ -38,14 +38,14 @@ final class OnBoardingPage: UIViewController {
         return label
     }()
     
-    //MARK: lifeCycle
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
     }
     
-    //MARK: methods
+    // MARK: - Methods
     private func setupUI() {
         [mainImage, ellipseImage, middleImage].forEach {
             $0.contentMode = .scaleAspectFill
