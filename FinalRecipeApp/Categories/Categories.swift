@@ -4,10 +4,9 @@
 //
 //  Created by Mariam Joglidze on 19.01.24.
 //
-
 import UIKit
 
-final class CategoriesViewController: UIViewController {
+final class Categories: UIViewController {
     
     // MARK: - Properties
     let viewModel = CategoriesViewModel()
@@ -41,7 +40,7 @@ final class CategoriesViewController: UIViewController {
     // MARK: - Private Methods
     private func setupTableViewConstraints() {
         
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate ([
             headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
             headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 30),
@@ -49,7 +48,8 @@ final class CategoriesViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 26),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)        ])
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)    
+        ])
     }
     
     private func setupTableView() {
@@ -59,7 +59,8 @@ final class CategoriesViewController: UIViewController {
     }
 }
 
-extension CategoriesViewController: UITableViewDataSource {
+// MARK: - Extensions
+extension Categories: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.categories.count
     }
@@ -77,6 +78,6 @@ extension CategoriesViewController: UITableViewDataSource {
 }
 
 #Preview {
-    let vc = CategoriesViewController()
+    let vc = Categories()
     return vc
 }
