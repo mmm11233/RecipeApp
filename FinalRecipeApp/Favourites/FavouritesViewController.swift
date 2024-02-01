@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -37,7 +37,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 }
 
 #Preview {
-    let vc = CollectionViewController()
+    let vc = FavouritesViewController()
     return vc
 }
 
