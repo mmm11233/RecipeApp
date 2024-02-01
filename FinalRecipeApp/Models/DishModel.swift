@@ -18,6 +18,7 @@ struct Dish: Decodable,Identifiable, Hashable {
     let calories: Int
     let preparingTime: Int
     let category: String
+    let ingredients: [String]
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -25,5 +26,6 @@ struct Dish: Decodable,Identifiable, Hashable {
         case calories
         case preparingTime = "preparing_time"
         case category
+        case ingredients
     }
 }

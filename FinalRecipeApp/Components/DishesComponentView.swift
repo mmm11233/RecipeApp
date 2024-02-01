@@ -17,8 +17,14 @@ struct DishesComponentView: View {
     
     // MARK: - Body
     var body: some View {
+        
         VStack{
-            dishesImageViewContent
+            ZStack(alignment: .topTrailing){
+                dishesImageViewContent
+                heartButton
+                    .padding(.trailing, 12)
+                    .padding(.top, 12)
+            }
             nameDishesView
             additionalInfoHStack
         }
@@ -29,6 +35,22 @@ struct DishesComponentView: View {
 extension DishesComponentView {
     
     // MARK: - Views
+    private var heartButton: some View {
+        Button(action: {
+            // Handle heart button tap action
+            // Add your logic here
+        }) {
+            Image("heart")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 15, height: 15)
+                .foregroundColor(Color(UIColor(hexString: "868686")))
+        }
+        .frame(width: 20, height: 20)
+        .background(Color.white)
+        .cornerRadius(7.0)
+    }
+    
     private var dishesImageViewContent: some View {
         AsyncImage(url: URL(string: imageUrl)) { phase in
             switch phase {
@@ -43,7 +65,7 @@ extension DishesComponentView {
             }
         }
     }
-
+    
     private func dishesImageView(image: Image?, isLoading: Bool) -> some View {
         ZStack {
             if let image = image {
@@ -54,16 +76,16 @@ extension DishesComponentView {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             } else {
                 Color.clear
-                    .frame(width: 150, height: 130) 
+                    .frame(width: 150, height: 130)
             }
-
+            
             if isLoading {
                 ProgressView()
                     .frame(width: 150, height: 130)
             }
         }
     }
-
+    
     private var nameDishesView: some View {
         Text(name)
             .lineLimit(2)
@@ -80,7 +102,7 @@ extension DishesComponentView {
     
     private var caloriesInfoHStack: some View {
         HStack(spacing: 1) {
-            Image(systemName: "flame.fill")
+            Image("fire 3")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
@@ -92,7 +114,7 @@ extension DishesComponentView {
     
     private var prepareTimeHStack: some View {
         HStack(spacing: 1) {
-            Image(systemName: "clock.fill")
+            Image("clock 2")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
