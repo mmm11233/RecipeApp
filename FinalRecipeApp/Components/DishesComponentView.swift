@@ -44,7 +44,6 @@ extension DishesComponentView {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 15, height: 15)
-                .foregroundColor(Color(UIColor(hexString: "868686")))
         }
         .frame(width: 20, height: 20)
         .background(Color.white)
