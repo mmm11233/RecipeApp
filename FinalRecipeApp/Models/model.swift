@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class Category {
     let name: String
     let image: UIImage

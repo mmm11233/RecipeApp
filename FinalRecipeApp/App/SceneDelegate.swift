@@ -35,11 +35,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let mainView = MainView()
             let mainViewController = UIHostingController(rootView: mainView)
             mainViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
-
+            
             let categoriesViewController = Categories()
             categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 1)
-
-            tabBarController.viewControllers = [mainViewController, categoriesViewController]
+      
+            tabBarController.viewControllers = [mainViewController,categoriesViewController]
 
             self.window?.rootViewController = tabBarController
     }
