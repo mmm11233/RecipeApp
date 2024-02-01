@@ -70,7 +70,6 @@ class DetailsViewController: UIViewController {
         return label
     }()
     
-    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +91,6 @@ class DetailsViewController: UIViewController {
     //        ingredientsLabel.text = recipe.ingredients
     //    }
     
-    
-    
     private func addSubviews() {
         view.backgroundColor = .white
         view.addSubview(stackView)
@@ -103,7 +100,6 @@ class DetailsViewController: UIViewController {
         stackView.addArrangedSubview(caloriesLabel)
         stackView.addArrangedSubview(prepareTimeLabel)
         stackView.addArrangedSubview(ingredientsLabel)
-        
     }
     
     private func setupContraints() {

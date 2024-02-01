@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DishesComponentView: View {
     
-    
     // MARK: - Properties
     var imageUrl: String
     var name: String
@@ -55,12 +54,12 @@ extension DishesComponentView {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             } else {
                 Color.clear
-                    .frame(width: 150, height: 130) // Set the desired frame for the clear color
+                    .frame(width: 150, height: 130) 
             }
 
             if isLoading {
                 ProgressView()
-                    .frame(width: 150, height: 130) // Set the same frame as the image
+                    .frame(width: 150, height: 130)
             }
         }
     }
