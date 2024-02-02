@@ -14,34 +14,49 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        guard let windowScene = scene as? UIWindowScene else { return }
-
-            let window = UIWindow(windowScene: windowScene)
-            let onBoardingViewController = OnBoarding()
-
-            onBoardingViewController.onTap = {
-                self.showTabBarController()
-            }
         
-            window.rootViewController = onBoardingViewController
-            self.window = window
-            window.makeKeyAndVisible()
+        guard let windowScene = scene as? UIWindowScene else { return }
+        
+        let window = UIWindow(windowScene: windowScene)
+        let onBoardingViewController = OnBoarding()
+        
+        onBoardingViewController.onTap = {
+            self.showTabBarController()
         }
-
-        func showTabBarController() {
-            let tabBarController = UITabBarController()
-
-            let mainView = MainView()
-            let mainViewController = UIHostingController(rootView: mainView)
-            mainViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
-            
-            let categoriesViewController = Categories()
-            categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 1)
-      
-            tabBarController.viewControllers = [mainViewController,categoriesViewController]
-
-            self.window?.rootViewController = tabBarController
+        
+        window.rootViewController = onBoardingViewController
+        self.window = window
+        window.makeKeyAndVisible()
+    }
+    
+    func showTabBarController() {
+        let tabBarController = UITabBarController()
+        
+        let mainView = MainView()
+        let mainViewModel = MainViewModel()
+        mainViewModel.managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
+        mainView.environmentObject(mainViewModel)
+        
+        let mainViewController = UIHostingController(rootView: mainView)
+        mainViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        
+        let favouritesViewController = FavouritesViewController()
+        favouritesViewController.viewModel = .init(managedObjectContext: (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext)
+        favouritesViewController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart.fill"), tag: 1)
+        
+        let categoriesViewController = Categories()
+        categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 2)
+        
+        tabBarController.viewControllers = [mainViewController,favouritesViewController,categoriesViewController]
+        
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "000000")]
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.init(hexString: "00B4BF")
+        
+        tabBarController.tabBar.standardAppearance = tabBarAppearance
+        tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
+        
+        self.window?.rootViewController = tabBarController
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
