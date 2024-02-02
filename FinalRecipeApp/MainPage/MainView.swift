@@ -34,7 +34,8 @@ struct MainView: View {
                         DishesComponentView(imageUrl: dish.pictureURL,
                                             name: dish.name,
                                             calorie: dish.calories,
-                                            prepareTime: dish.preparingTime)
+                                            prepareTime: dish.preparingTime,
+                                            favouriteButtonIsHidden: false)
                         .padding(5)
                     }
                 }

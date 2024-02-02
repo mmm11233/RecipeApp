@@ -8,13 +8,15 @@ import UIKit
 
 class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var viewModel: FavouritesViewModel!
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! FavouritesCollectionViewCell
-        cell.configure(imageUrl: "your_image_url", name: "Dish Name", calorie: 300, prepareTime: 30)
+        cell.configure(imageUrl: "your_image_url", name: "Dish Name", calorie: 300, prepareTime: 30, favouriteButtonIsHidden: true)
         return cell
     }
     
@@ -40,4 +42,3 @@ class FavouritesViewController: UICollectionViewController, UICollectionViewDele
     let vc = FavouritesViewController()
     return vc
 }
-

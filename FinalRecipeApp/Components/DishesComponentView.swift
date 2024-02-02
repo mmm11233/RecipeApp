@@ -14,6 +14,7 @@ struct DishesComponentView: View {
     var name: String
     var calorie: Int
     var prepareTime: Int
+    var favouriteButtonIsHidden: Bool
     
     // MARK: - Body
     var body: some View {
@@ -21,9 +22,11 @@ struct DishesComponentView: View {
         VStack{
             ZStack(alignment: .topTrailing){
                 dishesImageViewContent
-                heartButton
-                    .padding(.trailing, 12)
-                    .padding(.top, 12)
+                if !favouriteButtonIsHidden {
+                    heartButton
+                        .padding(.trailing, 12)
+                        .padding(.top, 12)
+                }
             }
             nameDishesView
             additionalInfoHStack
@@ -126,5 +129,5 @@ extension DishesComponentView {
 }
 
 #Preview {
-    DishesComponentView(imageUrl: "photo", name: "Chorizo & mozzarella gnocchi bake", calorie: 350, prepareTime: 20)
+    DishesComponentView(imageUrl: "photo", name: "Chorizo & mozzarella gnocchi bake", calorie: 350, prepareTime: 20, favouriteButtonIsHidden: false)
 }

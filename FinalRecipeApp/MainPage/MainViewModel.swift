@@ -7,6 +7,7 @@
 
 import UIKit
 import NetSwift
+import CoreData
 
 final class MainViewModel: ObservableObject {
     
@@ -14,6 +15,8 @@ final class MainViewModel: ObservableObject {
     @Published var dishes: [Dish] = []
     @Published var searchText: String = ""
     
+    var managedObjectContext: NSManagedObjectContext?
+
     var filteredDishes: [Dish] {
         guard !searchText.isEmpty else { return dishes }
         return dishes.filter { dish in

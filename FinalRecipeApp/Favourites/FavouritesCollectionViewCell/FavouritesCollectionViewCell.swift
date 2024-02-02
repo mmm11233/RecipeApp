@@ -24,7 +24,8 @@ class FavouritesCollectionViewCell: UICollectionViewCell {
         let dishesComponentView = DishesComponentView(imageUrl: "your_image_url",
                                                       name: "Dish Name",
                                                       calorie: 300,
-                                                      prepareTime: 30)
+                                                      prepareTime: 30,
+                                                      favouriteButtonIsHidden: false)
         let hostingController = UIHostingController(rootView: dishesComponentView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hostingController.view)
@@ -38,11 +39,16 @@ class FavouritesCollectionViewCell: UICollectionViewCell {
         self.hostingController = hostingController
     }
     
-    func configure(imageUrl: String, name: String, calorie: Int, prepareTime: Int) {
+    func configure(imageUrl: String,
+                   name: String,
+                   calorie: Int,
+                   prepareTime: Int,
+                   favouriteButtonIsHidden: Bool) {
         hostingController?.rootView.imageUrl = imageUrl
         hostingController?.rootView.name = name
         hostingController?.rootView.calorie = calorie
         hostingController?.rootView.prepareTime = prepareTime
+        hostingController?.rootView.favouriteButtonIsHidden = favouriteButtonIsHidden
     }
 }
 
