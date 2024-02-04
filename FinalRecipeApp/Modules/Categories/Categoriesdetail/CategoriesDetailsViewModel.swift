@@ -21,14 +21,26 @@ protocol CategoriesDetailsViewModel {
 final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Properties
-    private var dishes: [Dish] = []
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     
     private var dishesService: DishesService
+    private var fileteredType: CategoryType
     
-    init(dishesService: DishesService) {
+    private var _dishes: [Dish] = []
+    private var dishes: [Dish] {
+        get {
+            _dishes.filter({ $0.categoryType == fileteredType })
+        }
+        set {
+            _dishes = newValue
+        }
+    }
+    
+    init(dishesService: DishesService,
+         fileteredType: CategoryType) {
         self.dishesService = dishesService
+        self.fileteredType = fileteredType
     }
     
     // MARK: Methods

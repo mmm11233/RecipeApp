@@ -47,7 +47,7 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
         let vc = CategoriesDetailsViewController()
-        vc.viewModel = CategoriesDetailsViewModelImpl(dishesService: DishesServiceImpl())
+        vc.viewModel = CategoriesDetailsViewModelImpl(dishesService: DishesServiceImpl(), fileteredType: categories[index].type)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     

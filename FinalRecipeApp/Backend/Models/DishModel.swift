@@ -17,7 +17,7 @@ struct Dish: Decodable, Identifiable, Hashable {
     let pictureURL: String
     let calories: Int
     let preparingTime: Int
-    let category: String
+    let categoryType: CategoryType
     let ingredients: [String]
     
     enum CodingKeys: String, CodingKey {
@@ -25,7 +25,7 @@ struct Dish: Decodable, Identifiable, Hashable {
         case pictureURL = "picture_url"
         case calories
         case preparingTime = "preparing_time"
-        case category
+        case categoryType = "category"
         case ingredients
     }
 }

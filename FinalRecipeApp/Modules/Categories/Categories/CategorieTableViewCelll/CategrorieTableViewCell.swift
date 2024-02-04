@@ -102,6 +102,6 @@ final class CategrorieTableViewCell: UITableViewCell {
 
 #Preview {
     let cell = CategrorieTableViewCell()
-    cell.configure(with: .init(type: .Breakfast, categoryURL: ""))
+    cell.configure(with: .init(type: .Breakfast))
     return cell
 }

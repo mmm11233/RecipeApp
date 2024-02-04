@@ -13,7 +13,7 @@ enum CategoryType: String, Decodable {
     case Drinks
     case Pastas
     case Salads
-    case Deserts
+    case Desserts
     case Soups
     
     var image: UIImage {
@@ -23,7 +23,7 @@ enum CategoryType: String, Decodable {
         case .Drinks: UIImage(named: "drinks")!
         case .Pastas: UIImage(named: "pastas")!
         case .Salads: UIImage(named: "salads")!
-        case .Deserts: UIImage(named: "desserts")!
+        case .Desserts: UIImage(named: "desserts")!
         case .Soups: UIImage(named: "soups")!
         }
     }
@@ -31,12 +31,6 @@ enum CategoryType: String, Decodable {
 
 struct Category: Decodable {
     let type: CategoryType
-    let categoryURL: String
-    
-    enum CodingKeys: String, CodingKey {
-        case type
-        case categoryURL = "category_url"
-    }
 }
 
 struct CategoryResponseModel: Decodable {
