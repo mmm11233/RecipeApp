@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func showTabBarController() {
         let tabBarController = UITabBarController()
         
-        let mainView = MainView()
-        let mainViewModel = MainViewModel()
+        let mainViewModel = MainViewModel(dishesService: DishesServiceImpl())
+        let mainView = MainView(viewModel: mainViewModel)
         mainViewModel.managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
         mainView.environmentObject(mainViewModel)
         
@@ -38,6 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         favouritesViewController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart.fill"), tag: 1)
         
         let categoriesViewController = CategoriesViewController()
+        categoriesViewController.viewModel = CategoriesViewModelImpl(categoriesService: CategoriesServiceImpl())
         let categoriesNavigationController = UINavigationController(rootViewController: categoriesViewController)
         categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 2)
         

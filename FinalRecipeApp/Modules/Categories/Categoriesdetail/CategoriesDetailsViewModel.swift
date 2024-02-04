@@ -25,9 +25,11 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     
-//    init(initalValue: Category) {
-//        
-//    }
+    private var dishesService: DishesService
+    
+    init(dishesService: DishesService) {
+        self.dishesService = dishesService
+    }
     
     // MARK: Methods
     func viewDidLoad() {
@@ -46,7 +48,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     func fetchDishes() {
         isLoading.send(true)
         
-        DishesManager.shared.fetchDishes(completion: {[weak self] result in
+        dishesService.fetchDishes(completion: { [weak self] result in
             guard let self else { return }
             isLoading.send(false)
 

@@ -12,6 +12,8 @@ import CoreData
 final class MainViewModel: ObservableObject {
     
     //MARK: - Properties
+    private var dishesService: DishesService
+    
     @Published var dishes: [Dish] = []
     @Published var searchText: String = ""
     
@@ -25,13 +27,14 @@ final class MainViewModel: ObservableObject {
     }
     
     //MARK: - Init
-    init() {
+    init(dishesService: DishesService) {
+        self.dishesService = dishesService
         fetchDishes()
     }
     
     //MARK: - Methods
     func fetchDishes() {
-        DishesManager.shared.fetchDishes(completion: { [weak self] result in
+        dishesService.fetchDishes(completion: { [weak self] result in
             switch result {
             case .success(let dishes):
                 self?.dishes = dishes

@@ -14,11 +14,11 @@ class DetailsViewController: UIViewController {
     
     // MARK: - Properties
     private let activityIndicator: UIActivityIndicatorView = {
-          let indicator = UIActivityIndicatorView(style: .large)
-          indicator.hidesWhenStopped = true
-          indicator.translatesAutoresizingMaskIntoConstraints = false
-          return indicator
-      }()
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -90,7 +90,7 @@ class DetailsViewController: UIViewController {
     private func configureViews() {
         if let viewModel = viewModel, let imageURL = URL(string: viewModel.selectedDish.pictureURL) {
             startLoading()
-
+            
             downloadImage(from: imageURL)
             nameLabel.text = viewModel.selectedDish.name
             caloriesLabel.text = "\(viewModel.selectedDish.calories) Kcal"
@@ -123,36 +123,36 @@ class DetailsViewController: UIViewController {
     }
     
     private func startLoading() {
-            view.addSubview(activityIndicator)
-            NSLayoutConstraint.activate([
-                activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
-            ])
-            activityIndicator.startAnimating()
-        }
-        
-        private func stopLoading() {
-            activityIndicator.stopAnimating()
-            activityIndicator.removeFromSuperview()
-        }
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
+        ])
+        activityIndicator.startAnimating()
+    }
+    
+    private func stopLoading() {
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+    }
     
     private func downloadImage(from url: URL) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.imageView.image = image
-                        self.stopLoading()
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.stopLoading()
-                    }
+        URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
+            if let data = data,
+                let image = UIImage(data: data) {
+                
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                    self?.stopLoading()
                 }
-            }.resume()
-        }
+            } else {
+                DispatchQueue.main.async {
+                    self?.stopLoading()
+                }
+            }
+        }.resume()
     }
-
-
+}
 
 struct DetailsView: View {
     var viewModel: DetailsViewModel

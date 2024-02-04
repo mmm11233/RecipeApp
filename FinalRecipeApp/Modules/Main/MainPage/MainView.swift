@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     // MARK: - Properties
-    @StateObject var viewModel: MainViewModel = .init()
+    @StateObject var viewModel: MainViewModel
     @State var path = NavigationPath()
     
     
@@ -53,5 +53,5 @@ struct MainView: View {
 
 
 #Preview {
-    MainView()
+    MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))
 }

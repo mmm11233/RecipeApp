@@ -13,7 +13,7 @@
 		39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BD22B57BBFF007232FA /* SceneDelegate.swift */; };
 		39832BDA2B57BC00007232FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39832BD92B57BC00007232FA /* Assets.xcassets */; };
 		39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */; };
-		39832BF02B5A9522007232FA /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BEF2B5A9522007232FA /* model.swift */; };
+		39832BF02B5A9522007232FA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BEF2B5A9522007232FA /* Category.swift */; };
 		39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BF12B5A9D12007232FA /* CategoriesViewController.swift */; };
 		39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BF72B5AB4A0007232FA /* ShadowView.swift */; };
 		39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BFA2B5D4C9F007232FA /* HexColor.swift */; };
@@ -33,9 +33,10 @@
 		39C69AFE2B5FD162000EA66C /* NetSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 39C69AFD2B5FD162000EA66C /* NetSwift */; };
 		39C69B002B5FD19E000EA66C /* DishModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69AFF2B5FD19E000EA66C /* DishModel.swift */; };
 		39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B012B5FD43F000EA66C /* MainViewModel.swift */; };
-		39C69B052B5FDD3B000EA66C /* DeshesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B042B5FDD3B000EA66C /* DeshesManager.swift */; };
+		39C69B052B5FDD3B000EA66C /* DishesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B042B5FDD3B000EA66C /* DishesService.swift */; };
 		39C69B072B63CB4B000EA66C /* SearchBarComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B062B63CB4B000EA66C /* SearchBarComponentView.swift */; };
 		39C69B092B63D128000EA66C /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B082B63D128000EA66C /* TitleView.swift */; };
+		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +48,7 @@
 		39832BD92B57BC00007232FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39832BDE2B57BC00007232FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategrorieTableViewCell.swift; sourceTree = "<group>"; };
-		39832BEF2B5A9522007232FA /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		39832BEF2B5A9522007232FA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		39832BF12B5A9D12007232FA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		39832BF72B5AB4A0007232FA /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		39832BFA2B5D4C9F007232FA /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
@@ -66,9 +67,10 @@
 		398E4BD62B6FC33900BE6310 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		39C69AFF2B5FD19E000EA66C /* DishModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishModel.swift; sourceTree = "<group>"; };
 		39C69B012B5FD43F000EA66C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		39C69B042B5FDD3B000EA66C /* DeshesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeshesManager.swift; sourceTree = "<group>"; };
+		39C69B042B5FDD3B000EA66C /* DishesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesService.swift; sourceTree = "<group>"; };
 		39C69B062B63CB4B000EA66C /* SearchBarComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponentView.swift; sourceTree = "<group>"; };
 		39C69B082B63D128000EA66C /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +146,7 @@
 		39832BF52B5AB473007232FA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				39832BEF2B5A9522007232FA /* model.swift */,
+				39832BEF2B5A9522007232FA /* Category.swift */,
 				39C69AFF2B5FD19E000EA66C /* DishModel.swift */,
 			);
 			path = Models;
@@ -273,7 +275,8 @@
 		39C69B032B5FDD18000EA66C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				39C69B042B5FDD3B000EA66C /* DeshesManager.swift */,
+				39C69B042B5FDD3B000EA66C /* DishesService.swift */,
+				39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -365,13 +368,14 @@
 			files = (
 				398E4B742B6C01F200BE6310 /* PersistenceController.swift in Sources */,
 				39832C072B5F0F76007232FA /* MainView.swift in Sources */,
-				39832BF02B5A9522007232FA /* model.swift in Sources */,
+				39832BF02B5A9522007232FA /* Category.swift in Sources */,
 				39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
 				39C69B092B63D128000EA66C /* TitleView.swift in Sources */,
 				398E4B6C2B6B94F100BE6310 /* DishCollectionViewCell.swift in Sources */,
 				398E4BB82B6D737800BE6310 /* FavouritesViewModel.swift in Sources */,
-				39C69B052B5FDD3B000EA66C /* DeshesManager.swift in Sources */,
+				39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */,
+				39C69B052B5FDD3B000EA66C /* DishesService.swift in Sources */,
 				398E4BD12B6FB9BC00BE6310 /* CategoriesdetailsViewController.swift in Sources */,
 				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */,

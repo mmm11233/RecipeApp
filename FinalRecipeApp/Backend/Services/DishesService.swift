@@ -1,5 +1,5 @@
 //
-//  DeshesManager.swift
+//  DishesService.swift
 //  FinalRecipeApp
 //
 //  Created by Mariam Joglidze on 23.01.24.
@@ -8,10 +8,11 @@
 import Foundation
 import NetSwift
 
-class DishesManager {
-    static let shared = DishesManager()
-    
-    private init() {}
+protocol DishesService {
+    func fetchDishes(completion: @escaping (Result<[Dish], Error>) -> Void)
+}
+
+class DishesServiceImpl: DishesService {
     
     func fetchDishes(completion: @escaping (Result<[Dish], Error>) -> Void) {
         let urlString = "https://raw.githubusercontent.com/mmm11233/RecipesAppMockData/main/dishes"

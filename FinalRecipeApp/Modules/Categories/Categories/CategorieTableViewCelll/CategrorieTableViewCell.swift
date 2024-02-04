@@ -60,8 +60,8 @@ final class CategrorieTableViewCell: UITableViewCell {
     
     // MARK: - Configure
     func configure(with model: Category) {
-        categoryName.text = model.name
-        categoryImage.image = model.image
+        categoryName.text = model.type.rawValue
+        categoryImage.image = model.type.image
     }
     
     // MARK: - Private Methods
@@ -84,6 +84,7 @@ final class CategrorieTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            mainStackView.heightAnchor.constraint(equalToConstant: 55),
             mainStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
             mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -9),
@@ -101,6 +102,6 @@ final class CategrorieTableViewCell: UITableViewCell {
 
 #Preview {
     let cell = CategrorieTableViewCell()
-    cell.configure(with: .init(name: "name", image: UIImage(named: "image 1")!))
+    cell.configure(with: .init(type: .Breakfast, categoryURL: ""))
     return cell
 }

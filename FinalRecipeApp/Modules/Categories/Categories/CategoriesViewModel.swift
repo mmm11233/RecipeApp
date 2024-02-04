@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 protocol CategoriesViewModel {
+    var categoriesDidLoad: PassthroughSubject<Void, Never> { get }
+    var isLoading: CurrentValueSubject<Bool, Never> { get }
+    
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
     func item(at index: Int) -> Category
@@ -18,10 +22,19 @@ protocol CategoriesViewModel {
 final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Properties
-    private var categories: [Category] = []
+    private var categoriesService: CategoriesService
     
+    private var categories: [Category] = []
+    var categoriesDidLoad: PassthroughSubject<Void, Never> = .init()
+    var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
+    
+    init(categoriesService: CategoriesService) {
+        self.categoriesService = categoriesService
+    }
+    
+    // MARK: Methods
     func viewDidLoad() {
-        setupCategories()
+        fetchCategories()
     }
     
     func numberOfRowsInSection() -> Int {
@@ -34,34 +47,24 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
         let vc = CategoriesDetailsViewController()
-        vc.viewModel = CategoriesDetailsViewModelImpl()
+        vc.viewModel = CategoriesDetailsViewModelImpl(dishesService: DishesServiceImpl())
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Private Methods
-    private func setupCategories() {
-        self.categories = [
-            Category(
-                name: "Breakfast",
-                image: UIImage(named: "image 1")!),
-            Category(
-                name: "Lunch",
-                image: UIImage(named: "image 3")!),
-            Category(
-                name: "Drinks",
-                image: UIImage(named: "image 4")!),
-            Category(
-                name: "Pastas",
-                image: UIImage(named: "image 5")!),
-            Category(
-                name: "Salads",
-                image: UIImage(named: "image 6")!),
-            Category(
-                name: "Desserts",
-                image: UIImage(named: "image 7")!),
-            Category(
-                name: "Soups",
-                image: UIImage(named: "image 2")!),
-        ]
+    private func fetchCategories() {
+        isLoading.send(true)
+        
+        categoriesService.fetchCategories(completion: { [weak self] result in
+            self?.isLoading.send(false)
+            
+            switch result {
+            case .success(let categories):
+                self?.categories = categories
+                self?.categoriesDidLoad.send()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
 }

@@ -5,12 +5,14 @@
 //  Created by Mariam Joglidze on 19.01.24.
 //
 import UIKit
+import Combine
 
 final class CategoriesViewController: UIViewController {
     
     // MARK: - Properties
-    let viewModel: CategoriesViewModel = CategoriesViewModelImpl()
-    
+    var viewModel: CategoriesViewModel!
+    private var subscribers = Set<AnyCancellable>()
+
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +37,24 @@ final class CategoriesViewController: UIViewController {
         setupTableView()
         setupTableViewConstraints()
         headerView.titleLabel.text = "Categories"
+        setupBindigs()
         viewModel.viewDidLoad()
+    }
+    
+    private func setupBindigs() {
+        viewModel.isLoading
+            .sink { [weak self] isLoading in
+                if isLoading {
+                    self?.startLoader()
+                } else {
+                    self?.stopLoader()
+                }
+            }.store(in: &subscribers)
+        
+        viewModel.categoriesDidLoad
+            .sink { [weak self] in
+                self?.tableView.reloadData()
+            }.store(in: &subscribers)
     }
     
     // MARK: - Private Methods

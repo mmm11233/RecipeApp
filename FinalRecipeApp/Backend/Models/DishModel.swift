@@ -11,8 +11,8 @@ struct DisheData: Decodable {
     let dishes: [Dish]
 }
 
-struct Dish: Decodable,Identifiable, Hashable {
-    let id = UUID() 
+struct Dish: Decodable, Identifiable, Hashable {
+    let id = UUID()
     let name: String
     let pictureURL: String
     let calories: Int

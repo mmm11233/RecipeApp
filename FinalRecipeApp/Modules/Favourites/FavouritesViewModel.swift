@@ -10,14 +10,12 @@ import CoreData
 import Combine
 
 protocol FavouritesViewModel {
-    var isLoading: CurrentValueSubject<Bool, Never> { get }
+    func viewDidLoad()
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
 //    @Published var favoriteDishes: [DishCoreData] = []
     
-    var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
-
     // Add managed object context
     var managedObjectContext: NSManagedObjectContext?
 
@@ -25,8 +23,10 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
         self.managedObjectContext = managedObjectContext
     }
     
-    // ... other methods ...
-
+    func viewDidLoad() {
+        fetchFavoriteDishes()
+    }
+    
     // Fetch favorite dishes
     func fetchFavoriteDishes() {
         
