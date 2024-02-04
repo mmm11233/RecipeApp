@@ -6,10 +6,10 @@
 //
 import UIKit
 
-final class Categories: UIViewController {
+final class CategoriesViewController: UIViewController {
     
     // MARK: - Properties
-    let viewModel = CategoriesViewModel()
+    let viewModel: CategoriesViewModel = CategoriesViewModelImpl()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -35,6 +35,7 @@ final class Categories: UIViewController {
         setupTableView()
         setupTableViewConstraints()
         headerView.titleLabel.text = "Categories"
+        viewModel.viewDidLoad()
     }
     
     // MARK: - Private Methods
@@ -54,19 +55,20 @@ final class Categories: UIViewController {
     
     private func setupTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "cell")
     }
 }
 
 // MARK: - Extensions
-extension Categories: UITableViewDataSource {
+extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.categories.count
+        viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let category = viewModel.categories[indexPath.row]
+        let category = viewModel.item(at: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         if let categoriesViewControllerCell = cell as? CategrorieTableViewCell {
@@ -75,9 +77,13 @@ extension Categories: UITableViewDataSource {
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRowAt(at: indexPath.row, from: self)
+    }
 }
 
 #Preview {
-    let vc = Categories()
+    let vc = CategoriesViewController()
     return vc
 }

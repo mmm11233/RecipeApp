@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var viewModel: FavouritesViewModel!
     
@@ -15,7 +15,7 @@ class FavouritesViewController: UICollectionViewController, UICollectionViewDele
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! FavouritesCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
         cell.configure(imageUrl: "your_image_url", name: "Dish Name", calorie: 300, prepareTime: 30, favouriteButtonIsHidden: true)
         return cell
     }
@@ -26,7 +26,7 @@ class FavouritesViewController: UICollectionViewController, UICollectionViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(FavouritesCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
     }
     
     init() {

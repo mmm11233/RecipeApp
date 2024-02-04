@@ -7,7 +7,7 @@
 import SwiftUI
 import UIKit
 
-class FavouritesCollectionViewCell: UICollectionViewCell {
+class DishCollectionViewCell: UICollectionViewCell {
     
     private var hostingController: UIHostingController<DishesComponentView>?
     
@@ -53,6 +53,6 @@ class FavouritesCollectionViewCell: UICollectionViewCell {
 }
 
 #Preview {
-    let vc = FavouritesCollectionViewCell()
+    let vc = DishCollectionViewCell()
     return vc
 }

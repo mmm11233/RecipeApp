@@ -7,14 +7,35 @@
 
 import UIKit
 
-final class CategoriesViewModel {
+protocol CategoriesViewModel {
+    func viewDidLoad()
+    func numberOfRowsInSection() -> Int
+    func item(at index: Int) -> Category
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController)
+}
+
+final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Properties
-    var categories: [Category] = []
+    private var categories: [Category] = []
     
-    // MARK: - Init
-    init() {
+    func viewDidLoad() {
         setupCategories()
+    }
+    
+    func numberOfRowsInSection() -> Int {
+        categories.count
+    }
+    
+    func item(at index: Int) -> Category {
+        categories[index]
+    }
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController) {
+        let vc = CategoriesDetailsViewController()
+        vc.viewModel = CategoriesDetailsViewModelImpl()
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Private Methods
