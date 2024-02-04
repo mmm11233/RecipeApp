@@ -21,32 +21,36 @@ struct MainView: View {
     // MARK: - Body
     var body: some View {
         Spacer()
-        
-        NavigationStack{
-            
+        NavigationStack {
             TitleView(title: "Find Your Next Recipe")
             
             ScrollView(.vertical, showsIndicators: false) {
                 SearchBarComponentView(searchText: $viewModel.searchText)
-
+                
                 LazyVGrid(columns: items, spacing: 10) {
                     ForEach(viewModel.filteredDishes) { dish in
-                        DishesComponentView(imageUrl: dish.pictureURL,
-                                            name: dish.name,
-                                            calorie: dish.calories,
-                                            prepareTime: dish.preparingTime,
-                                            favouriteButtonIsHidden: false)
-                        .padding(5)
+                        NavigationLink(destination: DetailsView(viewModel: DetailsViewModel(selectedDish: dish))) {
+                            DishesComponentView(
+                                imageUrl: dish.pictureURL,
+                                name: dish.name,
+                                calorie: dish.calories,
+                                prepareTime: dish.preparingTime,
+                                favouriteButtonIsHidden: false)
+                            .padding(5)
+                        }
+                        .foregroundStyle(.black)       
                     }
                 }
                 .padding(.horizontal)
             }
+            .navigationBarHidden(true)
             .onAppear {
                 viewModel.fetchDishes()
             }
         }
     }
 }
+
 
 #Preview {
     MainView()
