@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DishesComponentView: View {
     
     // MARK: - Properties
-    var imageUrl: String
-    var name: String
-    var calorie: Int
-    var prepareTime: Int
+    var dish: Dish
     var favouriteButtonIsHidden: Bool
-    
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
+
     // MARK: - Body
     var body: some View {
         
@@ -40,8 +39,7 @@ extension DishesComponentView {
     // MARK: - Views
     private var heartButton: some View {
         Button(action: {
-            // Handle heart button tap action
-            // Add your logic here
+            favouriteButtonTapPublisher?.send(dish)
         }) {
             Image("heart")
                 .resizable()
@@ -54,7 +52,7 @@ extension DishesComponentView {
     }
     
     private var dishesImageViewContent: some View {
-        AsyncImage(url: URL(string: imageUrl)) { phase in
+        AsyncImage(url: URL(string: dish.pictureURL)) { phase in
             switch phase {
             case .empty:
                 dishesImageView(image: nil, isLoading: true)
@@ -89,7 +87,7 @@ extension DishesComponentView {
     }
     
     private var nameDishesView: some View {
-        Text(name)
+        Text(dish.name)
             .lineLimit(2)
             .font(.callout)
             .fontWeight(.semibold)
@@ -108,7 +106,7 @@ extension DishesComponentView {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-            Text("\(calorie) Kcal")
+            Text("\(dish.calories) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
         }
@@ -121,7 +119,7 @@ extension DishesComponentView {
                 .scaledToFit()
                 .frame(width: 11, height: 13)
             
-            Text("\(prepareTime) min")
+            Text("\(dish.preparingTime) min")
                 .font(.caption)
                 .padding(.horizontal, 5)
         }
@@ -129,5 +127,5 @@ extension DishesComponentView {
 }
 
 #Preview {
-    DishesComponentView(imageUrl: "photo", name: "Chorizo & mozzarella gnocchi bake", calorie: 350, prepareTime: 20, favouriteButtonIsHidden: false)
+    DishesComponentView(dish: .init(name: "name", pictureURL: "", calories: 23, preparingTime: 12, categoryType: .Breakfast, ingredients: ["das","dsad"]), favouriteButtonIsHidden: false)
 }

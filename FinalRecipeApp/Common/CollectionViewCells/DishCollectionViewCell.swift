@@ -21,10 +21,7 @@ class DishCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupHostingController() {
-        let dishesComponentView = DishesComponentView(imageUrl: "your_image_url",
-                                                      name: "Dish Name",
-                                                      calorie: 300,
-                                                      prepareTime: 30,
+        let dishesComponentView = DishesComponentView(dish: .mock,
                                                       favouriteButtonIsHidden: false)
         let hostingController = UIHostingController(rootView: dishesComponentView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,15 +36,9 @@ class DishCollectionViewCell: UICollectionViewCell {
         self.hostingController = hostingController
     }
     
-    func configure(imageUrl: String,
-                   name: String,
-                   calorie: Int,
-                   prepareTime: Int,
+    func configure(dish: Dish,
                    favouriteButtonIsHidden: Bool) {
-        hostingController?.rootView.imageUrl = imageUrl
-        hostingController?.rootView.name = name
-        hostingController?.rootView.calorie = calorie
-        hostingController?.rootView.prepareTime = prepareTime
+        hostingController?.rootView.dish = dish
         hostingController?.rootView.favouriteButtonIsHidden = favouriteButtonIsHidden
     }
 }

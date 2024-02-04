@@ -50,12 +50,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let dish = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(
-            imageUrl: dish.pictureURL,
-            name: dish.name,
-            calorie: dish.calories,
-            prepareTime: dish.preparingTime,
-            favouriteButtonIsHidden: true)
+        cell.configure(dish: dish, favouriteButtonIsHidden: true)
         return cell
     }
     

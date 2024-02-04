@@ -25,12 +25,11 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfItemsInSection()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(imageUrl: "your_image_url", name: "Dish Name", calorie: 300, prepareTime: 30, favouriteButtonIsHidden: true)
         return cell
     }
     

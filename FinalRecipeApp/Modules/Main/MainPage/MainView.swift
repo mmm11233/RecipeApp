@@ -31,14 +31,12 @@ struct MainView: View {
                     ForEach(viewModel.filteredDishes) { dish in
                         NavigationLink(destination: DetailsView(viewModel: DetailsViewModel(selectedDish: dish))) {
                             DishesComponentView(
-                                imageUrl: dish.pictureURL,
-                                name: dish.name,
-                                calorie: dish.calories,
-                                prepareTime: dish.preparingTime,
-                                favouriteButtonIsHidden: false)
+                                dish: dish,
+                                favouriteButtonIsHidden: false,
+                                favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
                             .padding(5)
                         }
-                        .foregroundStyle(.black)       
+                        .foregroundStyle(.black)
                     }
                 }
                 .padding(.horizontal)
