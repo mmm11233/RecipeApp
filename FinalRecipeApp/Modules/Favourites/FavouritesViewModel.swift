@@ -19,53 +19,29 @@ protocol FavouritesViewModel {
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
-    @Published var favoriteDishes: [Recipe] = []
-    
-    var managedObjectContext: NSManagedObjectContext?
-    
-    init(managedObjectContext: NSManagedObjectContext?) {
-        self.managedObjectContext = managedObjectContext
-    }
+    private var dishes: [Dish] = []
     
     func viewDidLoad() {
-        fetchFavoriteDishes()
+        updateDataSource()
     }
     
     func updateDataSource() {
-        fetchFavoriteDishes()
+        dishes = FavouritesRepository.shared.fetchDishes()
     }
     
     func numberOfItemsInSection() -> Int {
-        return favoriteDishes.count
+        return dishes.count
     }
     
     func item(at index: Int) -> Dish {
-        let recipe = favoriteDishes[index]
-        return recipe.toDishModel()
+        dishes[index]
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let recipe = favoriteDishes[index]
-        let dish = recipe.toDishModel()
+        let dish = dishes[index]
        
         let vc  = DetailsViewController()
         vc.viewModel = DetailsViewModel(selectedDish: dish)
         viewController.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    // Fetch favorite dishes
-    func fetchFavoriteDishes() {
-        guard let context = managedObjectContext else {
-            print("Error: Managed object context is nil.")
-            return
-        }
-        
-        do {
-            // Fetching favorite dishes from Core Data
-            let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
-            self.favoriteDishes = try context.fetch(fetchRequest)
-        } catch {
-            print("Error fetching favorite dishes: \(error.localizedDescription)")
-        }
     }
 }
