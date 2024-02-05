@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> { get }
@@ -14,6 +15,7 @@ protocol CategoriesDetailsViewModel {
 
     func viewDidLoad()
     func numberOfItemsInSection() -> Int
+    func didSelectRowAt(at index: Int, from viewController: UIViewController)
     func item(at index: Int) -> Dish
 }
 
@@ -53,6 +55,12 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     func item(at index: Int) -> Dish {
         return dishes[index]
+    }
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController) {
+        let vc = DetailsViewController()
+        vc.viewModel = DetailsViewModel(selectedDish: dishes[index])
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
 
     //MARK: - Methods

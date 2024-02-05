@@ -35,7 +35,7 @@ struct Dish: Decodable, Identifiable, Hashable {
               calories: 0,
               preparingTime: 0,
               categoryType: .Breakfast,
-              ingredients: ["parta", "cheese"])
+              ingredients: ["pasta", "cheese"])
     }
 }
 
