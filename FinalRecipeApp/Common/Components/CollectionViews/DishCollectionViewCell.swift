@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import UIKit
+import Combine
 
 class DishCollectionViewCell: UICollectionViewCell {
     
@@ -37,9 +38,12 @@ class DishCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(dish: Dish,
-                   favouriteButtonIsHidden: Bool) {
+                   favouriteButtonIsHidden: Bool,
+                   favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>
+    ) {
         hostingController?.rootView.dish = dish
         hostingController?.rootView.favouriteButtonIsHidden = favouriteButtonIsHidden
+        hostingController?.rootView.favouriteButtonTapPublisher = favouriteButtonTapPublisher
     }
 }
 

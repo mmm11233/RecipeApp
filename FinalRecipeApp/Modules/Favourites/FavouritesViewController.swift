@@ -44,7 +44,9 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(dish: viewModel.item(at: indexPath.row), favouriteButtonIsHidden: true)
+        cell.configure(dish: viewModel.item(at: indexPath.row),
+                       favouriteButtonIsHidden: false,
+                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
         return cell
     }
   

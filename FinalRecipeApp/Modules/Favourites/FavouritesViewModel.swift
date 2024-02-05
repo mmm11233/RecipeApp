@@ -10,6 +10,8 @@ import CoreData
 import Combine
 
 protocol FavouritesViewModel {
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> { get }
+    
     func viewDidLoad()
     func updateDataSource()
     
@@ -19,10 +21,22 @@ protocol FavouritesViewModel {
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
+    
+    private var subscribers = Set<AnyCancellable>()
+    
     private var dishes: [Dish] = []
     
     func viewDidLoad() {
         updateDataSource()
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        favouriteButtonTapPublisher
+            .sink { dish in
+                
+            }.store(in: &subscribers)
     }
     
     func updateDataSource() {
@@ -39,7 +53,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
         let dish = dishes[index]
-       
+        
         let vc  = DetailsViewController()
         vc.viewModel = DetailsViewModel(selectedDish: dish)
         viewController.navigationController?.pushViewController(vc, animated: true)

@@ -50,7 +50,9 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let dish = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(dish: dish, favouriteButtonIsHidden: true)
+        cell.configure(dish: dish, 
+                       favouriteButtonIsHidden: false,
+                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
         return cell
     }
     

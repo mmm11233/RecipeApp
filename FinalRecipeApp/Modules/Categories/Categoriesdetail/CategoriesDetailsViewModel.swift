@@ -7,11 +7,13 @@
 
 import Foundation
 import Combine
+import CoreData
 import UIKit
 
 protocol CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> { get }
     var isLoading: CurrentValueSubject<Bool, Never> { get }
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> { get }
 
     func viewDidLoad()
     func numberOfItemsInSection() -> Int
@@ -22,8 +24,11 @@ protocol CategoriesDetailsViewModel {
 final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Properties
+    private var subscribers = Set<AnyCancellable>()
+
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
     
     private var dishesService: DishesService
     private var fileteredType: CategoryType
@@ -38,13 +43,15 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
         }
     }
     
+    //MARK: - Init
     init(dishesService: DishesService,
          fileteredType: CategoryType) {
         self.dishesService = dishesService
         self.fileteredType = fileteredType
+        setupBindings()
     }
     
-    // MARK: Methods
+    //MARK: - Methods
     func viewDidLoad() {
         fetchDishes()
     }
@@ -61,6 +68,13 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
         let vc = DetailsViewController()
         vc.viewModel = DetailsViewModel(selectedDish: dishes[index])
         viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setupBindings() {
+        favouriteButtonTapPublisher
+            .sink { dish in
+                FavouritesRepository.shared.saveDish(dish: dish)
+            }.store(in: &subscribers)
     }
 
     //MARK: - Methods
