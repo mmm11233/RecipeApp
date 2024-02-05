@@ -40,39 +40,30 @@ final class MainViewModel: ObservableObject {
     private func setupBindigs() {
         favouriteButtonTapPublisher
             .sink { [weak self] dish in
-                self!.openDatabse()
+                self!.openDatabse(selectedDish: dish)
                 print("favourite button taapped: ", dish.name)
             }.store(in: &subscribers)
     }
     
-    
-    
     //MARK: - Methods
-    func openDatabse()
-    {
+    func openDatabse(selectedDish: Dish) {
         context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Recipe", in: context)
         let newRecipe = NSManagedObject(entity: entity!, insertInto: context)
-        saveData(RecipeDBObj:newRecipe)
-    }
-    
-    func saveData(RecipeDBObj:NSManagedObject)
-    {
-        RecipeDBObj.setValue(NSNumber(value: 12), forKey: "calorie")
-        RecipeDBObj.setValue("dishname1", forKey: "name")
-        RecipeDBObj.setValue(NSNumber(value: 1), forKey: "preparingTime")
-        RecipeDBObj.setValue("pictureURL1", forKey: "pictureURL")
         
-        print("Storing Data..")
+        newRecipe.setValue(NSNumber(value: selectedDish.calories), forKey: "calorie")
+        newRecipe.setValue(selectedDish.name, forKey: "name")
+        newRecipe.setValue(NSNumber(value: selectedDish.preparingTime), forKey: "preparingTime")
+        newRecipe.setValue(selectedDish.pictureURL, forKey: "pictureURL")
+        print("storing data...")
         do {
             try context.save()
         } catch {
-            print("Storing data Failed")
+            print("Storing Data Faild")
         }
-        
         fetchData()
     }
-    
+
     func fetchData() {
         print("Fetching Data..")
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipe")

@@ -8,9 +8,11 @@ import UIKit
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var viewModel: FavouritesViewModel!
+    var viewModel: FavouritesViewModel
     
-    init() {
+    init(viewModel: FavouritesViewModel) {
+        self.viewModel = viewModel
+
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -22,6 +24,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         super.viewDidLoad()
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         viewModel.viewDidLoad()
+        collectionView.reloadData() // Reload collection view to display the fetched dishes
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,15 +33,17 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
+        cell.configure(dish: viewModel.item(at: indexPath.row), favouriteButtonIsHidden: true)
         return cell
     }
+  
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 190, height: 250)
     }
 }
 
-#Preview {
-    let vc = FavouritesViewController()
-    return vc
-}
+//#Preview {
+//    let vc = FavouritesViewController()
+//    return vc
+//}

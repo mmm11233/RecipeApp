@@ -38,3 +38,15 @@ struct Dish: Decodable, Identifiable, Hashable {
               ingredients: ["parta", "cheese"])
     }
 }
+
+extension Recipe {
+    func toDishModel() -> Dish {
+        Dish(name: name ?? "",
+             pictureURL: pictureURL ?? "",
+             calories: Int(calorie),
+             preparingTime: Int(preparingTime),
+             categoryType: .Breakfast,
+             ingredients: []
+        )
+    }
+}

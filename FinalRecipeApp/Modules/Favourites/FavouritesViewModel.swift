@@ -13,12 +13,12 @@ protocol FavouritesViewModel {
     func viewDidLoad()
     
     func numberOfItemsInSection() -> Int
+    func item(at index: Int) -> Dish
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
-    //    @Published var favoriteDishes: [DishCoreData] = []
+    @Published var favoriteDishes: [Recipe] = []
     
-    // Add managed object context
     var managedObjectContext: NSManagedObjectContext?
     
     init(managedObjectContext: NSManagedObjectContext?) {
@@ -30,11 +30,27 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func numberOfItemsInSection() -> Int {
-        return 0
+        return favoriteDishes.count
+    }
+    
+    func item(at index: Int) -> Dish {
+        let recipe = favoriteDishes[index]
+        return recipe.toDishModel()
     }
     
     // Fetch favorite dishes
     func fetchFavoriteDishes() {
+        guard let context = managedObjectContext else {
+            print("Error: Managed object context is nil.")
+            return
+        }
         
+        do {
+            // Fetching favorite dishes from Core Data
+            let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+            self.favoriteDishes = try context.fetch(fetchRequest)
+        } catch {
+            print("Error fetching favorite dishes: \(error.localizedDescription)")
+        }
     }
 }

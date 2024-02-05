@@ -33,8 +33,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainViewController = UIHostingController(rootView: mainView)
         mainViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         
-        let favouritesViewController = FavouritesViewController()
-        favouritesViewController.viewModel = FavouritesViewModelImpl(managedObjectContext: (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext)
+        let favouritesViewModel = FavouritesViewModelImpl(managedObjectContext: (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext)
+        let favouritesViewController = FavouritesViewController(viewModel: favouritesViewModel)
+        
         favouritesViewController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart.fill"), tag: 1)
         
         let categoriesViewController = CategoriesViewController()
