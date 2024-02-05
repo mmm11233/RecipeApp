@@ -12,7 +12,6 @@ protocol CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> { get }
     var isLoading: CurrentValueSubject<Bool, Never> { get }
 
-    
     func viewDidLoad()
     func numberOfItemsInSection() -> Int
     func item(at index: Int) -> Dish

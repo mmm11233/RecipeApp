@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainViewModel = MainViewModel(dishesService: DishesServiceImpl())
         let mainView = MainView(viewModel: mainViewModel)
-        mainViewModel.managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
+        mainViewModel.context = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
         mainView.environmentObject(mainViewModel)
         
         let mainViewController = UIHostingController(rootView: mainView)
