@@ -58,6 +58,7 @@ final class MainViewModel: ObservableObject {
         print("storing data...")
         do {
             try context.save()
+            NotificationCenter.default.postUpdateFavourites()
         } catch {
             print("Storing Data Faild")
         }

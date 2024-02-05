@@ -5,9 +5,11 @@
 //  Created by Mariam Joglidze on 01.02.24.
 //
 import UIKit
+import Combine
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+    private var subscribers = Set<AnyCancellable>()
+
     var viewModel: FavouritesViewModel
     
     init(viewModel: FavouritesViewModel) {
@@ -23,8 +25,17 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setUpBindings()
         viewModel.viewDidLoad()
-        collectionView.reloadData() // Reload collection view to display the fetched dishes
+    }
+    
+    private func setUpBindings() {
+        NotificationCenter.default.publisher(for: .updateFavourites)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.viewModel.updateDataSource()
+                self?.collectionView.reloadData()
+            }.store(in: &subscribers)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

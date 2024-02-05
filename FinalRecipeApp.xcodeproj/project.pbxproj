@@ -37,6 +37,8 @@
 		39C69B072B63CB4B000EA66C /* SearchBarComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B062B63CB4B000EA66C /* SearchBarComponentView.swift */; };
 		39C69B092B63D128000EA66C /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C69B082B63D128000EA66C /* TitleView.swift */; };
 		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
+		39DE5AF72B7165E200AAA8E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF62B7165E200AAA8E2 /* Constants.swift */; };
+		39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		39C69B062B63CB4B000EA66C /* SearchBarComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarComponentView.swift; sourceTree = "<group>"; };
 		39C69B082B63D128000EA66C /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
+		39DE5AF62B7165E200AAA8E2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +120,6 @@
 				39832BE42B57BC0E007232FA /* ApplicationLayer */,
 				398E4BDB2B6FC60100BE6310 /* Modules */,
 				398E4BD52B6FBED600BE6310 /* Common */,
-				39832BF92B5D4C75007232FA /* Extensions */,
 				39DE5AEF2B6FCADC00AAA8E2 /* Backend */,
 				398E4BDC2B6FC63400BE6310 /* Resources */,
 				398E4BDD2B6FC6A500BE6310 /* SupportingFiles */,
@@ -152,7 +155,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		39832BF62B5AB487007232FA /* Components */ = {
+		39832BF62B5AB487007232FA /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				39C69B082B63D128000EA66C /* TitleView.swift */,
@@ -161,7 +164,7 @@
 				39832C042B5EEDFB007232FA /* DishesComponentView.swift */,
 				39C69B062B63CB4B000EA66C /* SearchBarComponentView.swift */,
 			);
-			path = Components;
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		39832BF92B5D4C75007232FA /* Extensions */ = {
@@ -169,6 +172,7 @@
 			children = (
 				39832BFA2B5D4C9F007232FA /* HexColor.swift */,
 				398E4BD62B6FC33900BE6310 /* UIViewController.swift */,
+				39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,9 +215,10 @@
 		398E4BD52B6FBED600BE6310 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				39DE5AF52B7165DA00AAA8E2 /* Constants */,
 				398E4B732B6C01F200BE6310 /* PersistenceController.swift */,
-				39832BF62B5AB487007232FA /* Components */,
-				398E4BDA2B6FC57800BE6310 /* CollectionViewCells */,
+				39DE5AF42B71650C00AAA8E2 /* Components */,
+				39832BF92B5D4C75007232FA /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -237,12 +242,12 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		398E4BDA2B6FC57800BE6310 /* CollectionViewCells */ = {
+		398E4BDA2B6FC57800BE6310 /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
 				398E4B6B2B6B94F100BE6310 /* DishCollectionViewCell.swift */,
 			);
-			path = CollectionViewCells;
+			path = CollectionViews;
 			sourceTree = "<group>";
 		};
 		398E4BDB2B6FC60100BE6310 /* Modules */ = {
@@ -288,6 +293,23 @@
 				39C69B032B5FDD18000EA66C /* Services */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		39DE5AF42B71650C00AAA8E2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				39832BF62B5AB487007232FA /* UIComponents */,
+				398E4BDA2B6FC57800BE6310 /* CollectionViews */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		39DE5AF52B7165DA00AAA8E2 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				39DE5AF62B7165E200AAA8E2 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +390,7 @@
 			files = (
 				398E4B742B6C01F200BE6310 /* PersistenceController.swift in Sources */,
 				39832C072B5F0F76007232FA /* MainView.swift in Sources */,
+				39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */,
 				39832BF02B5A9522007232FA /* Category.swift in Sources */,
 				39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
@@ -377,6 +400,7 @@
 				39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */,
 				39C69B052B5FDD3B000EA66C /* DishesService.swift in Sources */,
 				398E4BD12B6FB9BC00BE6310 /* CategoriesdetailsViewController.swift in Sources */,
+				39DE5AF72B7165E200AAA8E2 /* Constants.swift in Sources */,
 				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* ShadowView.swift in Sources */,
 				398E4BCC2B6F993400BE6310 /* DetailsViewModel.swift in Sources */,

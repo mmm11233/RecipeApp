@@ -11,6 +11,7 @@ import Combine
 
 protocol FavouritesViewModel {
     func viewDidLoad()
+    func updateDataSource()
     
     func numberOfItemsInSection() -> Int
     func didSelectRowAt(at index: Int, from viewController: UIViewController)
@@ -27,6 +28,10 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func viewDidLoad() {
+        fetchFavoriteDishes()
+    }
+    
+    func updateDataSource() {
         fetchFavoriteDishes()
     }
     
