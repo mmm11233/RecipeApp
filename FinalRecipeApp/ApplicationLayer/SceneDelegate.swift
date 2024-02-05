@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let favouritesViewModel = FavouritesViewModelImpl(managedObjectContext: (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext)
         let favouritesViewController = FavouritesViewController(viewModel: favouritesViewModel)
-        
+        let favouritesNavigationController = UINavigationController(rootViewController: favouritesViewController)
         favouritesViewController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart.fill"), tag: 1)
         
         let categoriesViewController = CategoriesViewController()
@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let categoriesNavigationController = UINavigationController(rootViewController: categoriesViewController)
         categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 2)
         
-        tabBarController.viewControllers = [mainViewController,favouritesViewController,categoriesNavigationController]
+        tabBarController.viewControllers = [mainViewController,favouritesNavigationController,categoriesNavigationController]
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "000000")]

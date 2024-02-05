@@ -41,6 +41,10 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 190, height: 250)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectRowAt(at: indexPath.row, from: self)
+    }
 }
 
 //#Preview {
