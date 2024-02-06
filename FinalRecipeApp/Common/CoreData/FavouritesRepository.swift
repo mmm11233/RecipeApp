@@ -42,6 +42,28 @@ final class FavouritesRepository  {
         }
     }
     
+    func deleteDish(dish: Dish) {
+           let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+           fetchRequest.predicate = NSPredicate(format: "name == %@", dish.name) // Assuming "name" is a unique identifier for your Dish
+           
+           do {
+               let matchingDishes = try context.fetch(fetchRequest)
+               
+               if let dishToDelete = matchingDishes.first {
+                   context.delete(dishToDelete)
+                   
+                   do {
+                       try context.save()
+                       NotificationCenter.default.postUpdateFavourites()
+                   } catch {
+                       print("Deleting Dish Failed: \(error.localizedDescription)")
+                   }
+               }
+           } catch {
+               print("Error fetching dishes to delete: \(error.localizedDescription)")
+           }
+       }
+    
     func fetchDishes() -> [Dish] {
         do {
             let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()

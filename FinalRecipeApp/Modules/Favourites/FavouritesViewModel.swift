@@ -35,7 +35,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     private func setupBindings() {
         favouriteButtonTapPublisher
             .sink { dish in
-                
+                FavouritesRepository.shared.deleteDish(dish: dish)
             }.store(in: &subscribers)
     }
     
