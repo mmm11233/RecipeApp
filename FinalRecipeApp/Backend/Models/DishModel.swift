@@ -28,4 +28,25 @@ struct Dish: Decodable, Identifiable, Hashable {
         case categoryType = "category"
         case ingredients
     }
+    
+    static var mock: Self {
+        .init(name: "name",
+              pictureURL: "",
+              calories: 0,
+              preparingTime: 0,
+              categoryType: .Breakfast,
+              ingredients: ["pasta", "cheese"])
+    }
+}
+
+extension Recipe {
+    func toDishModel() -> Dish {
+        Dish(name: name ?? "",
+             pictureURL: pictureURL ?? "",
+             calories: Int(calorie),
+             preparingTime: Int(preparingTime),
+             categoryType: .Breakfast,
+             ingredients: []
+        )
+    }
 }

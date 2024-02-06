@@ -27,14 +27,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainViewModel = MainViewModel(dishesService: DishesServiceImpl())
         let mainView = MainView(viewModel: mainViewModel)
-        mainViewModel.managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
+        mainViewModel.context = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext
         mainView.environmentObject(mainViewModel)
         
         let mainViewController = UIHostingController(rootView: mainView)
         mainViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         
-        let favouritesViewController = FavouritesViewController()
-        favouritesViewController.viewModel = FavouritesViewModelImpl(managedObjectContext: (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext)
+        let favouritesViewController = FavouritesViewController(viewModel: FavouritesViewModelImpl())
+        let favouritesNavigationController = UINavigationController(rootViewController: favouritesViewController)
         favouritesViewController.tabBarItem = UITabBarItem(title: "Favourites", image: UIImage(systemName: "heart.fill"), tag: 1)
         
         let categoriesViewController = CategoriesViewController()
@@ -42,7 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let categoriesNavigationController = UINavigationController(rootViewController: categoriesViewController)
         categoriesViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(systemName: "list.bullet"), tag: 2)
         
-        tabBarController.viewControllers = [mainViewController,favouritesViewController,categoriesNavigationController]
+        tabBarController.viewControllers = [mainViewController,favouritesNavigationController,categoriesNavigationController]
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "000000")]

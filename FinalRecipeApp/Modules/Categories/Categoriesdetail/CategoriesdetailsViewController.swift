@@ -50,17 +50,18 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let dish = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(
-            imageUrl: dish.pictureURL,
-            name: dish.name,
-            calorie: dish.calories,
-            prepareTime: dish.preparingTime,
-            favouriteButtonIsHidden: true)
+        cell.configure(dish: dish, 
+                       favouriteButtonIsHidden: false,
+                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 190, height: 250)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
 }
 

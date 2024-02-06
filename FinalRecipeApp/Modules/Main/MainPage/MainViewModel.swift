@@ -8,17 +8,19 @@
 import UIKit
 import NetSwift
 import CoreData
+import Combine
 
 final class MainViewModel: ObservableObject {
-    
     //MARK: - Properties
-    private var dishesService: DishesService
+    private var subscribers = Set<AnyCancellable>()
     
+    private var dishesService: DishesService
     @Published var dishes: [Dish] = []
     @Published var searchText: String = ""
     
-    var managedObjectContext: NSManagedObjectContext?
-
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var context: NSManagedObjectContext!
+    
     var filteredDishes: [Dish] {
         guard !searchText.isEmpty else { return dishes }
         return dishes.filter { dish in
@@ -26,13 +28,22 @@ final class MainViewModel: ObservableObject {
         }
     }
     
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
+    
     //MARK: - Init
     init(dishesService: DishesService) {
         self.dishesService = dishesService
+        setupBindigs()
         fetchDishes()
     }
     
-    //MARK: - Methods
+    private func setupBindigs() {
+        favouriteButtonTapPublisher
+            .sink { dish in
+                FavouritesRepository.shared.saveDish(dish: dish)
+            }.store(in: &subscribers)
+    }
+    
     func fetchDishes() {
         dishesService.fetchDishes(completion: { [weak self] result in
             switch result {
