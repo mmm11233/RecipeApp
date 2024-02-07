@@ -127,5 +127,5 @@ extension DishesComponentView {
 }
 
 #Preview {
-    DishesComponentView(dish: .init(name: "name", pictureURL: "", calories: 23, preparingTime: 12, categoryType: .Breakfast, ingredients: ["das","dsad"]), favouriteButtonIsHidden: false)
+    DishesComponentView(dish: .init(name: "name", pictureURL: "", calories: 23, preparingTime: 12, categoryType: .Breakfast, ingredients: ["das","dsad"], restaurants: []), favouriteButtonIsHidden: false)
 }

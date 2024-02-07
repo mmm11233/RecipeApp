@@ -11,6 +11,13 @@ struct DisheData: Decodable {
     let dishes: [Dish]
 }
 
+struct Restaurant: Decodable, Hashable {
+    let name: String
+    let rating: Double
+    let latitude: Double
+    let longitude: Double
+}
+
 struct Dish: Decodable, Identifiable, Hashable {
     let id = UUID()
     let name: String
@@ -19,6 +26,7 @@ struct Dish: Decodable, Identifiable, Hashable {
     let preparingTime: Int
     let categoryType: CategoryType
     let ingredients: [String]
+    let restaurants: [Restaurant]
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -27,6 +35,7 @@ struct Dish: Decodable, Identifiable, Hashable {
         case preparingTime = "preparing_time"
         case categoryType = "category"
         case ingredients
+        case restaurants
     }
     
     static var mock: Self {
@@ -35,7 +44,8 @@ struct Dish: Decodable, Identifiable, Hashable {
               calories: 0,
               preparingTime: 0,
               categoryType: .Breakfast,
-              ingredients: ["pasta", "cheese"])
+              ingredients: ["pasta", "cheese"], 
+              restaurants: [])
     }
 }
 
@@ -46,7 +56,8 @@ extension Recipe {
              calories: Int(calorie),
              preparingTime: Int(preparingTime),
              categoryType: .Breakfast,
-             ingredients: []
+             ingredients: [], 
+             restaurants: []
         )
     }
 }
