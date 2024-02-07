@@ -24,6 +24,8 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Favourites"
+        configureNavigationBarTitle(title: "Favourite", font: UIFont(name: "AmericanTypewriter-CondensedBold", size: 30)!, textColor: .black)
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setUpBindings()
         viewModel.viewDidLoad()

@@ -22,6 +22,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBarTitle(title: "Categories Details", font: UIFont(name: "AmericanTypewriter-CondensedBold", size: 30)!, textColor: .black)
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setupBindigs()
         viewModel.viewDidLoad()

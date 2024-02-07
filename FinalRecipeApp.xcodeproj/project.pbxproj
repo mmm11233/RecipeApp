@@ -45,6 +45,7 @@
 		39DE5B062B72BB1E00AAA8E2 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = 39DE5B052B72BB1E00AAA8E2 /* GoogleMapsM4B */; };
 		39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */; };
 		39DE5B0E2B72BCAB00AAA8E2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */; };
+		39DE5B122B73D65000AAA8E2 /* NavigationBarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B112B73D65000AAA8E2 /* NavigationBarTitle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
 		39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		39DE5B112B73D65000AAA8E2 /* NavigationBarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarTitle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				39832BFA2B5D4C9F007232FA /* HexColor.swift */,
 				398E4BD62B6FC33900BE6310 /* UIViewController.swift */,
 				39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */,
+				39DE5B112B73D65000AAA8E2 /* NavigationBarTitle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				398E4B6F2B6B99A000BE6310 /* FavouritesViewController.swift in Sources */,
 				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */,
+				39DE5B122B73D65000AAA8E2 /* NavigationBarTitle.swift in Sources */,
 				39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */,
 				39832BFB2B5D4C9F007232FA /* HexColor.swift in Sources */,
 				39C69B002B5FD19E000EA66C /* DishModel.swift in Sources */,
