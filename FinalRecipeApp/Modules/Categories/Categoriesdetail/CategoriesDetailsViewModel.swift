@@ -72,9 +72,18 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     private func setupBindings() {
         favouriteButtonTapPublisher
-            .sink { dish in
-                FavouritesRepository.shared.saveDish(dish: dish)
+            .sink { [weak self] dish in
+                guard let self = self else { return }
+                
+                let existingDishes = FavouritesRepository.shared.fetchDishes()
+                
+                if !existingDishes.contains(where: { $0.name == dish.name }) {
+                    FavouritesRepository.shared.saveDish(dish: dish)
+                } else {
+                    FavouritesRepository.shared.deleteDish(dish: dish)
+                }
             }.store(in: &subscribers)
+
     }
 
     //MARK: - Methods
