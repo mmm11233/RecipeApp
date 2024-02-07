@@ -55,7 +55,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
         let dish = dishes[index]
         
         let vc  = DetailsViewController()
-        vc.viewModel = DetailsViewModel(selectedDish: dish)
+        vc.viewModel = DetailsViewModelImpl(selectedDish: dish)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

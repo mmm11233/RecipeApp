@@ -20,7 +20,6 @@ struct MainView: View {
     
     // MARK: - Body
     var body: some View {
-        Spacer()
         NavigationStack {
             TitleView(title: "Find Your Next Recipe")
             
@@ -29,7 +28,7 @@ struct MainView: View {
                 
                 LazyVGrid(columns: items, spacing: 10) {
                     ForEach(viewModel.filteredDishes) { dish in
-                        NavigationLink(destination: DetailsView(viewModel: DetailsViewModel(selectedDish: dish))) {
+                        NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
                             DishesComponentView(
                                 dish: dish,
                                 favouriteButtonIsHidden: false,
