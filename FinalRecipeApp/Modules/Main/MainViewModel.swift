@@ -39,8 +39,14 @@ final class MainViewModel: ObservableObject {
     
     private func setupBindigs() {
         favouriteButtonTapPublisher
-            .sink { dish in
-                FavouritesRepository.shared.saveDish(dish: dish)
+            .sink { [weak self] dish in
+                guard let self = self else { return }
+                
+                let existingDishes = FavouritesRepository.shared.fetchDishes()
+                
+                if !existingDishes.contains(where: { $0.name == dish.name }) {
+                    FavouritesRepository.shared.saveDish(dish: dish)
+                }
             }.store(in: &subscribers)
     }
     
