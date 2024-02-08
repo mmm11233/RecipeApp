@@ -58,7 +58,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 190, height: 250)
+        return CGSize(width: 190, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
