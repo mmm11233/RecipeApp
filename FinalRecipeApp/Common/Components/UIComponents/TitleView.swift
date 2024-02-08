@@ -18,8 +18,8 @@ struct TitleView: View {
     // MARK: - views
     private var titleView: some View {
         Text(title)
-            .font(.custom("AmericanTypewriter-CondensedBold", size: 30))
-            .foregroundColor(.black)
+            .fontWeight(.semibold)
+            .font(.system(size: 25))
             .padding(.top, 25)
     }
 }

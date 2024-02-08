@@ -25,10 +25,24 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Favourites"
-        configureNavigationBarTitle(title: "Favourite", font: UIFont(name: "AmericanTypewriter-CondensedBold", size: 30)!, textColor: .black)
+        configureNavigationBarTitle(title: "Favourite", font: .boldSystemFont(ofSize: 25), textColor: .black)
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setUpBindings()
         viewModel.viewDidLoad()
+        
+        switch traitCollection.userInterfaceStyle {
+            
+        case .unspecified:
+            view.backgroundColor = UIColor(named: "Dark Any 2")
+        case .light:
+            view.backgroundColor = UIColor(named: "Dark Any 2")
+
+        case .dark:
+            view.backgroundColor = UIColor(named: "Dark Any")
+
+        @unknown default:
+            break
+        }
     }
     
     private func setUpBindings() {

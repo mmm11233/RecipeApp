@@ -19,7 +19,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupMap() {
-        var mapView = GMSMapView()
+        let mapView = GMSMapView()
         
         mapView.isMyLocationEnabled = true
         self.view = mapView

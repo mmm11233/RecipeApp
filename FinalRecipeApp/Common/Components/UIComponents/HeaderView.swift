@@ -11,7 +11,7 @@ final class HeaderView: UIView {
     let titleLabel: UILabel = {
         var label = UILabel()
         label.text = "Header"
-        label.font = UIFont(name: "AmericanTypewriter-CondensedBold", size: 22)
+        label.font = .boldSystemFont(ofSize: 25) 
         label.textColor = UIColor.black
 
         return label
