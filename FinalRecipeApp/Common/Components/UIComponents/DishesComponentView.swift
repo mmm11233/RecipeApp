@@ -19,7 +19,7 @@ struct DishesComponentView: View {
     // MARK: - Body
     var body: some View {
         
-        VStack{
+        VStack {
             ZStack(alignment: .topTrailing){
                 dishesImageViewContent
                 if !favouriteButtonIsHidden {

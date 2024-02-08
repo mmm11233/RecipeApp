@@ -48,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "000000")]
-        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.init(hexString: "00B4BF")
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.init(hexString: "#FFA500")
         
         tabBarController.tabBar.standardAppearance = tabBarAppearance
         tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance

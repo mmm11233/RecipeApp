@@ -60,9 +60,23 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        // Return the minimum line spacing for the section
+        return 3 // Adjust this value according to your needs
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        // Return the minimum interitem spacing for the section
+        return 3 // Adjust this value according to your needs
+    }
 }
 
+
+    
+
+
 //#Preview {
-//    let vc = FavouritesViewController()
+//    let vc = FavouritesViewController(viewModel: )
 //    return vc
 //}
