@@ -9,6 +9,13 @@ import Combine
 
 final class CategoriesDetailsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    private let headerView: HeaderView = {
+        let headerView = HeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return headerView
+    }()
+    
     var viewModel: CategoriesDetailsViewModel!
     private var subscribers = Set<AnyCancellable>()
     
@@ -22,12 +29,15 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBarTitle(title: viewModel.selectedCategoryType.rawValue, font: .boldSystemFont(ofSize: 25), textColor: .black)
+        view.addSubview(headerView)
+        setupHeaderViewConstraints()
+        headerView.titleLabel.text = viewModel.selectedCategoryType.rawValue
 
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setupBindigs()
         viewModel.viewDidLoad()
     }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
            super.traitCollectionDidChange(previousTraitCollection)
            
@@ -37,6 +47,15 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
            
            configureNavigationBarTitle(title: self.title ?? "", font: titleFont, textColor: titleColor)
        }
+    
+    private func setupHeaderViewConstraints() {
+        
+        NSLayoutConstraint.activate ([
+            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
+            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 30),
+        ])
+    }
     
     private func setupBindigs() {
         viewModel.isLoading
