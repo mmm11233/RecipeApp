@@ -14,7 +14,8 @@ protocol CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> { get }
     var isLoading: CurrentValueSubject<Bool, Never> { get }
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> { get }
-
+    var selectedCategoryType: CategoryType {get set}
+    
     func viewDidLoad()
     func numberOfItemsInSection() -> Int
     func didSelectRowAt(at index: Int, from viewController: UIViewController)
@@ -29,7 +30,8 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
-    
+    var selectedCategoryType: CategoryType
+
     private var dishesService: DishesService
     private var fileteredType: CategoryType
     
@@ -48,6 +50,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
          fileteredType: CategoryType) {
         self.dishesService = dishesService
         self.fileteredType = fileteredType
+        self.selectedCategoryType = fileteredType
         setupBindings()
     }
     
