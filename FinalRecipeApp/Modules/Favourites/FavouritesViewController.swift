@@ -8,8 +8,15 @@ import UIKit
 import Combine
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    private var subscribers = Set<AnyCancellable>()
     
+    private let headerView: HeaderView = {
+        let headerView = HeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return headerView
+    }()
+    
+    private var subscribers = Set<AnyCancellable>()
     var viewModel: FavouritesViewModel
     
     init(viewModel: FavouritesViewModel) {
@@ -24,9 +31,9 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Favourites"
-        configureNavigationBarTitle(title: "Favourite", font: .boldSystemFont(ofSize: 25), textColor: .black)
-        
+        view.addSubview(headerView)
+        setupHeaderViewConstraints()
+        headerView.titleLabel.text = "Favourited"
         switch traitCollection.userInterfaceStyle {
             
         case .unspecified, .light:
@@ -42,7 +49,15 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setUpBindings()
         viewModel.viewDidLoad()
+    }
+    
+    private func setupHeaderViewConstraints() {
         
+        NSLayoutConstraint.activate ([
+            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
+            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 30),
+        ])
     }
     
     private func setUpBindings() {

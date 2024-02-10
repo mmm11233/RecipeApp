@@ -42,7 +42,7 @@ class DishCollectionViewCell: UICollectionViewCell {
         }
         
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
             hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
