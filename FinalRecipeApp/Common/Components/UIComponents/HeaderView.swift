@@ -12,7 +12,7 @@ final class HeaderView: UIView {
         var label = UILabel()
         label.text = "Header"
         label.font = .boldSystemFont(ofSize: 25)
-        label.textColor = UIColor.black
+        label.textColor = UIColor(named: "Black")
         
         return label
     }()
@@ -28,8 +28,6 @@ final class HeaderView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = UIColor.lightGray
-        
         addSubview(titleLabel)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -37,32 +35,5 @@ final class HeaderView: UIView {
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16)
         ])
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-
-            updateAppearanceForInterfaceStyle(traitCollection.userInterfaceStyle)
-        }
-    }
-    
-    private func updateAppearanceForInterfaceStyle(_ style: UIUserInterfaceStyle) {
-        switch style {
-        case .unspecified, .light:
-            titleLabel.textColor = .black
-            backgroundColor = .lightGray
-        case .dark:
-            titleLabel.textColor = .white
-            backgroundColor = .darkGray
-        @unknown default:
-            break
-        }
-    }
-    
-    func updateAppearanceForInterfaceStyle(_ isDarkMode: Bool) {
-        titleLabel.textColor = isDarkMode ? .white : .black
-        backgroundColor = isDarkMode ? .darkGray : .lightGray
     }
 }

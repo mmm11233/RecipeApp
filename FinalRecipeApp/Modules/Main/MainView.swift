@@ -14,7 +14,6 @@ struct MainView: View {
     @State var path = NavigationPath()
     @Environment(\.colorScheme) var colorScheme
 
-    
     var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
     }
@@ -30,13 +29,12 @@ struct MainView: View {
                 LazyVGrid(columns: items, spacing: 10) {
                     ForEach(viewModel.filteredDishes) { dish in
                         NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
-                            DishesComponentView(
-                                dish: dish,
-                                favouriteButtonIsHidden: false,
-                                favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
+                            DishesComponentView(model: .init(dish: dish,
+                                                             favouriteButtonIsHidden: false,
+                                                             favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
                             .padding(5)
                         }
-                        .foregroundStyle(colorScheme == .dark ? .white : .black)
+                        .foregroundStyle(Color("White"))
                     }
                 }
                 .padding(.horizontal)

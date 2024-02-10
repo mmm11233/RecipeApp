@@ -8,12 +8,24 @@
 import SwiftUI
 import Combine
 
+struct DishesComponentViewModel {
+    let dish: Dish
+    let favouriteButtonIsHidden: Bool
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
+    
+    init(dish: Dish, 
+         favouriteButtonIsHidden: Bool,
+         favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil) {
+        self.dish = dish
+        self.favouriteButtonIsHidden = favouriteButtonIsHidden
+        self.favouriteButtonTapPublisher = favouriteButtonTapPublisher
+    }
+}
+
 struct DishesComponentView: View {
     
     // MARK: - Properties
-    var dish: Dish
-    var favouriteButtonIsHidden: Bool
-    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
+    var model: DishesComponentViewModel
     @State private var isFavourite: Bool = false
     
     // MARK: - Body
@@ -22,7 +34,7 @@ struct DishesComponentView: View {
         VStack(alignment: .center) {
             ZStack(alignment: .topTrailing){
                 dishesImageViewContent
-                if !favouriteButtonIsHidden {
+                if !model.favouriteButtonIsHidden {
                     heartButton
                         .padding(.trailing, 12)
                         .padding(.top, 12)
@@ -34,6 +46,7 @@ struct DishesComponentView: View {
         .onAppear {
             fetchFavoriteStatus()
         }
+        .background(Color("White"))
     }
 }
 
@@ -44,7 +57,7 @@ extension DishesComponentView {
     private var heartButton: some View {
         Button(action: {
             self.isFavourite.toggle()
-            favouriteButtonTapPublisher?.send(dish)
+            model.favouriteButtonTapPublisher?.send(model.dish)
         }) {
             Image(isFavourite ? "heart 1" : "heart")
                 .resizable()
@@ -57,7 +70,7 @@ extension DishesComponentView {
     }
     
     private var dishesImageViewContent: some View {
-        AsyncImage(url: URL(string: dish.pictureURL)) { phase in
+        AsyncImage(url: URL(string: model.dish.pictureURL)) { phase in
             switch phase {
             case .empty:
                 dishesImageView(image: nil, isLoading: true)
@@ -92,10 +105,11 @@ extension DishesComponentView {
     }
     
     private var nameDishesView: some View {
-        Text(dish.name)
+        Text(model.dish.name)
             .lineLimit(2)
             .font(.callout)
             .fontWeight(.semibold)
+            .foregroundColor(Color("Black"))
     }
     
     private var additionalInfoHStack: some View {
@@ -107,34 +121,33 @@ extension DishesComponentView {
     
     private var caloriesInfoHStack: some View {
         HStack(spacing: 1) {
-            Image("fire 3")
+            Image("fire 3").renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-            Text("\(dish.calories) Kcal")
+                .foregroundColor(Color("Black"))
+            Text("\(model.dish.calories) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
+                .foregroundColor(Color("Black"))
         }
     }
     
     private var prepareTimeHStack: some View {
         HStack(spacing: 1) {
-            Image("clock 2")
+            Image("clock 2").renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-            
-            Text("\(dish.preparingTime) min")
+                .foregroundColor(Color("Black"))
+            Text("\(model.dish.preparingTime) min")
                 .font(.caption)
                 .padding(.horizontal, 5)
+                .foregroundColor(Color("Black"))
         }
     }
     
     private func fetchFavoriteStatus() {
-        isFavourite = FavouritesRepository.shared.isDishFavorite(dish: dish)
+        isFavourite = FavouritesRepository.shared.isDishFavorite(dish: model.dish)
     }
-}
-
-#Preview {
-    DishesComponentView(dish: .init(name: "name", pictureURL: "", calories: 23, preparingTime: 12, categoryType: .Breakfast, ingredients: ["das","dsad"], restaurants: []), favouriteButtonIsHidden: false)
 }

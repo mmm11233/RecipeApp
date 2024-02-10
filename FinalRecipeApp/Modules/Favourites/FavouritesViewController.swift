@@ -8,14 +8,6 @@ import UIKit
 import Combine
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    private let headerView: HeaderView = {
-        let headerView = HeaderView()
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return headerView
-    }()
-    
     private var subscribers = Set<AnyCancellable>()
     var viewModel: FavouritesViewModel
     
@@ -31,33 +23,16 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(headerView)
-        setupHeaderViewConstraints()
-        headerView.titleLabel.text = "Favourited"
-        switch traitCollection.userInterfaceStyle {
-            
-        case .unspecified, .light:
-            view.backgroundColor = UIColor.white
-            
-        case .dark:
-            view.backgroundColor = UIColor.black
-            
-        @unknown default:
-            break
-        }
-        
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setupView()
         setUpBindings()
         viewModel.viewDidLoad()
     }
     
-    private func setupHeaderViewConstraints() {
-        
-        NSLayoutConstraint.activate ([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
-            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 30),
-        ])
+    private func setupView() {
+        view.backgroundColor = UIColor(named: "White")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Favourited"
     }
     
     private func setUpBindings() {
@@ -75,9 +50,9 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(dish: viewModel.item(at: indexPath.row),
-                       favouriteButtonIsHidden: false,
-                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
+        cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
+                                    favouriteButtonIsHidden: false,
+                                    favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
         return cell
     }
     

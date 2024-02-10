@@ -22,42 +22,22 @@ class DishCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupHostingController() {
-        let dishesComponentView = DishesComponentView(dish: .mock,
-                                                      favouriteButtonIsHidden: false)
+        let dishesComponentView = DishesComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
         let hostingController = UIHostingController(rootView: dishesComponentView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hostingController.view)
         
-        switch traitCollection.userInterfaceStyle {
-        case .unspecified, .light:
-            
-            hostingController.view.backgroundColor = UIColor.white
-            
-        case .dark:
-            
-            hostingController.view.backgroundColor = UIColor.black
-            
-        @unknown default:
-            break
-        }
-        
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
-            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         self.hostingController = hostingController
     }
     
-    func configure(dish: Dish,
-                   favouriteButtonIsHidden: Bool,
-                   favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>
-    ) {
-        hostingController?.rootView.dish = dish
-        hostingController?.rootView.favouriteButtonIsHidden = favouriteButtonIsHidden
-        hostingController?.rootView.favouriteButtonTapPublisher = favouriteButtonTapPublisher
+    func configure(model: DishesComponentViewModel) {
+        hostingController?.rootView.model = model
     }
 }
 

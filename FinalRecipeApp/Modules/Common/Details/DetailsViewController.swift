@@ -102,6 +102,7 @@ class DetailsViewController: UIViewController {
         addSubviews()
         setupContraints()
         configureViews()
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     // MARK: - Configure

@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = [mainViewController,favouritesNavigationController,categoriesNavigationController]
         
         let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(hexString: "000000")]
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "Black")]
         tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.init(hexString: "#FFA500")
         
         tabBarController.tabBar.standardAppearance = tabBarAppearance
