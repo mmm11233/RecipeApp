@@ -28,11 +28,25 @@ class DishCollectionViewCell: UICollectionViewCell {
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hostingController.view)
         
+        switch traitCollection.userInterfaceStyle {
+        case .unspecified, .light:
+            
+            hostingController.view.backgroundColor = UIColor.white
+            
+        case .dark:
+            
+            hostingController.view.backgroundColor = UIColor.black
+            
+        @unknown default:
+            break
+        }
+        
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
         ])
         self.hostingController = hostingController
     }

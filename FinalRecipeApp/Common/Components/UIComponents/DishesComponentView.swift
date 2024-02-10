@@ -15,11 +15,11 @@ struct DishesComponentView: View {
     var favouriteButtonIsHidden: Bool
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
     @State private var isFavourite: Bool = false
-
+    
     // MARK: - Body
     var body: some View {
         
-        VStack {
+        VStack(alignment: .center) {
             ZStack(alignment: .topTrailing){
                 dishesImageViewContent
                 if !favouriteButtonIsHidden {
@@ -32,8 +32,8 @@ struct DishesComponentView: View {
             additionalInfoHStack
         }
         .onAppear {
-                    fetchFavoriteStatus()
-                }
+            fetchFavoriteStatus()
+        }
     }
 }
 
@@ -77,16 +77,16 @@ extension DishesComponentView {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 150, height: 130)
+                    .frame(width: 165, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             } else {
                 Color.clear
-                    .frame(width: 150, height: 130)
+                    .frame(width: 165, height: 150)
             }
             
             if isLoading {
                 ProgressView()
-                    .frame(width: 150, height: 130)
+                    .frame(width: 165, height: 150)
             }
         }
     }
@@ -132,7 +132,7 @@ extension DishesComponentView {
     
     private func fetchFavoriteStatus() {
         isFavourite = FavouritesRepository.shared.isDishFavorite(dish: dish)
-       }
+    }
 }
 
 #Preview {

@@ -12,7 +12,8 @@ struct MainView: View {
     // MARK: - Properties
     @StateObject var viewModel: MainViewModel
     @State var path = NavigationPath()
-    
+    @Environment(\.colorScheme) var colorScheme
+
     
     var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
@@ -35,16 +36,19 @@ struct MainView: View {
                                 favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
                             .padding(5)
                         }
-                        .foregroundStyle(.black)
+                        .foregroundStyle(colorScheme == .dark ? .white : .black)
                     }
                 }
                 .padding(.horizontal)
             }
+            
             .navigationBarHidden(true)
             .onAppear {
                 viewModel.fetchDishes()
             }
         }
+        .background(colorScheme == .dark ? Color("Dark Any") : Color.white)
+
     }
 }
 

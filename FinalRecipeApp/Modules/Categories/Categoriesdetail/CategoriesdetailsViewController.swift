@@ -27,6 +27,15 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         setupBindigs()
         viewModel.viewDidLoad()
     }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+           super.traitCollectionDidChange(previousTraitCollection)
+           
+           // Update navigation bar title text attributes based on interface style
+           let titleColor: UIColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
+           let titleFont = UIFont.boldSystemFont(ofSize: 25) // Adjust font size as needed
+           
+           configureNavigationBarTitle(title: self.title ?? "", font: titleFont, textColor: titleColor)
+       }
     
     private func setupBindigs() {
         viewModel.isLoading

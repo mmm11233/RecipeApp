@@ -33,13 +33,24 @@ final class CategoriesViewController: UIViewController {
         
         view.addSubview(headerView)
         view.addSubview(tableView)
-        view.backgroundColor = .white
+        view.backgroundColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
+        
         setupTableView()
         setupTableViewConstraints()
         headerView.titleLabel.text = "Categories"
+        
         setupBindigs()
         viewModel.viewDidLoad()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
+        view.backgroundColor = isDarkMode ? .black : .white
+        headerView.updateAppearanceForInterfaceStyle(isDarkMode)
+    }
+
     
     private func setupBindigs() {
         viewModel.isLoading
