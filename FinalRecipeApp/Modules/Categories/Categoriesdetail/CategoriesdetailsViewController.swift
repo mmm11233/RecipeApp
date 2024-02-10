@@ -22,10 +22,21 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBarTitle(title: viewModel.selectedCategoryType.rawValue, font: .boldSystemFont(ofSize: 25), textColor: .black)
+
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setupBindigs()
         viewModel.viewDidLoad()
     }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+           super.traitCollectionDidChange(previousTraitCollection)
+           
+           // Update navigation bar title text attributes based on interface style
+           let titleColor: UIColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
+           let titleFont = UIFont.boldSystemFont(ofSize: 25) // Adjust font size as needed
+           
+           configureNavigationBarTitle(title: self.title ?? "", font: titleFont, textColor: titleColor)
+       }
     
     private func setupBindigs() {
         viewModel.isLoading
@@ -57,7 +68,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 190, height: 250)
+        return CGSize(width: 190, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -74,4 +74,17 @@ final class FavouritesRepository  {
         }
         return []
     }
+    
+    func isDishFavorite(dish: Dish) -> Bool {
+           let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+           fetchRequest.predicate = NSPredicate(format: "name == %@", dish.name)
+           
+           do {
+               let matchingDishesCount = try context.count(for: fetchRequest)
+               return matchingDishesCount > 0
+           } catch {
+               print("Error checking if dish is favorite: \(error.localizedDescription)")
+               return false
+           }
+       }
 }
