@@ -44,7 +44,7 @@ final class FavouritesRepository  {
     
     func deleteDish(dish: Dish) {
            let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
-           fetchRequest.predicate = NSPredicate(format: "name == %@", dish.name) // Assuming "name" is a unique identifier for your Dish
+           fetchRequest.predicate = NSPredicate(format: "name == %@", dish.name) 
            
            do {
                let matchingDishes = try context.fetch(fetchRequest)

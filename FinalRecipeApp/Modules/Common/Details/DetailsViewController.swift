@@ -4,7 +4,6 @@
 //
 //  Created by Mariam Joglidze on 28.01.24.
 //
-
 import UIKit
 import SwiftUI
 
@@ -57,7 +56,7 @@ class DetailsViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
-        label.textColor = .black.withAlphaComponent(0.9)
+        label.textColor = UIColor(named: "Black")
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -66,7 +65,7 @@ class DetailsViewController: UIViewController {
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .black.withAlphaComponent(0.9)
+        label.textColor = UIColor(named: "Black")
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -75,7 +74,7 @@ class DetailsViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "Gray")
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -103,6 +102,7 @@ class DetailsViewController: UIViewController {
         setupContraints()
         configureViews()
         navigationController?.navigationBar.prefersLargeTitles = false
+        view.backgroundColor = UIColor(named: "White")
     }
     
     // MARK: - Configure
@@ -118,7 +118,7 @@ class DetailsViewController: UIViewController {
     }
     
     private func addSubviews() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "Black")
         view.addSubview(scrollView)
         scrollView.addSubview(scrollViewContent)
         
