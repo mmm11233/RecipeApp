@@ -11,7 +11,7 @@ struct MainView: View {
     
     // MARK: - Properties
     @StateObject var viewModel: MainViewModel
-    @State var path = NavigationPath()
+    @State private var hasAppeared = false
     @Environment(\.colorScheme) var colorScheme
 
     var items: [GridItem] {
@@ -42,11 +42,13 @@ struct MainView: View {
             
             .navigationBarHidden(true)
             .onAppear {
-                viewModel.fetchDishes()
+                if !hasAppeared {
+                    viewModel.fetchDishes()
+                    self.hasAppeared = true
+                }
             }
         }
         .background(colorScheme == .dark ? Color("Dark Any") : Color.white)
-
     }
 }
 

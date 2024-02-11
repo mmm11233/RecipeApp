@@ -83,7 +83,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
                 if !existingDishes.contains(where: { $0.name == dish.name }) {
                     FavouritesRepository.shared.saveDish(dish: dish)
                 } else {
-                    FavouritesRepository.shared.deleteDish(dish: dish)
+                    FavouritesRepository.shared.deleteDish(dishID: dish.id)
                 }
             }.store(in: &subscribers)
 

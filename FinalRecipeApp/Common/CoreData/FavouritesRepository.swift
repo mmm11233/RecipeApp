@@ -31,6 +31,7 @@ final class FavouritesRepository  {
         
         newRecipe.setValue(NSNumber(value: dish.calories), forKey: "calorie")
         newRecipe.setValue(dish.name, forKey: "name")
+        newRecipe.setValue(dish.id, forKey: "id")
         newRecipe.setValue(NSNumber(value: dish.preparingTime), forKey: "preparingTime")
         newRecipe.setValue(dish.pictureURL, forKey: "pictureURL")
         print("storing data...")
@@ -42,10 +43,10 @@ final class FavouritesRepository  {
         }
     }
     
-    func deleteDish(dish: Dish) {
-           let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
-           fetchRequest.predicate = NSPredicate(format: "name == %@", dish.name) 
-           
+    func deleteDish(dishID: String) {
+        let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", dishID)
+        
            do {
                let matchingDishes = try context.fetch(fetchRequest)
                
