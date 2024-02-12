@@ -13,6 +13,7 @@ protocol CategoriesViewModel {
     var isLoading: CurrentValueSubject<Bool, Never> { get }
     
     func viewDidLoad()
+    func refreshData()
     func numberOfRowsInSection() -> Int
     func item(at index: Int) -> Category
     
@@ -35,6 +36,10 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Methods
     func viewDidLoad() {
+        fetchCategories()
+    }
+    
+    func refreshData() {
         fetchCategories()
     }
     

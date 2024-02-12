@@ -17,6 +17,7 @@ protocol CategoriesDetailsViewModel {
     var selectedCategoryType: CategoryType {get set}
     
     func viewDidLoad()
+    func reloadData()
     func numberOfItemsInSection() -> Int
     func didSelectRowAt(at index: Int, from viewController: UIViewController)
     func item(at index: Int) -> Dish
@@ -55,6 +56,10 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Methods
     func viewDidLoad() {
+        fetchDishes()
+    }
+    
+    func reloadData() {
         fetchDishes()
     }
     

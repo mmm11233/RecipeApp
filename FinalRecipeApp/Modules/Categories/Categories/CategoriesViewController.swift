@@ -12,7 +12,7 @@ final class CategoriesViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: CategoriesViewModel
     private var subscribers = Set<AnyCancellable>()
-
+    
     init(viewModel: CategoriesViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +61,7 @@ final class CategoriesViewController: UIViewController {
                     self?.startLoader()
                 } else {
                     self?.stopLoader()
+                    self?.dismissTableViewViewLoader()
                 }
             }.store(in: &subscribers)
         
@@ -80,15 +81,30 @@ final class CategoriesViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 26),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)    
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
     private func setupTableView() {
+        setupRefreshControl()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "CategrorieTableViewCell")
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        tableView.refreshControl = refreshControl
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(sender:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
+        viewModel.refreshData()
+    }
+    
+    private func dismissTableViewViewLoader() {
+        tableView.refreshControl?.endRefreshing()
     }
 }
 

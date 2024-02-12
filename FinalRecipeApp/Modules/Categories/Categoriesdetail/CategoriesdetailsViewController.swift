@@ -45,6 +45,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     
     private func setupCollectionView() {
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setupRefreshControl()
     }
     
     private func setupBindigs() {
@@ -60,7 +61,22 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         viewModel.dishesDidLoad
             .sink { [weak self] in
                 self?.collectionView.reloadData()
+                self?.dismissCollectionViewViewLoader()
             }.store(in: &subscribers)
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        collectionView.refreshControl = refreshControl
+        collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(sender:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
+        viewModel.reloadData()
+    }
+    
+    private func dismissCollectionViewViewLoader() {
+        collectionView.refreshControl?.endRefreshing()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

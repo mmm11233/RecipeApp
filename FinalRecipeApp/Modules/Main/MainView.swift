@@ -31,6 +31,9 @@ struct MainView: View {
                     self.hasAppeared = true
                 }
             }
+            .refreshable {
+                viewModel.fetchDishes()
+            }
         }
     }
     
