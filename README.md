@@ -17,7 +17,7 @@ RecipeApp is a convenient and user-friendly iOS application designed to help use
 
 - **Total Calories**: Average cooking time indicated for each dish 
 
-- **Restaurants recommendations **:  You find on the map where you can taste this dish.
+- **Restaurants recommendations**:  You find on the map where you can taste this dish.
   
 - **Offline Access**: Access your saved recipes even when you're offline. 
 
