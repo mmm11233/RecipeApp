@@ -24,36 +24,45 @@ RecipeApp is a convenient and user-friendly iOS application designed to help use
 - **Dark Mode Access**:  - Seamlessly switch between light and dark modes for comfortable viewing in any lighting condition.
   
 
-  ## Screenshots
-  OnBoarding Page
-![IMG_4349](https://github.com/mmm11233/RecipeApp/assets/125551926/daa58532-e939-479a-be6d-4800f400aea4)
+# Screenshots
+  ### OnBoarding Page
+  <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/daa58532-e939-479a-be6d-4800f400aea4" width="196" height="426">
 
-HomePage
-![IMG_4350](https://github.com/mmm11233/RecipeApp/assets/125551926/72134d70-013c-4864-b2cc-8be3c0b1b7ce)
-![IMG_4357 (1)](https://github.com/mmm11233/RecipeApp/assets/125551926/5f221e1d-85f4-449b-ba11-8971620a2418)
+  ### HomePage
+<div style="display:flex;">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/72134d70-013c-4864-b2cc-8be3c0b1b7ce" width="196" height="426">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/5f221e1d-85f4-449b-ba11-8971620a2418" width="196" height="426"">
+</div>
 
-FavouritedPage
-![IMG_4352](https://github.com/mmm11233/RecipeApp/assets/125551926/d66ec6a7-dfec-455a-a1eb-677e8801215d)
-![IMG_4339](https://github.com/mmm11233/RecipeApp/assets/125551926/0debf8cf-1761-44e8-bbba-7d5edb61cb7f)
+### FavouritedPage
+<div style="display:flex;">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/d66ec6a7-dfec-455a-a1eb-677e8801215d" width="196" height="426">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/0debf8cf-1761-44e8-bbba-7d5edb61cb7f" width="196" height="426"">
+</div>
 
-CategoriesPage
-![IMG_4353](https://github.com/mmm11233/RecipeApp/assets/125551926/f42106e7-57a3-4f11-85a8-b8e37cc74d7b)
-![IMG_4342](https://github.com/mmm11233/RecipeApp/assets/125551926/bdc6555f-2ef8-40c5-8709-34e84c6d554a)
+### CategoriesPage
+<div style="display:flex;">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/f42106e7-57a3-4f11-85a8-b8e37cc74d7b" width="196" height="426">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/bdc6555f-2ef8-40c5-8709-34e84c6d554a" width="196" height="426"">
+</div>
 
-CategoriesDetailPage
-![IMG_4354](https://github.com/mmm11233/RecipeApp/assets/125551926/67a56651-58dc-4d2e-bd69-c30c8af9ed5f)
-![IMG_4358 (1)](https://github.com/mmm11233/RecipeApp/assets/125551926/d7e15a9d-3d29-40e5-bcc0-cc6b6c4ea784)
+### CategoriesDetailPage
+<div style="display:flex;">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/67a56651-58dc-4d2e-bd69-c30c8af9ed5f" width="196" height="426">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/d7e15a9d-3d29-40e5-bcc0-cc6b6c4ea784" width="196" height="426"">
+</div>
 
-DetailsPage
-![IMG_4355](https://github.com/mmm11233/RecipeApp/assets/125551926/253bf651-0de5-4cc2-942c-c72480d4134b)
-![IMG_4340](https://github.com/mmm11233/RecipeApp/assets/125551926/e9e93a2b-e481-4329-aa74-0d64ca12c85b)
+### DetailsPage
+<div style="display:flex;">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/253bf651-0de5-4cc2-942c-c72480d4134b" width="196" height="426">
+    <img src="https://github.com/mmm11233/RecipeApp/assets/125551926/e9e93a2b-e481-4329-aa74-0d64ca12c85b" width="196" height="426"">
+</div>
 
-MapPage
-![IMG_4341](https://github.com/mmm11233/RecipeApp/assets/125551926/57f5db65-d64f-47e2-83b8-a2df008d6b90)
+### MapPage
+<img src="https://github.com/mmm11233/RecipeApp/assets/125551926/57f5db65-d64f-47e2-83b8-a2df008d6b90" width="196" height="426">
 
-SearchBar
-![IMG_4351](https://github.com/mmm11233/RecipeApp/assets/125551926/6f1c6578-9f4d-47fe-b9c3-4db1286dca5f)
-
+### SearchBar
+<img src="https://github.com/mmm11233/RecipeApp/assets/125551926/6f1c6578-9f4d-47fe-b9c3-4db1286dca5f" width="196" height="426">
 
 
 ## Technologies/Frameworks Used 
