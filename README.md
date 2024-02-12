@@ -22,6 +22,8 @@ RecipeApp is a convenient and user-friendly iOS application designed to help use
 - **Offline Access**: Access your saved recipes even when you're offline. 
 
 - **Internet Connection Observing**: Show no internet connection alert when you're offline.
+
+- **Pull To Refresh**: pull to refresh ability to main, category and category details screens.
   
 - **Dark Mode Access**:  - Seamlessly switch between light and dark modes for comfortable viewing in any lighting condition.
   
