@@ -1,5 +1,5 @@
 //
-//  DishesComponentView.swift
+//  DishComponentView.swift
 //  FinalRecipeApp
 //
 //  Created by Mariam Joglidze on 22.01.24.
@@ -22,7 +22,7 @@ struct DishesComponentViewModel {
     }
 }
 
-struct DishesComponentView: View {
+struct DishComponentView: View {
     
     // MARK: - Properties
     var model: DishesComponentViewModel
@@ -46,12 +46,12 @@ struct DishesComponentView: View {
         .onAppear {
             fetchFavoriteStatus()
         }
-        .background(Color("White"))
+        .background(Color(ColorBook.white))
     }
 }
 
 // MARK: - Components
-extension DishesComponentView {
+extension DishComponentView {
     
     // MARK: - Views
     private var heartButton: some View {
@@ -59,13 +59,13 @@ extension DishesComponentView {
             self.isFavourite.toggle()
             model.favouriteButtonTapPublisher?.send(model.dish)
         }) {
-            Image(isFavourite ? "heart 1" : "heart")
+            Image(uiImage: isFavourite ? ImageBook.Icons.heartFill : ImageBook.Icons.heart)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 15, height: 15)
         }
         .frame(width: 20, height: 20)
-        .background(Color.white)
+        .background(Color(ColorBook.white))
         .cornerRadius(7.0)
     }
     
@@ -77,7 +77,7 @@ extension DishesComponentView {
             case .success(let image):
                 dishesImageView(image: image, isLoading: false)
             case .failure:
-                dishesImageView(image: Image(systemName: "photo"), isLoading: false)
+                dishesImageView(image: Image(uiImage: ImageBook.Images.defaultPhoto), isLoading: false)
             @unknown default:
                 EmptyView()
             }
@@ -109,7 +109,7 @@ extension DishesComponentView {
             .lineLimit(2)
             .font(.callout)
             .fontWeight(.semibold)
-            .foregroundColor(Color("Black"))
+            .foregroundColor(Color(ColorBook.black))
     }
     
     private var additionalInfoHStack: some View {
@@ -121,29 +121,29 @@ extension DishesComponentView {
     
     private var caloriesInfoHStack: some View {
         HStack(spacing: 1) {
-            Image("fire 3").renderingMode(.template)
+            Image(uiImage: ImageBook.Icons.fire).renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-                .foregroundColor(Color("Black"))
+                .foregroundColor(Color(ColorBook.black))
             Text("\(model.dish.calories) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
-                .foregroundColor(Color("Black"))
+                .foregroundColor(Color(ColorBook.black))
         }
     }
     
     private var prepareTimeHStack: some View {
         HStack(spacing: 1) {
-            Image("clock 2").renderingMode(.template)
+            Image(uiImage: ImageBook.Icons.clock).renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-                .foregroundColor(Color("Black"))
+                .foregroundColor(Color(ColorBook.black))
             Text("\(model.dish.preparingTime) min")
                 .font(.caption)
                 .padding(.horizontal, 5)
-                .foregroundColor(Color("Black"))
+                .foregroundColor(Color(ColorBook.black))
         }
     }
     
