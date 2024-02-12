@@ -8,9 +8,11 @@
 import UIKit
 import SwiftUI
 import GoogleMaps
+import Combine
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    private var subscribers = Set<AnyCancellable>()
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,9 +21,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         self.window?.rootViewController = createTabBarController()
         window?.makeKeyAndVisible()
-        GMSServices.provideAPIKey("AIzaSyC1ghcYulVlTBi3T-hF7JdTWQDVyJPKZy8")
+        
+        if let apiKey = ProcessInfo.processInfo.environment["GOOGLE_MAP_API_KEY"] {
+            GMSServices.provideAPIKey(apiKey)
+        }
+        addInternetConnectionObserver()
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        NetworkReachabilityService.shared.startObserving()
     }
     
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        NetworkReachabilityService.shared.stopObserving()
+    }
+    
+    // MARK: Create Tab Bar
     private func createTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
         
@@ -53,5 +68,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
         
         return tabBarController
+    }
+    
+    // MARK: Internet Connection
+    private func addInternetConnectionObserver() {
+        NotificationCenter.default.publisher(for: .noInternetConnection)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                let alert = UIAlertController(title: "No Internet Connection", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }.store(in: &subscribers)
     }
 }
