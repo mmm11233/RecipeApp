@@ -10,9 +10,18 @@ import Combine
 final class CategoriesViewController: UIViewController {
     
     // MARK: - Properties
-    var viewModel: CategoriesViewModel!
+    private let viewModel: CategoriesViewModel
     private var subscribers = Set<AnyCancellable>()
 
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,31 +35,24 @@ final class CategoriesViewController: UIViewController {
         
         return headerView
     }()
-        
-    // MARK: - Private LifeCycle
+    
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(headerView)
-        view.addSubview(tableView)
-        view.backgroundColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
-        
+        setupView()
         setupTableView()
-        setupTableViewConstraints()
-        headerView.titleLabel.text = "Categories"
-        
+        setupConstraints()
         setupBindigs()
         viewModel.viewDidLoad()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        let isDarkMode = traitCollection.userInterfaceStyle == .dark
-        view.backgroundColor = isDarkMode ? .black : .white
-        headerView.updateAppearanceForInterfaceStyle(isDarkMode)
+    private func setupView() {
+        headerView.configure(title: "Categories")
+        
+        view.backgroundColor = ColorBook.white
+        view.addSubview(headerView)
+        view.addSubview(tableView)
     }
-
     
     private func setupBindigs() {
         viewModel.isLoading
@@ -68,11 +70,10 @@ final class CategoriesViewController: UIViewController {
             }.store(in: &subscribers)
     }
     
-    // MARK: - Private Methods
-    private func setupTableViewConstraints() {
-        
+    // MARK: - Methods
+    private func setupConstraints() {
         NSLayoutConstraint.activate ([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 30),
             
@@ -87,7 +88,7 @@ final class CategoriesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "CategrorieTableViewCell")
     }
 }
 
@@ -99,21 +100,17 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let category = viewModel.item(at: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategrorieTableViewCell", for: indexPath)
         
         if let categoriesViewControllerCell = cell as? CategrorieTableViewCell {
             categoriesViewControllerCell.configure(with: category)
             return categoriesViewControllerCell
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
-}
-
-#Preview {
-    let vc = CategoriesViewController()
-    return vc
 }

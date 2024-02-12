@@ -1,5 +1,5 @@
 //
-//  DishesComponentView.swift
+//  DishComponentView.swift
 //  FinalRecipeApp
 //
 //  Created by Mariam Joglidze on 22.01.24.
@@ -8,12 +8,24 @@
 import SwiftUI
 import Combine
 
-struct DishesComponentView: View {
+struct DishComponentViewModel {
+    let dish: Dish
+    let favouriteButtonIsHidden: Bool
+    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
+    
+    init(dish: Dish, 
+         favouriteButtonIsHidden: Bool,
+         favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil) {
+        self.dish = dish
+        self.favouriteButtonIsHidden = favouriteButtonIsHidden
+        self.favouriteButtonTapPublisher = favouriteButtonTapPublisher
+    }
+}
+
+struct DishComponentView: View {
     
     // MARK: - Properties
-    var dish: Dish
-    var favouriteButtonIsHidden: Bool
-    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
+    var model: DishComponentViewModel
     @State private var isFavourite: Bool = false
     
     // MARK: - Body
@@ -21,57 +33,58 @@ struct DishesComponentView: View {
         
         VStack(alignment: .center) {
             ZStack(alignment: .topTrailing){
-                dishesImageViewContent
-                if !favouriteButtonIsHidden {
+                dishImageViewContent
+                if !model.favouriteButtonIsHidden {
                     heartButton
                         .padding(.trailing, 12)
                         .padding(.top, 12)
                 }
             }
-            nameDishesView
-            additionalInfoHStack
+            nameView
+            additionalInfoes
         }
         .onAppear {
             fetchFavoriteStatus()
         }
+        .background(Color(ColorBook.white))
     }
 }
 
 // MARK: - Components
-extension DishesComponentView {
+extension DishComponentView {
     
     // MARK: - Views
     private var heartButton: some View {
         Button(action: {
             self.isFavourite.toggle()
-            favouriteButtonTapPublisher?.send(dish)
+            model.favouriteButtonTapPublisher?.send(model.dish)
         }) {
-            Image(isFavourite ? "heart 1" : "heart")
+            Image(uiImage: isFavourite ? ImageBook.Icons.heartFill : ImageBook.Icons.heart)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 15, height: 15)
         }
         .frame(width: 20, height: 20)
-        .background(Color.white)
+        .background(Color(ColorBook.white))
         .cornerRadius(7.0)
     }
     
-    private var dishesImageViewContent: some View {
-        AsyncImage(url: URL(string: dish.pictureURL)) { phase in
+    private var dishImageViewContent: some View {
+        AsyncImage(url: URL(string: model.dish.pictureURL)) { phase in
             switch phase {
             case .empty:
-                dishesImageView(image: nil, isLoading: true)
+                dishImageView(image: nil, isLoading: true)
             case .success(let image):
-                dishesImageView(image: image, isLoading: false)
+                dishImageView(image: image, isLoading: false)
             case .failure:
-                dishesImageView(image: Image(systemName: "photo"), isLoading: false)
+                dishImageView(image: Image(uiImage: ImageBook.Images.defaultPhoto), isLoading: false)
             @unknown default:
                 EmptyView()
             }
         }
     }
     
-    private func dishesImageView(image: Image?, isLoading: Bool) -> some View {
+    private func dishImageView(image: Image?, isLoading: Bool) -> some View {
         ZStack {
             if let image = image {
                 image
@@ -91,50 +104,50 @@ extension DishesComponentView {
         }
     }
     
-    private var nameDishesView: some View {
-        Text(dish.name)
+    private var nameView: some View {
+        Text(model.dish.name)
             .lineLimit(2)
             .font(.callout)
             .fontWeight(.semibold)
+            .foregroundColor(Color(ColorBook.black))
     }
     
-    private var additionalInfoHStack: some View {
+    private var additionalInfoes: some View {
         HStack {
-            caloriesInfoHStack
-            prepareTimeHStack
+            caloriesInfo
+            prepareTime
         }
     }
     
-    private var caloriesInfoHStack: some View {
+    private var caloriesInfo: some View {
         HStack(spacing: 1) {
-            Image("fire 3")
+            Image(uiImage: ImageBook.Icons.fire).renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-            Text("\(dish.calories) Kcal")
+                .foregroundColor(Color(ColorBook.black))
+            Text("\(model.dish.calories) Kcal")
                 .font(.caption)
                 .padding(.horizontal, 5)
+                .foregroundColor(Color(ColorBook.black))
         }
     }
     
-    private var prepareTimeHStack: some View {
+    private var prepareTime: some View {
         HStack(spacing: 1) {
-            Image("clock 2")
+            Image(uiImage: ImageBook.Icons.clock).renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 11, height: 13)
-            
-            Text("\(dish.preparingTime) min")
+                .foregroundColor(Color(ColorBook.black))
+            Text("\(model.dish.preparingTime) min")
                 .font(.caption)
                 .padding(.horizontal, 5)
+                .foregroundColor(Color(ColorBook.black))
         }
     }
     
     private func fetchFavoriteStatus() {
-        isFavourite = FavouritesRepository.shared.isDishFavorite(dish: dish)
+        isFavourite = FavouritesRepository.shared.isDishFavorite(dish: model.dish)
     }
-}
-
-#Preview {
-    DishesComponentView(dish: .init(name: "name", pictureURL: "", calories: 23, preparingTime: 12, categoryType: .Breakfast, ingredients: ["das","dsad"], restaurants: []), favouriteButtonIsHidden: false)
 }

@@ -10,8 +10,10 @@ import Combine
 
 class DishCollectionViewCell: UICollectionViewCell {
     
-    private var hostingController: UIHostingController<DishesComponentView>?
+    // MARK: - Properties
+    private var hostingController: UIHostingController<DishComponentView>?
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupHostingController()
@@ -21,47 +23,23 @@ class DishCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     private func setupHostingController() {
-        let dishesComponentView = DishesComponentView(dish: .mock,
-                                                      favouriteButtonIsHidden: false)
+        let dishesComponentView = DishComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
         let hostingController = UIHostingController(rootView: dishesComponentView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hostingController.view)
         
-        switch traitCollection.userInterfaceStyle {
-        case .unspecified, .light:
-            
-            hostingController.view.backgroundColor = UIColor.white
-            
-        case .dark:
-            
-            hostingController.view.backgroundColor = UIColor.black
-            
-        @unknown default:
-            break
-        }
-        
         NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
-            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+            hostingController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         self.hostingController = hostingController
     }
     
-    func configure(dish: Dish,
-                   favouriteButtonIsHidden: Bool,
-                   favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>
-    ) {
-        hostingController?.rootView.dish = dish
-        hostingController?.rootView.favouriteButtonIsHidden = favouriteButtonIsHidden
-        hostingController?.rootView.favouriteButtonTapPublisher = favouriteButtonTapPublisher
+    func configure(model: DishComponentViewModel) {
+        hostingController?.rootView.model = model
     }
-}
-
-#Preview {
-    let vc = DishCollectionViewCell()
-    return vc
 }

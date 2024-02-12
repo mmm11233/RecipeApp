@@ -11,11 +11,10 @@ struct MainView: View {
     
     // MARK: - Properties
     @StateObject var viewModel: MainViewModel
-    @State var path = NavigationPath()
+    @State private var hasAppeared = false
     @Environment(\.colorScheme) var colorScheme
-
     
-    var items: [GridItem] {
+    private var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
     }
     
@@ -24,35 +23,34 @@ struct MainView: View {
         NavigationStack {
             TitleView(title: "Find Your Next Recipe")
             
-            ScrollView(.vertical, showsIndicators: false) {
-                SearchBarComponentView(searchText: $viewModel.searchText)
-                
-                LazyVGrid(columns: items, spacing: 10) {
-                    ForEach(viewModel.filteredDishes) { dish in
-                        NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
-                            DishesComponentView(
-                                dish: dish,
-                                favouriteButtonIsHidden: false,
-                                favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
-                            .padding(5)
-                        }
-                        .foregroundStyle(colorScheme == .dark ? .white : .black)
-                    }
-                }
-                .padding(.horizontal)
-            }
-            
+            contentView
             .navigationBarHidden(true)
             .onAppear {
-                viewModel.fetchDishes()
+                if !hasAppeared {
+                    viewModel.fetchDishes()
+                    self.hasAppeared = true
+                }
             }
         }
-        .background(colorScheme == .dark ? Color("Dark Any") : Color.white)
-
     }
-}
-
-
-#Preview {
-    MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))
+    
+    //MARK: - Body Content View
+    private var contentView: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            SearchBarComponentView(searchText: $viewModel.searchText)
+            
+            LazyVGrid(columns: items, spacing: 10) {
+                ForEach(viewModel.filteredDishes) { dish in
+                    NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
+                        DishComponentView(model: .init(dish: dish,
+                                                         favouriteButtonIsHidden: false,
+                                                         favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+                        .padding(5)
+                    }
+                    .foregroundStyle(Color(ColorBook.white))
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
 }

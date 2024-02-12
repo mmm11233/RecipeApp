@@ -16,17 +16,19 @@ protocol FavouritesViewModel {
     func updateDataSource()
     
     func numberOfItemsInSection() -> Int
-    func didSelectRowAt(at index: Int, from viewController: UIViewController)
     func item(at index: Int) -> Dish
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController)
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
+    
+    //MARK: - Properties
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
-    
     private var subscribers = Set<AnyCancellable>()
-    
     private var dishes: [Dish] = []
     
+    //MARK: - Methods
     func viewDidLoad() {
         updateDataSource()
         setupBindings()
@@ -35,7 +37,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     private func setupBindings() {
         favouriteButtonTapPublisher
             .sink { dish in
-                FavouritesRepository.shared.deleteDish(dish: dish)
+                FavouritesRepository.shared.deleteDish(dishID: dish.id)
             }.store(in: &subscribers)
     }
     
@@ -52,10 +54,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let dish = dishes[index]
-        
-        let vc  = DetailsViewController()
-        vc.viewModel = DetailsViewModelImpl(selectedDish: dish)
+        let vc  = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

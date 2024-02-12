@@ -8,15 +8,18 @@
 import UIKit
 
 final class HeaderView: UIView {
-    let titleLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Header"
+    
+    // MARK: - Properties
+    private let titleLabel: UILabel = {
+        let label = UILabel()
         label.font = .boldSystemFont(ofSize: 25)
-        label.textColor = UIColor.black
+        label.textColor = ColorBook.black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -27,42 +30,17 @@ final class HeaderView: UIView {
         setupUI()
     }
     
+    // MARK: - Methods
+    func configure(title: String) {
+        titleLabel.text = title
+    }
+    
     private func setupUI() {
-        backgroundColor = UIColor.lightGray
-        
         addSubview(titleLabel)
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor)
         ])
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-
-            updateAppearanceForInterfaceStyle(traitCollection.userInterfaceStyle)
-        }
-    }
-    
-    private func updateAppearanceForInterfaceStyle(_ style: UIUserInterfaceStyle) {
-        switch style {
-        case .unspecified, .light:
-            titleLabel.textColor = .black
-            backgroundColor = .lightGray
-        case .dark:
-            titleLabel.textColor = .white
-            backgroundColor = .darkGray
-        @unknown default:
-            break
-        }
-    }
-    
-    func updateAppearanceForInterfaceStyle(_ isDarkMode: Bool) {
-        titleLabel.textColor = isDarkMode ? .white : .black
-        backgroundColor = isDarkMode ? .darkGray : .lightGray
     }
 }

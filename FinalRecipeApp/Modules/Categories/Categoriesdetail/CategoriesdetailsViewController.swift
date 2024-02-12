@@ -9,10 +9,13 @@ import Combine
 
 final class CategoriesDetailsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var viewModel: CategoriesDetailsViewModel!
+    //MARK: - Properties
+    private let viewModel: CategoriesDetailsViewModel
     private var subscribers = Set<AnyCancellable>()
     
-    init() {
+    //MARK: - Init
+    init(viewModel: CategoriesDetailsViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -20,23 +23,29 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBarTitle(title: viewModel.selectedCategoryType.rawValue, font: .boldSystemFont(ofSize: 25), textColor: .black)
-
-        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setupView()
+        setupCollectionView()
         setupBindigs()
         viewModel.viewDidLoad()
     }
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-           super.traitCollectionDidChange(previousTraitCollection)
-           
-           // Update navigation bar title text attributes based on interface style
-           let titleColor: UIColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
-           let titleFont = UIFont.boldSystemFont(ofSize: 25) // Adjust font size as needed
-           
-           configureNavigationBarTitle(title: self.title ?? "", font: titleFont, textColor: titleColor)
-       }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    // MARK: - Methods
+    private func setupView() {
+        view.backgroundColor = ColorBook.white
+        title = viewModel.selectedCategoryType.rawValue
+    }
+    
+    private func setupCollectionView() {
+        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+    }
     
     private func setupBindigs() {
         viewModel.isLoading
@@ -55,28 +64,23 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection()
+        viewModel.numberOfItemsInSection()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dish = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(dish: dish, 
-                       favouriteButtonIsHidden: false,
-                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
+        cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
+                                    favouriteButtonIsHidden: false,
+                                    favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 190, height: 200)
+        CGSize(width: 190, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
-}
-
-#Preview {
-    let vc = CategoriesDetailsViewController()
-    return vc
 }

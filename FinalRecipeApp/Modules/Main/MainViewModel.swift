@@ -11,16 +11,14 @@ import CoreData
 import Combine
 
 final class MainViewModel: ObservableObject {
+    
     //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
     
-    private var dishesService: DishesService
+    private let dishesService: DishesService
     @Published var dishes: [Dish] = []
     @Published var searchText: String = ""
-    
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var context: NSManagedObjectContext!
-    
+        
     var filteredDishes: [Dish] {
         guard !searchText.isEmpty else { return dishes }
         return dishes.filter { dish in
@@ -37,17 +35,16 @@ final class MainViewModel: ObservableObject {
         fetchDishes()
     }
     
+    // MARK: - Requests
     private func setupBindigs() {
         favouriteButtonTapPublisher
-            .sink { [weak self] dish in
-                guard let self = self else { return }
-                
+            .sink { dish in
                 let existingDishes = FavouritesRepository.shared.fetchDishes()
                 
                 if !existingDishes.contains(where: { $0.name == dish.name }) {
                     FavouritesRepository.shared.saveDish(dish: dish)
                 } else {
-                    FavouritesRepository.shared.deleteDish(dish: dish)
+                    FavouritesRepository.shared.deleteDish(dishID: dish.id)
                 }
             }.store(in: &subscribers)
     }

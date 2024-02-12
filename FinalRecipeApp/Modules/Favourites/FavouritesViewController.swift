@@ -9,16 +9,11 @@ import Combine
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    private let headerView: HeaderView = {
-        let headerView = HeaderView()
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return headerView
-    }()
-    
+    //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
-    var viewModel: FavouritesViewModel
+    private let viewModel: FavouritesViewModel
     
+    //MARK: - Init
     init(viewModel: FavouritesViewModel) {
         self.viewModel = viewModel
         
@@ -29,35 +24,20 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(headerView)
-        setupHeaderViewConstraints()
-        headerView.titleLabel.text = "Favourited"
-        switch traitCollection.userInterfaceStyle {
-            
-        case .unspecified, .light:
-            view.backgroundColor = UIColor.white
-            
-        case .dark:
-            view.backgroundColor = UIColor.black
-            
-        @unknown default:
-            break
-        }
-        
-        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setupView()
         setUpBindings()
+        setupCollectionView()
         viewModel.viewDidLoad()
     }
     
-    private func setupHeaderViewConstraints() {
-        
-        NSLayoutConstraint.activate ([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
-            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 30),
-        ])
+    //MARK: - Methods
+    private func setupView() {
+        title = "Favourited"
+        view.backgroundColor = ColorBook.white
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setUpBindings() {
@@ -69,20 +49,25 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
             }.store(in: &subscribers)
     }
     
+    private func setupCollectionView() {
+        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection()
+        viewModel.numberOfItemsInSection()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(dish: viewModel.item(at: indexPath.row),
-                       favouriteButtonIsHidden: false,
-                       favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher)
+        cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
+                                    favouriteButtonIsHidden: false,
+                                    favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 191, height: 200)
+        CGSize(width: 191, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -90,17 +75,6 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        // Return the minimum line spacing for the section
-        return 20// Adjust this value according to your needs
+        20
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        // Return the minimum interitem spacing for the section
-//        return 10// Adjust this value according to your needs
-//    }
 }
-
-//#Preview {
-//    let vc = FavouritesViewController(viewModel: )
-//    return vc
-//}

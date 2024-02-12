@@ -18,13 +18,13 @@ enum CategoryType: String, Decodable {
     
     var image: UIImage {
         switch self {
-        case .Breakfast: UIImage(named: "breakfast")!
-        case .Lunch: UIImage(named: "lunch")!
-        case .Drinks: UIImage(named: "drinks")!
-        case .Pastas: UIImage(named: "pastas")!
-        case .Salads: UIImage(named: "salads")!
-        case .Desserts: UIImage(named: "desserts")!
-        case .Soups: UIImage(named: "soups")!
+        case .Breakfast: ImageBook.Icons.breakfast
+        case .Lunch: ImageBook.Icons.lunch
+        case .Drinks: ImageBook.Icons.drinks
+        case .Pastas: ImageBook.Icons.pastas
+        case .Salads: ImageBook.Icons.salads
+        case .Desserts: ImageBook.Icons.desserts
+        case .Soups: ImageBook.Icons.soups
         }
     }
 }

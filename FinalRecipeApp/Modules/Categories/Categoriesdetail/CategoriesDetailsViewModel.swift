@@ -26,12 +26,11 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
-
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
     var selectedCategoryType: CategoryType
-
+    
     private var dishesService: DishesService
     private var fileteredType: CategoryType
     
@@ -68,35 +67,32 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let vc = DetailsViewController()
-        vc.viewModel = DetailsViewModelImpl(selectedDish: dishes[index])
+        let vc = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: Requests
     private func setupBindings() {
         favouriteButtonTapPublisher
-            .sink { [weak self] dish in
-                guard let self = self else { return }
-                
+            .sink { dish in
                 let existingDishes = FavouritesRepository.shared.fetchDishes()
                 
                 if !existingDishes.contains(where: { $0.name == dish.name }) {
                     FavouritesRepository.shared.saveDish(dish: dish)
                 } else {
-                    FavouritesRepository.shared.deleteDish(dish: dish)
+                    FavouritesRepository.shared.deleteDish(dishID: dish.id)
                 }
             }.store(in: &subscribers)
-
+        
     }
-
-    //MARK: - Methods
-    func fetchDishes() {
+    
+    private func fetchDishes() {
         isLoading.send(true)
         
         dishesService.fetchDishes(completion: { [weak self] result in
             guard let self else { return }
             isLoading.send(false)
-
+            
             switch result {
             case .success(let dishes):
                 self.dishes = dishes

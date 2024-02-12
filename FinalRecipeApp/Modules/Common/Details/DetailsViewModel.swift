@@ -13,18 +13,20 @@ protocol DetailsViewModel {
     func getTitle() -> String
     func getSubTitle() -> String
     func getDescription() -> String
-    
     func mapButtonTapped(from viewController: UIViewController)
 }
 
 class DetailsViewModelImpl: DetailsViewModel {
     
+    // MARK: - Properties
     var selectedDish: Dish
     
+    // MARK: - Init
     init(selectedDish: Dish) {
         self.selectedDish = selectedDish
     }
     
+    // MARK: - Methods
     func getTitle() -> String {
         selectedDish.name
     }
@@ -38,8 +40,7 @@ class DetailsViewModelImpl: DetailsViewModel {
     }
     
     func mapButtonTapped(from viewController: UIViewController) {
-        let vc  = MapViewController()
-        vc.viewModel = MapViewModelImpl(dish: selectedDish)
+        let vc  = MapViewController(viewModel: MapViewModelImpl(dish: selectedDish))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }
