@@ -41,7 +41,7 @@ struct MainView: View {
             
             LazyVGrid(columns: items, spacing: 10) {
                 ForEach(viewModel.filteredDishes) { dish in
-                    NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
+                    NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish, mapButtonIsHidden: false))) {
                         DishComponentView(model: .init(dish: dish,
                                                          favouriteButtonIsHidden: false,
                                                          favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))

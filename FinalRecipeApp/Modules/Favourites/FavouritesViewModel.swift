@@ -54,7 +54,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let vc  = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
+        let vc  = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index], mapButtonIsHidden: true))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

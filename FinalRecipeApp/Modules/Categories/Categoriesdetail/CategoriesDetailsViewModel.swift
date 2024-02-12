@@ -67,7 +67,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let vc = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
+        let vc = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index], mapButtonIsHidden: false))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     

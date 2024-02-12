@@ -127,6 +127,7 @@ class DetailsViewController: UIViewController {
     private func setupView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = ColorBook.white
+        mapButton.isHidden = viewModel.mapButtonIsHidden
     }
     
     private func addSubviews() {
