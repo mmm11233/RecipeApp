@@ -23,16 +23,16 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Properties
     private var categoriesService: CategoriesService
-    
     private var categories: [Category] = []
     var categoriesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     
+    // MARK: - Init
     init(categoriesService: CategoriesService) {
         self.categoriesService = categoriesService
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     func viewDidLoad() {
         fetchCategories()
     }
@@ -51,7 +51,6 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Private Methods
     private func fetchCategories() {
         isLoading.send(true)
         

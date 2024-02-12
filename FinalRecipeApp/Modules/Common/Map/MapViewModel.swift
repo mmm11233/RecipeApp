@@ -13,12 +13,15 @@ protocol MapViewModel {
 }
 
 final class MapViewModelImpl: MapViewModel {
+    
+    // MARK: - Properties
     private let dish: Dish
     
     var restaurants: [Restaurant] {
         dish.restaurants
     }
     
+    // MARK: - Init
     init(dish: Dish) {
         self.dish = dish
     }

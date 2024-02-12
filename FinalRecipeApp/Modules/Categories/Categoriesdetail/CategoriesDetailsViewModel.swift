@@ -26,12 +26,11 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
-
     var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
     var selectedCategoryType: CategoryType
-
+    
     private var dishesService: DishesService
     private var fileteredType: CategoryType
     
@@ -86,17 +85,16 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
                     FavouritesRepository.shared.deleteDish(dishID: dish.id)
                 }
             }.store(in: &subscribers)
-
+        
     }
-
-    //MARK: - Methods
+    
     func fetchDishes() {
         isLoading.send(true)
         
         dishesService.fetchDishes(completion: { [weak self] result in
             guard let self else { return }
             isLoading.send(false)
-
+            
             switch result {
             case .success(let dishes):
                 self.dishes = dishes

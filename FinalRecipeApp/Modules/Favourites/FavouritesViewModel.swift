@@ -21,12 +21,13 @@ protocol FavouritesViewModel {
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
+    
+    //MARK: - Properties
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
-    
     private var subscribers = Set<AnyCancellable>()
-    
     private var dishes: [Dish] = []
     
+    //MARK: - Methods
     func viewDidLoad() {
         updateDataSource()
         setupBindings()

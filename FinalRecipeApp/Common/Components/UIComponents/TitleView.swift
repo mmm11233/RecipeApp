@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TitleView: View {
+    
+    // MARK: - Properties
     var title: String
     
     // MARK: - Body
@@ -22,8 +24,4 @@ struct TitleView: View {
             .font(.system(size: 25))
             .padding(.top, 25)
     }
-}
-
-#Preview {
-    TitleView(title: "Find Your Next Recipe")
 }

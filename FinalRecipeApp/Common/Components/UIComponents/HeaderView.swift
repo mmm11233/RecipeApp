@@ -8,6 +8,8 @@
 import UIKit
 
 final class HeaderView: UIView {
+    
+    // MARK: - Properties
     let titleLabel: UILabel = {
         var label = UILabel()
         label.text = "Header"
@@ -17,6 +19,7 @@ final class HeaderView: UIView {
         return label
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -27,6 +30,7 @@ final class HeaderView: UIView {
         setupUI()
     }
     
+    // MARK: - Methods
     private func setupUI() {
         addSubview(titleLabel)
         

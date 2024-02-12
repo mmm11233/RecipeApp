@@ -10,8 +10,10 @@ import Combine
 
 class DishCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
     private var hostingController: UIHostingController<DishesComponentView>?
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupHostingController()
@@ -21,6 +23,7 @@ class DishCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     private func setupHostingController() {
         let dishesComponentView = DishesComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
         let hostingController = UIHostingController(rootView: dishesComponentView)
@@ -39,9 +42,4 @@ class DishCollectionViewCell: UICollectionViewCell {
     func configure(model: DishesComponentViewModel) {
         hostingController?.rootView.model = model
     }
-}
-
-#Preview {
-    let vc = DishCollectionViewCell()
-    return vc
 }

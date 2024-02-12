@@ -12,7 +12,7 @@ final class CategoriesViewController: UIViewController {
     // MARK: - Properties
     var viewModel: CategoriesViewModel!
     private var subscribers = Set<AnyCancellable>()
-
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,8 +26,8 @@ final class CategoriesViewController: UIViewController {
         
         return headerView
     }()
-        
-    // MARK: - Private LifeCycle
+    
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +59,7 @@ final class CategoriesViewController: UIViewController {
             }.store(in: &subscribers)
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func setupTableViewConstraints() {
         
         NSLayoutConstraint.activate ([
@@ -85,6 +85,7 @@ final class CategoriesViewController: UIViewController {
 // MARK: - Extensions
 extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         viewModel.numberOfRowsInSection()
     }
     
@@ -96,15 +97,12 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
             categoriesViewControllerCell.configure(with: category)
             return categoriesViewControllerCell
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
-}
-
-#Preview {
-    let vc = CategoriesViewController()
-    return vc
 }

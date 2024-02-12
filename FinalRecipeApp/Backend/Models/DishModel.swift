@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - DishesResponse
 struct DisheData: Decodable {
     let dishes: [Dish]
 }
 
+// MARK: - Restaurant
 struct Restaurant: Decodable, Hashable {
     let name: String
     let rating: Double
@@ -18,6 +20,7 @@ struct Restaurant: Decodable, Hashable {
     let longitude: Double
 }
 
+// MARK: - Dish
 struct Dish: Decodable, Identifiable, Hashable {
     let id: String
     let name: String
@@ -39,6 +42,7 @@ struct Dish: Decodable, Identifiable, Hashable {
         case restaurants
     }
     
+    // MARK: - Mock
     static var mock: Self {
         .init(id: "21312",
               name: "name",
@@ -51,6 +55,7 @@ struct Dish: Decodable, Identifiable, Hashable {
     }
 }
 
+// MARK: - Extensions
 extension Recipe {
     func toDishModel() -> Dish {
         Dish(id: id ?? UUID().uuidString,

@@ -13,7 +13,7 @@ struct MainView: View {
     @StateObject var viewModel: MainViewModel
     @State private var hasAppeared = false
     @Environment(\.colorScheme) var colorScheme
-
+    
     var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
     }
@@ -48,11 +48,5 @@ struct MainView: View {
                 }
             }
         }
-        .background(colorScheme == .dark ? Color("Dark Any") : Color.white)
     }
-}
-
-
-#Preview {
-    MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))
 }

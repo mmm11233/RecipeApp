@@ -8,9 +8,12 @@ import UIKit
 import Combine
 
 final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
     var viewModel: FavouritesViewModel
     
+    //MARK: - Init
     init(viewModel: FavouritesViewModel) {
         self.viewModel = viewModel
         
@@ -21,6 +24,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
@@ -29,6 +33,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         viewModel.viewDidLoad()
     }
     
+    //MARK: - Methods
     private func setupView() {
         view.backgroundColor = UIColor(named: "White")
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -45,6 +50,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return viewModel.numberOfItemsInSection()
     }
     
@@ -53,29 +59,22 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
                                     favouriteButtonIsHidden: false,
                                     favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         return CGSize(width: 191, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        // Return the minimum line spacing for the section
-        return 20// Adjust this value according to your needs
+        
+        return 20
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        // Return the minimum interitem spacing for the section
-//        return 10// Adjust this value according to your needs
-//    }
 }
-
-//#Preview {
-//    let vc = FavouritesViewController(viewModel: )
-//    return vc
-//}

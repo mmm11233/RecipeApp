@@ -37,6 +37,7 @@ final class MainViewModel: ObservableObject {
         fetchDishes()
     }
     
+    //MARK: - Methods
     private func setupBindigs() {
         favouriteButtonTapPublisher
             .sink { [weak self] dish in

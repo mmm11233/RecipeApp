@@ -52,7 +52,3 @@ struct SearchBarComponentView: View {
         .padding(.trailing, 30)
     }
 }
-
-#Preview {
-    SearchBarComponentView(searchText: .constant(""))
-}

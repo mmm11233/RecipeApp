@@ -9,9 +9,9 @@ import SwiftUI
 
 class DetailsViewController: UIViewController {
     
+    // MARK: - Properties
     var viewModel: DetailsViewModel?
     
-    // MARK: - Properties
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
@@ -30,7 +30,7 @@ class DetailsViewController: UIViewController {
     private let scrollViewContent: UIView = {
         let uiView = UIView()
         uiView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return uiView
     }()
     
@@ -143,7 +143,7 @@ class DetailsViewController: UIViewController {
             scrollViewContent.topAnchor.constraint(equalTo: scrollView.topAnchor),
             scrollViewContent.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollViewContent.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
+            
             imageView.leadingAnchor.constraint(equalTo: scrollViewContent.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: scrollViewContent.trailingAnchor),
             imageView.topAnchor.constraint(equalTo: scrollViewContent.topAnchor),
@@ -175,6 +175,7 @@ class DetailsViewController: UIViewController {
         activityIndicator.removeFromSuperview()
     }
     
+    // MARK: - Actions
     @objc func mapButtonTapped(_ sender: UIButton) {
         viewModel?.mapButtonTapped(from: self)
     }
@@ -217,9 +218,4 @@ struct UIKitDetailsViewControllerRepresentable: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: DetailsViewController, context: Context) {
     }
-}
-
-#Preview {
-    let vc = DetailsViewController()
-    return vc
 }

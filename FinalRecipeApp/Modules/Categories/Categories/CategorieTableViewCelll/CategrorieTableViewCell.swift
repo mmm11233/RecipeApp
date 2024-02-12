@@ -64,7 +64,7 @@ final class CategrorieTableViewCell: UITableViewCell {
         categoryImage.image = model.type.image
     }
     
-    // MARK: - Private Methods
+    // MARK: - Methods
     private func setupView() {
         mainStackView.backgroundColor = UIColor(hexString: "F6F6F6")
         mainStackView.layer.cornerRadius = 20
@@ -98,10 +98,4 @@ final class CategrorieTableViewCell: UITableViewCell {
             categoryImage.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 240)
         ])
     }
-}
-
-#Preview {
-    let cell = CategrorieTableViewCell()
-    cell.configure(with: .init(type: .Breakfast))
-    return cell
 }

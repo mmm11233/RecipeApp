@@ -10,14 +10,17 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
+    // MARK: - Properties
     var viewModel: MapViewModel!
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMap()
     }
     
+    // MARK: - Methods
     private func setupMap() {
         let mapView = GMSMapView()
         
