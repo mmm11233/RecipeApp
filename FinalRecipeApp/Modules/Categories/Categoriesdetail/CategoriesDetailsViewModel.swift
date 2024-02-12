@@ -67,16 +67,14 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let vc = DetailsViewController()
-        vc.viewModel = DetailsViewModelImpl(selectedDish: dishes[index])
+        let vc = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: Requests
     private func setupBindings() {
         favouriteButtonTapPublisher
-            .sink { [weak self] dish in
-                guard let self = self else { return }
-                
+            .sink { dish in
                 let existingDishes = FavouritesRepository.shared.fetchDishes()
                 
                 if !existingDishes.contains(where: { $0.name == dish.name }) {
@@ -88,7 +86,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
         
     }
     
-    func fetchDishes() {
+    private func fetchDishes() {
         isLoading.send(true)
         
         dishesService.fetchDishes(completion: { [weak self] result in

@@ -22,11 +22,12 @@ protocol CategoriesViewModel {
 final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Properties
-    private var categoriesService: CategoriesService
-    private var categories: [Category] = []
     var categoriesDidLoad: PassthroughSubject<Void, Never> = .init()
     var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
     
+    private var categories: [Category] = []
+    private var categoriesService: CategoriesService
+
     // MARK: - Init
     init(categoriesService: CategoriesService) {
         self.categoriesService = categoriesService
@@ -46,11 +47,12 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let vc = CategoriesDetailsViewController()
-        vc.viewModel = CategoriesDetailsViewModelImpl(dishesService: DishesServiceImpl(), fileteredType: categories[index].type)
+        let viewModel = CategoriesDetailsViewModelImpl(dishesService: DishesServiceImpl(), fileteredType: categories[index].type)
+        let vc = CategoriesDetailsViewController(viewModel: viewModel)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: - Requests
     private func fetchCategories() {
         isLoading.send(true)
         

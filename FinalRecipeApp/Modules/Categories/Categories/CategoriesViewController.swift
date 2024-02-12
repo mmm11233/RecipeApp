@@ -10,8 +10,17 @@ import Combine
 final class CategoriesViewController: UIViewController {
     
     // MARK: - Properties
-    var viewModel: CategoriesViewModel!
+    private let viewModel: CategoriesViewModel
     private var subscribers = Set<AnyCancellable>()
+
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -30,17 +39,19 @@ final class CategoriesViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(named: "White")
-        view.addSubview(headerView)
-        view.addSubview(tableView)
-        
+        setupView()
         setupTableView()
-        setupTableViewConstraints()
-        headerView.titleLabel.text = "Categories"
-        
+        setupConstraints()
         setupBindigs()
         viewModel.viewDidLoad()
+    }
+    
+    private func setupView() {
+        headerView.configure(title: "Categories")
+        
+        view.backgroundColor = ColorBook.white
+        view.addSubview(headerView)
+        view.addSubview(tableView)
     }
     
     private func setupBindigs() {
@@ -60,10 +71,9 @@ final class CategoriesViewController: UIViewController {
     }
     
     // MARK: - Methods
-    private func setupTableViewConstraints() {
-        
+    private func setupConstraints() {
         NSLayoutConstraint.activate ([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 69),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 30),
             
@@ -78,20 +88,19 @@ final class CategoriesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "CategrorieTableViewCell")
     }
 }
 
 // MARK: - Extensions
 extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let category = viewModel.item(at: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategrorieTableViewCell", for: indexPath)
         
         if let categoriesViewControllerCell = cell as? CategrorieTableViewCell {
             categoriesViewControllerCell.configure(with: category)
@@ -102,7 +111,6 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
 }

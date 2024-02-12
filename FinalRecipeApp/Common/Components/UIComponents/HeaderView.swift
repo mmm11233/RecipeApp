@@ -10,11 +10,11 @@ import UIKit
 final class HeaderView: UIView {
     
     // MARK: - Properties
-    let titleLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Header"
+    private let titleLabel: UILabel = {
+        let label = UILabel()
         label.font = .boldSystemFont(ofSize: 25)
-        label.textColor = UIColor(named: "Black")
+        label.textColor = ColorBook.black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -31,13 +31,16 @@ final class HeaderView: UIView {
     }
     
     // MARK: - Methods
+    func configure(title: String) {
+        titleLabel.text = title
+    }
+    
     private func setupUI() {
         addSubview(titleLabel)
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
 }

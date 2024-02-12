@@ -10,28 +10,26 @@ import UIKit
 final class CategrorieTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    private var mainStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.isLayoutMarginsRelativeArrangement = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.contentMode = .center
+    private let background: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        return stackView
+        return view
     }()
     
     private let categoryName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Futura Condensed Medium", size: 20)
-        label.textColor = .black
+        label.textColor = ColorBook.black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
-    private var categoryImage: UIImageView = {
+    private let categoryImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
     }()
@@ -66,36 +64,36 @@ final class CategrorieTableViewCell: UITableViewCell {
     
     // MARK: - Methods
     private func setupView() {
-        mainStackView.backgroundColor = UIColor(hexString: "F6F6F6")
-        mainStackView.layer.cornerRadius = 20
+        background.backgroundColor = ColorBook.lightGray
+        background.layer.cornerRadius = 20
         
-        mainStackView.layer.shadowColor = UIColor.gray.cgColor
-        mainStackView.layer.shadowOpacity = 0.5
-        mainStackView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        mainStackView.layer.shadowRadius = 4
+        background.layer.shadowColor = ColorBook.gray.cgColor
+        background.layer.shadowOpacity = 0.5
+        background.layer.shadowOffset = CGSize(width: 0, height: 2)
+        background.layer.shadowRadius = 4
     }
     
     private func addSubviews() {
-        addSubview(mainStackView)
-        mainStackView.addArrangedSubview(categoryName)
-        mainStackView.addArrangedSubview(categoryImage)
+        addSubview(background)
+        background.addSubview(categoryName)
+        background.addSubview(categoryImage)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            mainStackView.heightAnchor.constraint(equalToConstant: 55),
-            mainStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            mainStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
-            mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -9),
+            background.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            background.heightAnchor.constraint(equalToConstant: 55),
+            background.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            background.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
+            background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
             
-            categoryName.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor),
-            categoryName.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 16),
+            categoryName.centerYAnchor.constraint(equalTo: background.centerYAnchor),
+            categoryName.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 16),
             
-            categoryImage.centerYAnchor.constraint(equalTo: mainStackView.centerYAnchor),
-            categoryImage.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -9),
-            categoryImage.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 5),
-            categoryImage.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 240)
+            categoryImage.centerYAnchor.constraint(equalTo: background.centerYAnchor),
+            categoryImage.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
+            categoryImage.heightAnchor.constraint(equalToConstant: 40),
+            categoryImage.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

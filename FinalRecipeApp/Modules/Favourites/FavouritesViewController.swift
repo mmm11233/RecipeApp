@@ -11,7 +11,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     
     //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
-    var viewModel: FavouritesViewModel
+    private let viewModel: FavouritesViewModel
     
     //MARK: - Init
     init(viewModel: FavouritesViewModel) {
@@ -27,17 +27,17 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
         setupView()
         setUpBindings()
+        setupCollectionView()
         viewModel.viewDidLoad()
     }
     
     //MARK: - Methods
     private func setupView() {
-        view.backgroundColor = UIColor(named: "White")
-        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Favourited"
+        view.backgroundColor = ColorBook.white
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setUpBindings() {
@@ -49,9 +49,12 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
             }.store(in: &subscribers)
     }
     
+    private func setupCollectionView() {
+        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return viewModel.numberOfItemsInSection()
+        viewModel.numberOfItemsInSection()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,17 +67,14 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: 191, height: 200)
+        CGSize(width: 191, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return 20
+        20
     }
 }

@@ -10,11 +10,12 @@ import Combine
 final class CategoriesDetailsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Properties
-    var viewModel: CategoriesDetailsViewModel!
+    private let viewModel: CategoriesDetailsViewModel
     private var subscribers = Set<AnyCancellable>()
     
     //MARK: - Init
-    init() {
+    init(viewModel: CategoriesDetailsViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -25,21 +26,27 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "White")
-        title = viewModel.selectedCategoryType.rawValue
-        
-        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+        setupView()
+        setupCollectionView()
         setupBindigs()
         viewModel.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
+    private func setupView() {
+        view.backgroundColor = ColorBook.white
+        title = viewModel.selectedCategoryType.rawValue
+    }
+    
+    private func setupCollectionView() {
+        collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
+    }
+    
     private func setupBindigs() {
         viewModel.isLoading
             .sink { [weak self] isLoading in
@@ -57,14 +64,12 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         viewModel.numberOfItemsInSection()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dish = viewModel.item(at: indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
-        cell.configure(model: .init(dish: dish,
+        cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
                                     favouriteButtonIsHidden: false,
                                     favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
         
@@ -72,12 +77,10 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         CGSize(width: 190, height: 200)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         viewModel.didSelectRowAt(at: indexPath.row, from: self)
     }
 }

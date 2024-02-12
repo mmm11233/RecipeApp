@@ -10,7 +10,16 @@ import SwiftUI
 class DetailsViewController: UIViewController {
     
     // MARK: - Properties
-    var viewModel: DetailsViewModel?
+    private let viewModel: DetailsViewModel
+    
+    init(viewModel: DetailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -45,7 +54,7 @@ class DetailsViewController: UIViewController {
         return stackView
     }()
     
-    private var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         var image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +65,7 @@ class DetailsViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 30, weight: .bold)
-        label.textColor = UIColor(named: "Black")
+        label.textColor = ColorBook.black
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -65,7 +74,7 @@ class DetailsViewController: UIViewController {
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.textColor = UIColor(named: "Black")
+        label.textColor = ColorBook.black
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -74,7 +83,7 @@ class DetailsViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = UIColor(named: "Gray")
+        label.textColor = ColorBook.gray
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -85,11 +94,10 @@ class DetailsViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Show In Map", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(mapButtonTapped(_:)), for: .touchUpInside)
-        button.backgroundColor = .orange.withAlphaComponent(0.9)
+        button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
         button.layer.cornerRadius = 12
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(ColorBook.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -98,16 +106,15 @@ class DetailsViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         addSubviews()
         setupContraints()
         configureViews()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        view.backgroundColor = UIColor(named: "White")
     }
     
     // MARK: - Configure
     private func configureViews() {
-        if let viewModel = viewModel, let imageURL = URL(string: viewModel.selectedDish.pictureURL) {
+        if let imageURL = URL(string: viewModel.selectedDish.pictureURL) {
             startLoading()
             
             downloadImage(from: imageURL)
@@ -117,8 +124,12 @@ class DetailsViewController: UIViewController {
         }
     }
     
+    private func setupView() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        view.backgroundColor = ColorBook.white
+    }
+    
     private func addSubviews() {
-        view.backgroundColor = UIColor(named: "Black")
         view.addSubview(scrollView)
         scrollView.addSubview(scrollViewContent)
         
@@ -177,7 +188,7 @@ class DetailsViewController: UIViewController {
     
     // MARK: - Actions
     @objc func mapButtonTapped(_ sender: UIButton) {
-        viewModel?.mapButtonTapped(from: self)
+        viewModel.mapButtonTapped(from: self)
     }
     
     private func downloadImage(from url: URL) {
@@ -211,11 +222,9 @@ struct UIKitDetailsViewControllerRepresentable: UIViewControllerRepresentable {
     var viewModel: DetailsViewModel
     
     func makeUIViewController(context: Context) -> DetailsViewController {
-        let detailsViewController = DetailsViewController()
-        detailsViewController.viewModel = viewModel
+        let detailsViewController = DetailsViewController(viewModel: viewModel)
         return detailsViewController
     }
     
-    func updateUIViewController(_ uiViewController: DetailsViewController, context: Context) {
-    }
+    func updateUIViewController(_ uiViewController: DetailsViewController, context: Context) { }
 }

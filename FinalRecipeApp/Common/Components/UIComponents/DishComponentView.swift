@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct DishesComponentViewModel {
+struct DishComponentViewModel {
     let dish: Dish
     let favouriteButtonIsHidden: Bool
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
@@ -25,7 +25,7 @@ struct DishesComponentViewModel {
 struct DishComponentView: View {
     
     // MARK: - Properties
-    var model: DishesComponentViewModel
+    var model: DishComponentViewModel
     @State private var isFavourite: Bool = false
     
     // MARK: - Body
@@ -33,15 +33,15 @@ struct DishComponentView: View {
         
         VStack(alignment: .center) {
             ZStack(alignment: .topTrailing){
-                dishesImageViewContent
+                dishImageViewContent
                 if !model.favouriteButtonIsHidden {
                     heartButton
                         .padding(.trailing, 12)
                         .padding(.top, 12)
                 }
             }
-            nameDishesView
-            additionalInfoHStack
+            nameView
+            additionalInfoes
         }
         .onAppear {
             fetchFavoriteStatus()
@@ -69,22 +69,22 @@ extension DishComponentView {
         .cornerRadius(7.0)
     }
     
-    private var dishesImageViewContent: some View {
+    private var dishImageViewContent: some View {
         AsyncImage(url: URL(string: model.dish.pictureURL)) { phase in
             switch phase {
             case .empty:
-                dishesImageView(image: nil, isLoading: true)
+                dishImageView(image: nil, isLoading: true)
             case .success(let image):
-                dishesImageView(image: image, isLoading: false)
+                dishImageView(image: image, isLoading: false)
             case .failure:
-                dishesImageView(image: Image(uiImage: ImageBook.Images.defaultPhoto), isLoading: false)
+                dishImageView(image: Image(uiImage: ImageBook.Images.defaultPhoto), isLoading: false)
             @unknown default:
                 EmptyView()
             }
         }
     }
     
-    private func dishesImageView(image: Image?, isLoading: Bool) -> some View {
+    private func dishImageView(image: Image?, isLoading: Bool) -> some View {
         ZStack {
             if let image = image {
                 image
@@ -104,7 +104,7 @@ extension DishComponentView {
         }
     }
     
-    private var nameDishesView: some View {
+    private var nameView: some View {
         Text(model.dish.name)
             .lineLimit(2)
             .font(.callout)
@@ -112,14 +112,14 @@ extension DishComponentView {
             .foregroundColor(Color(ColorBook.black))
     }
     
-    private var additionalInfoHStack: some View {
+    private var additionalInfoes: some View {
         HStack {
-            caloriesInfoHStack
-            prepareTimeHStack
+            caloriesInfo
+            prepareTime
         }
     }
     
-    private var caloriesInfoHStack: some View {
+    private var caloriesInfo: some View {
         HStack(spacing: 1) {
             Image(uiImage: ImageBook.Icons.fire).renderingMode(.template)
                 .resizable()
@@ -133,7 +133,7 @@ extension DishComponentView {
         }
     }
     
-    private var prepareTimeHStack: some View {
+    private var prepareTime: some View {
         HStack(spacing: 1) {
             Image(uiImage: ImageBook.Icons.clock).renderingMode(.template)
                 .resizable()

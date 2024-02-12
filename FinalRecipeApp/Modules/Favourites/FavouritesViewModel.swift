@@ -16,8 +16,9 @@ protocol FavouritesViewModel {
     func updateDataSource()
     
     func numberOfItemsInSection() -> Int
-    func didSelectRowAt(at index: Int, from viewController: UIViewController)
     func item(at index: Int) -> Dish
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController)
 }
 
 final class FavouritesViewModelImpl: FavouritesViewModel {
@@ -53,10 +54,7 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
-        let dish = dishes[index]
-        
-        let vc  = DetailsViewController()
-        vc.viewModel = DetailsViewModelImpl(selectedDish: dish)
+        let vc  = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index]))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

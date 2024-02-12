@@ -14,7 +14,7 @@ struct MainView: View {
     @State private var hasAppeared = false
     @Environment(\.colorScheme) var colorScheme
     
-    var items: [GridItem] {
+    private var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 120)), count: 2)
     }
     
@@ -23,23 +23,7 @@ struct MainView: View {
         NavigationStack {
             TitleView(title: "Find Your Next Recipe")
             
-            ScrollView(.vertical, showsIndicators: false) {
-                SearchBarComponentView(searchText: $viewModel.searchText)
-                
-                LazyVGrid(columns: items, spacing: 10) {
-                    ForEach(viewModel.filteredDishes) { dish in
-                        NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
-                            DishesComponentView(model: .init(dish: dish,
-                                                             favouriteButtonIsHidden: false,
-                                                             favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
-                            .padding(5)
-                        }
-                        .foregroundStyle(Color("White"))
-                    }
-                }
-                .padding(.horizontal)
-            }
-            
+            contentView
             .navigationBarHidden(true)
             .onAppear {
                 if !hasAppeared {
@@ -47,6 +31,26 @@ struct MainView: View {
                     self.hasAppeared = true
                 }
             }
+        }
+    }
+    
+    //MARK: - Body Content View
+    private var contentView: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            SearchBarComponentView(searchText: $viewModel.searchText)
+            
+            LazyVGrid(columns: items, spacing: 10) {
+                ForEach(viewModel.filteredDishes) { dish in
+                    NavigationLink(destination: DetailsView(viewModel: DetailsViewModelImpl(selectedDish: dish))) {
+                        DishComponentView(model: .init(dish: dish,
+                                                         favouriteButtonIsHidden: false,
+                                                         favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+                        .padding(5)
+                    }
+                    .foregroundStyle(Color(ColorBook.white))
+                }
+            }
+            .padding(.horizontal)
         }
     }
 }

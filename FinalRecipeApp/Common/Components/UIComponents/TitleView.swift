@@ -10,7 +10,11 @@ import SwiftUI
 struct TitleView: View {
     
     // MARK: - Properties
-    var title: String
+    private let title: String
+    
+    init(title: String) {
+        self.title = title
+    }
     
     // MARK: - Body
     var body: some View {

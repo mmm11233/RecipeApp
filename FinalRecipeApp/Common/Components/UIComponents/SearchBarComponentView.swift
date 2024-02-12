@@ -16,16 +16,27 @@ struct SearchBarComponentView: View {
     
     // MARK: - Body
     var body: some View {
-        searchBarView
+        conentView
+            .padding(.vertical, 10)
+            .padding(.horizontal, 14)
+            .background(Color(ColorBook.lightGray))
+            .clipShape(Capsule())
+            .padding(.leading, 30)
+            .padding(.trailing, 30)
     }
     
     // MARK: - Views
+    private var conentView: some View {
+        HStack {
+            Image(uiImage: ImageBook.Icons.searchIcon)
+                .foregroundColor(Color(ColorBook.gray))
+                .padding(.leading, 8)
+            searchBarView
+        }
+    }
+    
     private var searchBarView: some View {
         HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .padding(.leading, 8)
-            
             TextField("Search", text: $searchText, onEditingChanged: { isEditing in
                 withAnimation {
                     isSearching = isEditing
@@ -33,22 +44,15 @@ struct SearchBarComponentView: View {
             })
             .foregroundColor(.primary)
             
-            
             if isSearching {
                 Button(action: {
                     searchText = ""
                 }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
+                    Image(uiImage: ImageBook.Icons.xMark)
+                        .foregroundColor(Color(ColorBook.gray))
                         .padding(.trailing, 8)
                 }
             }
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 14)
-        .background(Color(.init(hexString: "F1F1F1")))
-        .clipShape(Capsule())
-        .padding(.leading, 30)
-        .padding(.trailing, 30)
     }
 }

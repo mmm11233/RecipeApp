@@ -40,8 +40,7 @@ class DetailsViewModelImpl: DetailsViewModel {
     }
     
     func mapButtonTapped(from viewController: UIViewController) {
-        let vc  = MapViewController()
-        vc.viewModel = MapViewModelImpl(dish: selectedDish)
+        let vc  = MapViewController(viewModel: MapViewModelImpl(dish: selectedDish))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

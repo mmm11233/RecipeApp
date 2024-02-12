@@ -11,7 +11,7 @@ import Combine
 class DishCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    private var hostingController: UIHostingController<DishesComponentView>?
+    private var hostingController: UIHostingController<DishComponentView>?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -25,7 +25,7 @@ class DishCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Methods
     private func setupHostingController() {
-        let dishesComponentView = DishesComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
+        let dishesComponentView = DishComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
         let hostingController = UIHostingController(rootView: dishesComponentView)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(hostingController.view)
@@ -39,7 +39,7 @@ class DishCollectionViewCell: UICollectionViewCell {
         self.hostingController = hostingController
     }
     
-    func configure(model: DishesComponentViewModel) {
+    func configure(model: DishComponentViewModel) {
         hostingController?.rootView.model = model
     }
 }
