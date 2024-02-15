@@ -65,7 +65,7 @@ extension DishComponentView {
                 .frame(width: 15, height: 15)
         }
         .frame(width: 20, height: 20)
-        .background(Color(ColorBook.white))
+        .background(Color(ColorBook.primaryWhite))
         .cornerRadius(7.0)
     }
     

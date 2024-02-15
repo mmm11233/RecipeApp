@@ -20,7 +20,7 @@ final class CategrorieTableViewCell: UITableViewCell {
     private let categoryName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Futura Condensed Medium", size: 20)
-        label.textColor = ColorBook.black
+        label.textColor = ColorBook.primaryBlack
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
