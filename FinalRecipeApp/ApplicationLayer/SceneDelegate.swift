@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController = createTabBarController()
+        self.window?.rootViewController = FirstOnboarding()
         window?.makeKeyAndVisible()
         
         if let apiKey = ProcessInfo.processInfo.environment["GOOGLE_MAP_API_KEY"] {
