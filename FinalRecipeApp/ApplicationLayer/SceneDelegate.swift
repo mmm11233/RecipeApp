@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController = FirstOnboarding()
+        
+        self.window?.rootViewController = createOnbordingController()
         window?.makeKeyAndVisible()
         
         if let apiKey = ProcessInfo.processInfo.environment["GOOGLE_MAP_API_KEY"] {
@@ -27,13 +28,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         addInternetConnectionObserver()
     }
-
+    
     func sceneWillEnterForeground(_ scene: UIScene) {
         NetworkReachabilityService.shared.startObserving()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
         NetworkReachabilityService.shared.stopObserving()
+    }
+    
+    private func createOnbordingController() -> UIViewController {
+        OnboardingViewController(viewModel: OnboardingViewModelImpl())
     }
     
     // MARK: Create Tab Bar

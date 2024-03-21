@@ -15,7 +15,9 @@ struct ImageBook {
         static var ellipseCollor: UIImage = .init(named: "EllipseColor")!
         static var ellipseDish: UIImage = .init(named: "EllipseDish")!
         static var onboardingImage: UIImage = .init(named: "OnboardingImage")!
-        static var onBoardingFirst: UIImage = .init(named: "OnboardingFirst")!
+        static var pageControlFirst: UIImage = .init(named: "pageControl1")!
+        static var pageControlSecond: UIImage = .init(named: "pageControl2")!
+        static var pageControlThird: UIImage = .init(named: "pageControl1 1")!
     }
     
     struct Icons {

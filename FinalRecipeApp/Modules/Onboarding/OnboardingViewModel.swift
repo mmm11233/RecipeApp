@@ -8,19 +8,24 @@
 import UIKit
 
 protocol OnboardingViewModel {
+    var currentPage: Int {get set}
     var items: [OnboardingCollectionViewModel] { get }
+    func setup()
 }
 
-class OnboardingViewModelImpl: UIViewController {
+final class OnboardingViewModelImpl: OnboardingViewModel {
+    var currentPage: Int = 0
     var items: [OnboardingCollectionViewModel] = []
     
     func setup() {
         updateDataSource()
     }
     
-    func updateDataSource() {
+    private func updateDataSource() {
         items = [
-            .init(title: "onBoarding Page", image: ImageBook.Images.onBoardingFirst)
+            .init(title: "მოიძიე სასურველი კერძი", image: ImageBook.Images.pageControlFirst),
+            .init(title: "შეინახე საუკეთესო კერძი", image: ImageBook.Images.pageControlSecond),
+            .init(title: "ჩაინიშნე ინგრედიენტები", image: ImageBook.Images.pageControlThird)
         ]
     }
 
