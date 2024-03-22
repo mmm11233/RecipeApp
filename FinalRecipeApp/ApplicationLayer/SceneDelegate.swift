@@ -62,6 +62,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let categoriesNavigationController = UINavigationController(rootViewController: categoriesVC)
         categoriesVC.tabBarItem = UITabBarItem(title: "Categories", image: ImageBook.Icons.bullet, tag: 2)
         
+        // MARK: ShoppingList View
+
+        
         // MARK: Tab Bar Configuration
         tabBarController.viewControllers = [mainVC,favouritesNavigationController, categoriesNavigationController]
         

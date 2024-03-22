@@ -273,7 +273,6 @@
 		398E4BDB2B6FC60100BE6310 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				39D6EACC2BAADDF800E28BBC /* Views */,
 				39D6EAC92BAA1DB000E28BBC /* Onboarding */,
 				398E4BD92B6FC53900BE6310 /* Main */,
 				398E4B6A2B6B94A700BE6310 /* Favourites */,
@@ -314,19 +313,20 @@
 		39D6EAC92BAA1DB000E28BBC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				39D6EACC2BAADDF800E28BBC /* Onboardingcell */,
 				39D6EACA2BAA1E7C00E28BBC /* OnboardingViewController.swift */,
 				39D6EACF2BAAEB9800E28BBC /* OnboardingViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		39D6EACC2BAADDF800E28BBC /* Views */ = {
+		39D6EACC2BAADDF800E28BBC /* Onboardingcell */ = {
 			isa = PBXGroup;
 			children = (
 				39D6EACD2BAADE3600E28BBC /* OnboardingCollectionViewCell.swift */,
 				39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */,
 			);
-			path = Views;
+			path = Onboardingcell;
 			sourceTree = "<group>";
 		};
 		39DE5AEF2B6FCADC00AAA8E2 /* Backend */ = {

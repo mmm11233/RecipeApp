@@ -13,7 +13,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     private var imageView: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
@@ -21,9 +21,10 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = ColorBook.black
-        label.numberOfLines = 2
+        label.numberOfLines = 3
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -58,12 +59,13 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -200),
+            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 80),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
-            titleLabel.heightAnchor.constraint(equalToConstant: 56)
             
         ])
     }

@@ -11,6 +11,7 @@ protocol OnboardingViewModel {
     var currentPage: Int {get set}
     var items: [OnboardingCollectionViewModel] { get }
     func setup()
+    func mainButtonTapped(from viewController: UIViewController)
 }
 
 final class OnboardingViewModelImpl: OnboardingViewModel {
@@ -23,10 +24,17 @@ final class OnboardingViewModelImpl: OnboardingViewModel {
     
     private func updateDataSource() {
         items = [
-            .init(title: "მოიძიე სასურველი კერძი", image: ImageBook.Images.pageControlFirst),
-            .init(title: "შეინახე საუკეთესო კერძი", image: ImageBook.Images.pageControlSecond),
-            .init(title: "ჩაინიშნე ინგრედიენტები", image: ImageBook.Images.pageControlThird)
+            .init(title: "მოიძიე სასურველი კერძი", image: ImageBook.Images.onBoardingFirst),
+            .init(title: "შეინახე სასურველი კერძი", image: ImageBook.Images.onBoardingSecond),
+            .init(title: "იპოვე კერძი კატეგორიების მიხედვით", image: ImageBook.Images.onBoardingThird),
+            .init(title: "გადადი კერძის დეტალურ გვერძე", image: ImageBook.Images.onBoardingFourth),
+            .init(title: "იპოვე საუკეთესო ადგილი,სადაც შეძლებ კერძის დაგემოვნებას", image: ImageBook.Images.onBoardingFifth),
+            .init(title: "დასერჩე კერძი ინგრედიენტების მიხედვით", image: ImageBook.Images.onBoardingSixth),
         ]
+    }
+    func mainButtonTapped(from viewController: UIViewController) {
+        let vc = MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))
+//        viewController.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

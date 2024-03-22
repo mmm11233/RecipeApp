@@ -38,7 +38,7 @@ class OnboardingViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Go to Main", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        //        button.addTarget(self, action: #selector(mapButtonTapped(_:)), for: .touchUpInside)
+                button.addTarget(self, action: #selector(mainButtonTapped(_:)), for: .touchUpInside)
         button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
         button.layer.cornerRadius = 12
         button.setTitleColor(ColorBook.white, for: .normal)
@@ -131,6 +131,10 @@ class OnboardingViewController: UIViewController {
         let indexPath = IndexPath(item: viewModel.currentPage, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
+    
+    @objc func mainButtonTapped(_ sender: UIButton) {
+        
+    }
 }
 
 
@@ -170,9 +174,12 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
 extension OnboardingViewController {
     enum Constants {
         static let colorsDataSource: [UIColor] = [
-            ColorBook.pink,
             ColorBook.lightGray,
-            ColorBook.gray
+            ColorBook.lightYellow,
+            ColorBook.lightGreen,
+            ColorBook.lightOrange,
+            ColorBook.lightYellow,
+            ColorBook.lightGray,
         ]
     }
 }

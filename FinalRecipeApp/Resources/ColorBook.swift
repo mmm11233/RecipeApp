@@ -19,5 +19,8 @@ struct ColorBook {
     static var gray: UIColor = .init(named: "Gray")!
     static var lightGray: UIColor = .init(named: "LightGray")!
     static var orange: UIColor = .init(named: "Orange")!
-    static var pink: UIColor = .init(named: "Pink")!
+    static var lightYellow: UIColor = .init(named: "LightYellow")!
+    static var lightGreen: UIColor = .init(named: "LightGreen")!
+    static var lightOrange: UIColor = .init(named: "LightOrange")!
+
 }
