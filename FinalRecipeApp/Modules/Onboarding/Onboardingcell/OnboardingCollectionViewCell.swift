@@ -21,9 +21,9 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = ColorBook.black
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -33,6 +33,8 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .clear
+
         addSubviews()
         setupConstraints()
     }
@@ -54,23 +56,22 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -200),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 200),
-            
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 80),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
-            
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        
+        titleLabel.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
 }
 
 #Preview {
-    OnboardingCollectionViewCell()
+    let cell = OnboardingCollectionViewCell()
+    cell.configure(with: .init(title: "12", image: ImageBook.Images.onBoardingSecond))
+    return cell
 }

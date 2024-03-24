@@ -13,8 +13,12 @@ class OnboardingViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -22,23 +26,17 @@ class OnboardingViewController: UIViewController {
     
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
+        pageControl.isUserInteractionEnabled = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         return pageControl
-    }()
-    
-    private var backgroundView: UIView = {
-        let backgroundView = UIView()
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return backgroundView
     }()
     
     private let mainButton: UIButton = {
         let button = UIButton()
         button.setTitle("Go to Main", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-                button.addTarget(self, action: #selector(mainButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(mainButtonTapped(_:)), for: .touchUpInside)
         button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
         button.layer.cornerRadius = 12
         button.setTitleColor(ColorBook.white, for: .normal)
@@ -62,7 +60,7 @@ class OnboardingViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.setup()
         setupUI()
         setupCollectionView()
@@ -71,21 +69,17 @@ class OnboardingViewController: UIViewController {
     
     // MARK: - Configure
     private func setupUI() {
-        view.addSubview(backgroundView)
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         view.addSubview(mainButton)
         
-        backgroundView.backgroundColor = Constants.colorsDataSource.first
+        view.backgroundColor = viewModel.backgroundColor
         pageControl.numberOfPages = viewModel.items.count
         pageControl.currentPageIndicatorTintColor = ColorBook.orange
         pageControl.pageIndicatorTintColor = ColorBook.black.withAlphaComponent(0.16)
     }
     
     private func setupCollectionView() {
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -93,25 +87,18 @@ class OnboardingViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate ([
-            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
+            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -240),
-            
             
             mainButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 30),
-            mainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            mainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
+            mainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            mainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            mainButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -48),
+            mainButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
     
@@ -119,10 +106,10 @@ class OnboardingViewController: UIViewController {
         let transition = CATransition()
         transition.duration = 0.5
         transition.type = .fade
-        backgroundView.layer.removeAllAnimations()
-        backgroundView.layer.add(transition, forKey: nil)
+        view.layer.removeAllAnimations()
+        view.layer.add(transition, forKey: nil)
         
-        backgroundView.backgroundColor = Constants.colorsDataSource[viewModel.currentPage]
+        view.backgroundColor = viewModel.backgroundColor
     }
     
     func pageControlAction() {
@@ -133,7 +120,7 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func mainButtonTapped(_ sender: UIButton) {
-        
+        viewModel.mainButtonTapped()
     }
 }
 
@@ -162,24 +149,11 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-
+        
         if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
             viewModel.currentPage = indexPath.row
             updateBackgroundColor()
             pageControl.currentPage = viewModel.currentPage
         }
-    }
-}
-
-extension OnboardingViewController {
-    enum Constants {
-        static let colorsDataSource: [UIColor] = [
-            ColorBook.lightGray,
-            ColorBook.lightYellow,
-            ColorBook.lightGreen,
-            ColorBook.lightOrange,
-            ColorBook.lightYellow,
-            ColorBook.lightGray,
-        ]
     }
 }

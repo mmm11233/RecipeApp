@@ -14,7 +14,6 @@
 		392DCEF22B7AA170009A5492 /* NetworkReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392DCEF12B7AA170009A5492 /* NetworkReachabilityService.swift */; };
 		39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BD02B57BBFF007232FA /* AppDelegate.swift */; };
 		39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BD22B57BBFF007232FA /* SceneDelegate.swift */; };
-		39832BDA2B57BC00007232FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39832BD92B57BC00007232FA /* Assets.xcassets */; };
 		39832BEE2B5A8C5E007232FA /* CategrorieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */; };
 		39832BF02B5A9522007232FA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BEF2B5A9522007232FA /* Category.swift */; };
 		39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39832BF12B5A9D12007232FA /* CategoriesViewController.swift */; };
@@ -41,6 +40,8 @@
 		39D6EACE2BAADE3600E28BBC /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EACD2BAADE3600E28BBC /* OnboardingCollectionViewCell.swift */; };
 		39D6EAD02BAAEB9800E28BBC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EACF2BAAEB9800E28BBC /* OnboardingViewModel.swift */; };
 		39D6EAD22BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */; };
+		39D6EADA2BB0AFCF00E28BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */; };
+		39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */; };
 		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
 		39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */; };
 		39DE5AFC2B7171A300AAA8E2 /* FavouritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */; };
@@ -61,7 +62,6 @@
 		39832BCD2B57BBFF007232FA /* FinalRecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalRecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39832BD02B57BBFF007232FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39832BD22B57BBFF007232FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		39832BD92B57BC00007232FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39832BDE2B57BC00007232FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39832BED2B5A8C5E007232FA /* CategrorieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategrorieTableViewCell.swift; sourceTree = "<group>"; };
 		39832BEF2B5A9522007232FA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		39D6EACD2BAADE3600E28BBC /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		39D6EACF2BAAEB9800E28BBC /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardignCollectionViewModel.swift; sourceTree = "<group>"; };
+		39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		39832BF92B5D4C75007232FA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */,
 				39832BF72B5AB4A0007232FA /* UIView+ShadowView.swift */,
 				398E4BD62B6FC33900BE6310 /* UIViewController+Loader.swift */,
 				39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */,
@@ -288,7 +291,7 @@
 				392DCEEE2B7A3338009A5492 /* ImageBook.swift */,
 				392DCEEC2B7A31EC009A5492 /* ColorBook.swift */,
 				39244F902B6FC7BD009934CC /* LaunchScreen.storyboard */,
-				39832BD92B57BC00007232FA /* Assets.xcassets */,
+				39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -442,7 +445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39832BDA2B57BC00007232FA /* Assets.xcassets in Resources */,
+				39D6EADA2BB0AFCF00E28BBC /* Assets.xcassets in Resources */,
 				39244F912B6FC7BD009934CC /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +478,7 @@
 				39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */,
 				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* UIView+ShadowView.swift in Sources */,
+				39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */,
 				398E4BCC2B6F993400BE6310 /* DetailsViewModel.swift in Sources */,
 				398E4BD72B6FC33900BE6310 /* UIViewController+Loader.swift in Sources */,
 				398E4B722B6BDF9C00BE6310 /* FinalRecipeApp.xcdatamodeld in Sources */,

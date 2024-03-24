@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         
-        self.window?.rootViewController = createOnbordingController()
+        self.window?.rootViewController = createRootViewController()
         window?.makeKeyAndVisible()
         
         if let apiKey = ProcessInfo.processInfo.environment["GOOGLE_MAP_API_KEY"] {
@@ -37,8 +37,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NetworkReachabilityService.shared.stopObserving()
     }
     
-    private func createOnbordingController() -> UIViewController {
-        OnboardingViewController(viewModel: OnboardingViewModelImpl())
+    private func createRootViewController() -> UIViewController {
+        if UserDefaults.isOnboardingAlreadyCompleted {
+            createTabBarController()
+        } else {
+            OnboardingViewController(viewModel: OnboardingViewModelImpl())
+        }
     }
     
     // MARK: Create Tab Bar
