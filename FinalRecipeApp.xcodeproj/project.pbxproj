@@ -42,6 +42,7 @@
 		39D6EAD22BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */; };
 		39D6EADA2BB0AFCF00E28BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */; };
 		39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */; };
+		39D6EADF2BB0B23A00E28BBC /* RecipeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */; };
 		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
 		39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */; };
 		39DE5AFC2B7171A300AAA8E2 /* FavouritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */; };
@@ -90,6 +91,7 @@
 		39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardignCollectionViewModel.swift; sourceTree = "<group>"; };
 		39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabBarController.swift; sourceTree = "<group>"; };
 		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		398E4BDB2B6FC60100BE6310 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				39D6EADD2BB0B22800E28BBC /* RecipeTabBarController */,
 				39D6EAC92BAA1DB000E28BBC /* Onboarding */,
 				398E4BD92B6FC53900BE6310 /* Main */,
 				398E4B6A2B6B94A700BE6310 /* Favourites */,
@@ -330,6 +333,14 @@
 				39D6EAD12BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift */,
 			);
 			path = Onboardingcell;
+			sourceTree = "<group>";
+		};
+		39D6EADD2BB0B22800E28BBC /* RecipeTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */,
+			);
+			path = RecipeTabBarController;
 			sourceTree = "<group>";
 		};
 		39DE5AEF2B6FCADC00AAA8E2 /* Backend */ = {
@@ -486,6 +497,7 @@
 				392D35812B66564700D29787 /* DetailsViewController.swift in Sources */,
 				398E4BD32B6FBA4D00BE6310 /* CategoriesDetailsViewModel.swift in Sources */,
 				398E4B6F2B6B99A000BE6310 /* FavouritesViewController.swift in Sources */,
+				39D6EADF2BB0B23A00E28BBC /* RecipeTabBarController.swift in Sources */,
 				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				392DCEEF2B7A3338009A5492 /* ImageBook.swift in Sources */,
 				39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */,

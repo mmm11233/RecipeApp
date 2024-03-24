@@ -120,12 +120,9 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func mainButtonTapped(_ sender: UIButton) {
-        viewModel.mainButtonTapped()
+        viewModel.mainButtonTapped(from: self)
     }
 }
-
-
-
 
 //MARK: - Extensions
 extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

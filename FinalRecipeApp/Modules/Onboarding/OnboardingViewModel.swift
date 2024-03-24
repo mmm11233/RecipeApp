@@ -13,7 +13,7 @@ protocol OnboardingViewModel {
     var backgroundColor: UIColor { get }
 
     func setup()
-    func mainButtonTapped()
+    func mainButtonTapped(from viewController: UIViewController)
 }
 
 final class OnboardingViewModelImpl: OnboardingViewModel {
@@ -38,11 +38,14 @@ final class OnboardingViewModelImpl: OnboardingViewModel {
             .init(title: "დასერჩე კერძი ინგრედიენტების მიხედვით", image: ImageBook.Images.onBoardingSixth),
         ]
     }
-    func mainButtonTapped() {
+    func mainButtonTapped(from viewController: UIViewController) {
         UserDefaults.isOnboardingAlreadyCompleted = true
         
+        let tabBarController = RecipeTabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        
+        viewController.present(tabBarController, animated: false)
     }
-
 }
 
 private extension OnboardingViewModelImpl {

@@ -39,47 +39,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func createRootViewController() -> UIViewController {
         if UserDefaults.isOnboardingAlreadyCompleted {
-            createTabBarController()
+            RecipeTabBarController()
         } else {
             OnboardingViewController(viewModel: OnboardingViewModelImpl())
         }
-    }
-    
-    // MARK: Create Tab Bar
-    private func createTabBarController() -> UITabBarController {
-        let tabBarController = UITabBarController()
-        
-        // MARK: Main View
-        let mainView = MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))
-        let mainVC = UIHostingController(rootView: mainView)
-        mainVC.tabBarItem = UITabBarItem(title: "Home", image: ImageBook.Icons.house, tag: 0)
-        
-        // MARK: Favourites View
-        let favouritesVC = FavouritesViewController(viewModel:  FavouritesViewModelImpl())
-        favouritesVC.tabBarItem = UITabBarItem(title: "Favourites", image: ImageBook.Icons.tabBarHeart, tag: 1)
-        
-        let favouritesNavigationController = UINavigationController(rootViewController: favouritesVC)
-        
-        // MARK: Categories View
-        let categoriesVM = CategoriesViewModelImpl(categoriesService: CategoriesServiceImpl())
-        let categoriesVC = CategoriesViewController(viewModel: categoriesVM)
-        let categoriesNavigationController = UINavigationController(rootViewController: categoriesVC)
-        categoriesVC.tabBarItem = UITabBarItem(title: "Categories", image: ImageBook.Icons.bullet, tag: 2)
-        
-        // MARK: ShoppingList View
-
-        
-        // MARK: Tab Bar Configuration
-        tabBarController.viewControllers = [mainVC,favouritesNavigationController, categoriesNavigationController]
-        
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ColorBook.black as Any]
-        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = ColorBook.orange
-        
-        tabBarController.tabBar.standardAppearance = tabBarAppearance
-        tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
-        
-        return tabBarController
     }
     
     // MARK: Internet Connection
