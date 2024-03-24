@@ -43,6 +43,8 @@
 		39D6EADA2BB0AFCF00E28BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */; };
 		39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */; };
 		39D6EADF2BB0B23A00E28BBC /* RecipeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */; };
+		39D6EAE22BB0B6A100E28BBC /* ShoppingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE12BB0B6A100E28BBC /* ShoppingListTableViewCell.swift */; };
+		39D6EAE52BB0B6E700E28BBC /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE42BB0B6E700E28BBC /* ShoppingListViewController.swift */; };
 		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
 		39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */; };
 		39DE5AFC2B7171A300AAA8E2 /* FavouritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */; };
@@ -92,6 +94,8 @@
 		39D6EAD92BB0AFCF00E28BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39D6EADB2BB0AFDB00E28BBC /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabBarController.swift; sourceTree = "<group>"; };
+		39D6EAE12BB0B6A100E28BBC /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
+		39D6EAE42BB0B6E700E28BBC /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				398E4BD92B6FC53900BE6310 /* Main */,
 				398E4B6A2B6B94A700BE6310 /* Favourites */,
 				39832BEA2B59DCAE007232FA /* Categories */,
+				39D6EAE02BB0B68300E28BBC /* ShoppingList */,
 				39DE5B072B72BB7A00AAA8E2 /* Common */,
 			);
 			path = Modules;
@@ -341,6 +346,23 @@
 				39D6EADE2BB0B23A00E28BBC /* RecipeTabBarController.swift */,
 			);
 			path = RecipeTabBarController;
+			sourceTree = "<group>";
+		};
+		39D6EAE02BB0B68300E28BBC /* ShoppingList */ = {
+			isa = PBXGroup;
+			children = (
+				39D6EAE32BB0B6C200E28BBC /* ShoppingListTableViewCell */,
+				39D6EAE42BB0B6E700E28BBC /* ShoppingListViewController.swift */,
+			);
+			path = ShoppingList;
+			sourceTree = "<group>";
+		};
+		39D6EAE32BB0B6C200E28BBC /* ShoppingListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				39D6EAE12BB0B6A100E28BBC /* ShoppingListTableViewCell.swift */,
+			);
+			path = ShoppingListTableViewCell;
 			sourceTree = "<group>";
 		};
 		39DE5AEF2B6FCADC00AAA8E2 /* Backend */ = {
@@ -480,6 +502,7 @@
 				39D6EAD22BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift in Sources */,
 				392DCEED2B7A31EC009A5492 /* ColorBook.swift in Sources */,
 				39832BD12B57BBFF007232FA /* AppDelegate.swift in Sources */,
+				39D6EAE52BB0B6E700E28BBC /* ShoppingListViewController.swift in Sources */,
 				39C69B092B63D128000EA66C /* TitleView.swift in Sources */,
 				398E4B6C2B6B94F100BE6310 /* DishCollectionViewCell.swift in Sources */,
 				398E4BB82B6D737800BE6310 /* FavouritesViewModel.swift in Sources */,
@@ -489,6 +512,7 @@
 				39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */,
 				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* UIView+ShadowView.swift in Sources */,
+				39D6EAE22BB0B6A100E28BBC /* ShoppingListTableViewCell.swift in Sources */,
 				39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */,
 				398E4BCC2B6F993400BE6310 /* DetailsViewModel.swift in Sources */,
 				398E4BD72B6FC33900BE6310 /* UIViewController+Loader.swift in Sources */,

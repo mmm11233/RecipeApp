@@ -29,7 +29,7 @@ class ShoppingListTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Go to Main", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        button.addTarget(ShoppingListCell.self, action: #selector(markButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(ShoppingListTableViewCell.self, action: #selector(markButtonTapped(_:)), for: .touchUpInside)
         button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
         button.layer.cornerRadius = 12
         button.setTitleColor(ColorBook.white, for: .normal)
