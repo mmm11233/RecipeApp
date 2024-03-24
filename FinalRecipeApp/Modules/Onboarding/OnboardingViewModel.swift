@@ -29,7 +29,7 @@ final class OnboardingViewModelImpl: OnboardingViewModel {
             .init(title: "იპოვე კერძი კატეგორიების მიხედვით", image: ImageBook.Images.onBoardingThird),
             .init(title: "გადადი კერძის დეტალურ გვერძე", image: ImageBook.Images.onBoardingFourth),
             .init(title: "იპოვე საუკეთესო ადგილი,სადაც შეძლებ კერძის დაგემოვნებას", image: ImageBook.Images.onBoardingFifth),
-            .init(title: "დასერჩე კერძი ინგრედიენტების მიხედვით", image: ImageBook.Images.onBoardingSixth),
+            .init(title: "მოძებნე კერძი ინგრედიენტების მიხედვით", image: ImageBook.Images.onBoardingSixth),
         ]
     }
     func mainButtonTapped(from viewController: UIViewController) {
