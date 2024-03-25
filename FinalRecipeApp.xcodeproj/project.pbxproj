@@ -46,6 +46,7 @@
 		39D6EAE22BB0B6A100E28BBC /* ShoppingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE12BB0B6A100E28BBC /* ShoppingListTableViewCell.swift */; };
 		39D6EAE52BB0B6E700E28BBC /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE42BB0B6E700E28BBC /* ShoppingListViewController.swift */; };
 		39D6EAE72BB0BB5700E28BBC /* ShoppingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE62BB0BB5700E28BBC /* ShoppingListViewModel.swift */; };
+		39D6EAE92BB1C5FE00E28BBC /* ShoppingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D6EAE82BB1C5FE00E28BBC /* ShoppingRepository.swift */; };
 		39DE5AF12B6FCC0200AAA8E2 /* CategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */; };
 		39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */; };
 		39DE5AFC2B7171A300AAA8E2 /* FavouritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */; };
@@ -98,6 +99,7 @@
 		39D6EAE12BB0B6A100E28BBC /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
 		39D6EAE42BB0B6E700E28BBC /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		39D6EAE62BB0BB5700E28BBC /* ShoppingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewModel.swift; sourceTree = "<group>"; };
+		39D6EAE82BB1C5FE00E28BBC /* ShoppingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingRepository.swift; sourceTree = "<group>"; };
 		39DE5AF02B6FCC0200AAA8E2 /* CategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesService.swift; sourceTree = "<group>"; };
 		39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extensions.swift"; sourceTree = "<group>"; };
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */,
+				39D6EAE82BB1C5FE00E28BBC /* ShoppingRepository.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */,
 				39C69B022B5FD43F000EA66C /* MainViewModel.swift in Sources */,
 				39832BF82B5AB4A0007232FA /* UIView+ShadowView.swift in Sources */,
+				39D6EAE92BB1C5FE00E28BBC /* ShoppingRepository.swift in Sources */,
 				39D6EAE22BB0B6A100E28BBC /* ShoppingListTableViewCell.swift in Sources */,
 				39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */,
 				398E4BCC2B6F993400BE6310 /* DetailsViewModel.swift in Sources */,

@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class ShoppingListViewController: UIViewController {
     
     // MARK: - Properties
     private var viewModel: ShoppingListViewModel
-    
+    private var subscribers = Set<AnyCancellable>()
+
     init(viewModel: ShoppingListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,13 +25,11 @@ class ShoppingListViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
     
-    var name: [String] = []
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -38,9 +38,17 @@ class ShoppingListViewController: UIViewController {
         setupView()
         setupTableView()
         setupConstraints()
+        setupBindings()
     }
     
     // MARK: - Methods
+    private func setupBindings() {
+    viewModel.itemsDidUpdate
+        .sink { [weak self] in
+            self?.tableView.reloadData()
+        }.store(in: &subscribers)
+    }
+    
     private func setupView() {
         title = "Shopping List"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(save))
@@ -76,16 +84,13 @@ class ShoppingListViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
             guard let textField = alertController.textFields?.first, let sthToAdd = textField.text else { return }
             print("Text to add:", sthToAdd)
-            
-            self.name.append(sthToAdd)
-            tableView.reloadData()
+            viewModel.save(item: sthToAdd)
         }
-    
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         alertController.addTextField(configurationHandler: nil)
         alertController.addAction(saveAction)
-//        alertController.addAction(cancelAction)
+        alertController.addAction(cancelAction)
 
         present(alertController, animated: true, completion: nil)
     }
@@ -108,6 +113,4 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
         
         return cell
     }
-    
 }
-

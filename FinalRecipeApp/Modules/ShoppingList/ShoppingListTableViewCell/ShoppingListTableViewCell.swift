@@ -70,9 +70,9 @@ class ShoppingListTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure
-        func configure(with model: String) {
+        func configure(with item: String) {
 
-            shoppingItem.text = "mariami"
+            shoppingItem.text = item
         }
     
     // MARK: - Methods

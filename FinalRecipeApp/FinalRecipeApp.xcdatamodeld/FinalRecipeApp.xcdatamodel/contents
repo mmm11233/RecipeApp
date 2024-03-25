@@ -7,4 +7,7 @@
         <attribute name="pictureURL" attributeType="String"/>
         <attribute name="preparingTime" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES" codeGenerationType="class">
+        <attribute name="shoppingItem" attributeType="String"/>
+    </entity>
 </model>
