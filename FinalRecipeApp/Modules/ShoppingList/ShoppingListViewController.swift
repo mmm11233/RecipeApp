@@ -13,7 +13,7 @@ class ShoppingListViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: ShoppingListViewModel
     private var subscribers = Set<AnyCancellable>()
-
+    
     init(viewModel: ShoppingListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -25,6 +25,7 @@ class ShoppingListViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.isUserInteractionEnabled = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -39,14 +40,15 @@ class ShoppingListViewController: UIViewController {
         setupTableView()
         setupConstraints()
         setupBindings()
+        viewModel.viewDidLoad()
     }
     
     // MARK: - Methods
     private func setupBindings() {
-    viewModel.itemsDidUpdate
-        .sink { [weak self] in
-            self?.tableView.reloadData()
-        }.store(in: &subscribers)
+        viewModel.itemsDidUpdate
+            .sink { [weak self] in
+                self?.tableView.reloadData()
+            }.store(in: &subscribers)
     }
     
     private func setupView() {
@@ -59,7 +61,6 @@ class ShoppingListViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate ([
-            
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -91,7 +92,7 @@ class ShoppingListViewController: UIViewController {
         alertController.addTextField(configurationHandler: nil)
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
-
+        
         present(alertController, animated: true, completion: nil)
     }
 }
@@ -112,5 +113,37 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
         }
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let modifyAction = UIContextualAction(style: .normal, title:  "Delete", handler: { _, _, _ in
+            DispatchQueue.main.async {
+                self.showDeleteWarning(for: indexPath)
+            }
+        })
+        
+        modifyAction.image = UIImage(named: "delete")
+        modifyAction.backgroundColor = .purple
+        
+        return UISwipeActionsConfiguration(actions: [modifyAction])
+    }
+    
+    func showDeleteWarning(for indexPath: IndexPath) {
+        //Create the alert controller and actions
+        let alert = UIAlertController(title: "Warning Title", message: "Warning Message", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            DispatchQueue.main.async {
+                self.viewModel.delete(indexPath: indexPath)
+            }
+        }
+        
+        //Add the actions to the alert controller
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        //Present the alert controller
+        present(alert, animated: true, completion: nil)
     }
 }

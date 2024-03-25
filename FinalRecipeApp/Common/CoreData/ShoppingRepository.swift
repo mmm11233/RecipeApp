@@ -42,7 +42,7 @@ final class ShoppingRepository  {
     
     func deleteItem(item: String, success: () -> ()) {
         let fetchRequest: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", item)
+        fetchRequest.predicate = NSPredicate(format: "shoppingItem == %@", item)
         
         do {
             let matchingItems = try context.fetch(fetchRequest)

@@ -88,7 +88,6 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
                     FavouritesRepository.shared.deleteDish(dishID: dish.id)
                 }
             }.store(in: &subscribers)
-        
     }
     
     private func fetchDishes() {

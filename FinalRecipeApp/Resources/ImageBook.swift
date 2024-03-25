@@ -27,7 +27,7 @@ struct ImageBook {
         static var breakfast: UIImage = .init(named: "Breakfast")!
         static var bullet: UIImage = .init(systemName: "list.bullet")!
         static var checkMark: UIImage = .init(systemName: "checkmark.circle")!
-        static var circle: UIImage = .init(systemName: "circle")!
+        static var checkMarkFill: UIImage = .init(systemName: "checkmark.circle.fill")!
         static var clock: UIImage = .init(named: "Clock")!
         static var desserts: UIImage = .init(named: "Desserts")!
         static var drinks: UIImage = .init(named: "Drinks")!
