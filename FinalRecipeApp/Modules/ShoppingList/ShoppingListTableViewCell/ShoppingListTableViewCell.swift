@@ -71,7 +71,8 @@ class ShoppingListTableViewCell: UITableViewCell {
     
     // MARK: - Configure
         func configure(with model: String) {
-            shoppingItem.text = "rezo da marii rezo da mari rezo da mari yiduloben ingredientebs, mari rezo da mari yiduloben ingredientebs"
+
+            shoppingItem.text = "mariami"
         }
     
     // MARK: - Methods

@@ -29,12 +29,7 @@ class ShoppingListViewController: UIViewController {
         return tableView
     }()
     
-    private let headerView: HeaderView = {
-        let headerView = HeaderView()
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return headerView
-    }()
+    var name: [String] = []
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -47,20 +42,17 @@ class ShoppingListViewController: UIViewController {
     
     // MARK: - Methods
     private func setupView() {
-        headerView.configure(title: "Shopping List")
-
+        title = "Shopping List"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(save))
+        
         view.backgroundColor = ColorBook.white
-        view.addSubview(headerView)
         view.addSubview(tableView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate ([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 20),
             
-            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 26),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -73,25 +65,49 @@ class ShoppingListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.register(ShoppingListTableViewCell.self, forCellReuseIdentifier: "ShoppingListTableViewCell")
     }
-}
     
-    // MARK: - Extensions
-    extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            viewModel.numberOfRowsInSection()
+    @objc func save() {
+        let alertController = UIAlertController(title: "Add shopping items", message: "write items in the textField", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter text"
         }
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let item = viewModel.item(at: indexPath.row)
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
+            guard let textField = alertController.textFields?.first, let sthToAdd = textField.text else { return }
+            print("Text to add:", sthToAdd)
             
-            if let shoppingListViewControllerCell = cell as? ShoppingListTableViewCell {
-                shoppingListViewControllerCell.configure(with: item)
-                return shoppingListViewControllerCell
-            }
-            
-            return cell
+            self.name.append(sthToAdd)
+            tableView.reloadData()
         }
+    
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alertController.addTextField(configurationHandler: nil)
+        alertController.addAction(saveAction)
+//        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
     }
+}
+
+// MARK: - Extensions
+extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.numberOfRowsInSection()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = viewModel.item(at: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
+        
+        if let shoppingListViewControllerCell = cell as? ShoppingListTableViewCell {
+            shoppingListViewControllerCell.configure(with: item)
+            return shoppingListViewControllerCell
+        }
+        
+        return cell
+    }
+    
+}
 
