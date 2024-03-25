@@ -8,6 +8,7 @@
 import UIKit
 
 class ShoppingListTableViewCell: UITableViewCell {
+    
     // MARK: - Properties
     private let background: UIView = {
         let view: UIView = .init()
@@ -20,6 +21,7 @@ class ShoppingListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Futura Condensed Medium", size: 20)
         label.textColor = ColorBook.primaryBlack
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -27,11 +29,11 @@ class ShoppingListTableViewCell: UITableViewCell {
     
     private let markButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Go to Main", for: .normal)
+        button.setTitle("", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.addTarget(ShoppingListTableViewCell.self, action: #selector(markButtonTapped(_:)), for: .touchUpInside)
         button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 10
         button.setTitleColor(ColorBook.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -60,10 +62,9 @@ class ShoppingListTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure
-    //    func configure(with model: Category) {
-    //        categoryName.text = model.type.rawValue
-    //        categoryImage.image = model.type.image
-    //    }
+        func configure(with model: String) {
+            shoppingItem.text = "rezo da marii rezo da mari rezo da mari yiduloben ingredientebs, mari rezo da mari yiduloben ingredientebs"
+        }
     
     // MARK: - Methods
     private func setupView() {
@@ -85,18 +86,21 @@ class ShoppingListTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             background.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            background.heightAnchor.constraint(equalToConstant: 55),
             background.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
             background.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
             background.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+    
             
-            shoppingItem.centerYAnchor.constraint(equalTo: background.centerYAnchor),
-            shoppingItem.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 16),
+            shoppingItem.topAnchor.constraint(equalTo: background.topAnchor, constant: 8),
+            shoppingItem.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 8),
+            shoppingItem.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
+
+            shoppingItem.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -8),
             
             markButton.centerYAnchor.constraint(equalTo: background.centerYAnchor),
             markButton.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
-            markButton.heightAnchor.constraint(equalToConstant: 10),
-            markButton.widthAnchor.constraint(equalToConstant: 10)
+            markButton.heightAnchor.constraint(equalToConstant: 20),
+            markButton.widthAnchor.constraint(equalToConstant: 20)
             
         ])
     }

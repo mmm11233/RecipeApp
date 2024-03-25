@@ -36,8 +36,9 @@ final class RecipeTabBarController: UITabBarController {
         categoriesVC.tabBarItem = UITabBarItem(title: "Categories", image: ImageBook.Icons.bullet, tag: 2)
         
         // MARK: ShoppingList View
-        let shoppingListVC = ShoppingListViewController()
-//        let shoppingListNavigationController = UINavigationController(rootViewController: shoppingListVC)
+        let shoppingListVM = ShoppingListViewModelImpl()
+        let shoppingListVC = ShoppingListViewController(viewModel: shoppingListVM)
+        let shoppingListNavigationController = UINavigationController(rootViewController: shoppingListVC)
         shoppingListVC.tabBarItem = UITabBarItem(title: "Shopping List", image: ImageBook.Icons.pencil, tag: 3)
         
         // MARK: Tab Bar Configuration

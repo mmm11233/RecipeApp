@@ -46,6 +46,7 @@ final class CategoriesViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+    // MARK: - Methods
     private func setupView() {
         headerView.configure(title: "Categories")
         
@@ -71,7 +72,6 @@ final class CategoriesViewController: UIViewController {
             }.store(in: &subscribers)
     }
     
-    // MARK: - Methods
     private func setupConstraints() {
         NSLayoutConstraint.activate ([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
