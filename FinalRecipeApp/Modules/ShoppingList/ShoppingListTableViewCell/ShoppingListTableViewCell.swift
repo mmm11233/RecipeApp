@@ -26,19 +26,27 @@ class ShoppingListTableViewCell: UITableViewCell {
         
         return label
     }()
+    private var isMarked: Bool = false
     
-    private let markButton: UIButton = {
+    private lazy var markButton: UIButton = {
         let button = UIButton()
-        button.setTitle("", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        button.addTarget(ShoppingListTableViewCell.self, action: #selector(markButtonTapped(_:)), for: .touchUpInside)
-        button.backgroundColor = ColorBook.orange.withAlphaComponent(0.9)
-        button.layer.cornerRadius = 10
-        button.setTitleColor(ColorBook.white, for: .normal)
+        button.addTarget(self, action: #selector(markButtonTapped), for: .touchUpInside)
+        button.setImage(ImageBook.Icons.circle, for: .normal)
+        button.setImage(ImageBook.Icons.checkMark, for: .selected)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.backgroundColor = ColorBook.primaryWhite
+        button.layer.cornerRadius = 7.0
+        button.layer.masksToBounds = true
+        button.isSelected = isMarked
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return button
     }()
+    
+    @objc func markButtonTapped(_ sender: UIButton) {
+        isMarked.toggle()
+        
+    }
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -94,18 +102,14 @@ class ShoppingListTableViewCell: UITableViewCell {
             shoppingItem.topAnchor.constraint(equalTo: background.topAnchor, constant: 8),
             shoppingItem.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 8),
             shoppingItem.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
-
             shoppingItem.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -8),
             
+
             markButton.centerYAnchor.constraint(equalTo: background.centerYAnchor),
-            markButton.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
+            markButton.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -12),
             markButton.heightAnchor.constraint(equalToConstant: 20),
             markButton.widthAnchor.constraint(equalToConstant: 20)
             
         ])
-    }
-    
-    @objc func markButtonTapped(_ sender: UIButton) {
-        
     }
 }
