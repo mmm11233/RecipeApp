@@ -29,6 +29,13 @@ class ShoppingListViewController: UIViewController {
         return tableView
     }()
     
+    private let headerView: HeaderView = {
+        let headerView = HeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return headerView
+    }()
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,18 +45,22 @@ class ShoppingListViewController: UIViewController {
         setupConstraints()
     }
     
-    
-    
     // MARK: - Methods
     private func setupView() {
+        headerView.configure(title: "Shopping List")
+
         view.backgroundColor = ColorBook.white
+        view.addSubview(headerView)
         view.addSubview(tableView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate ([
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 20),
             
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 26),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
