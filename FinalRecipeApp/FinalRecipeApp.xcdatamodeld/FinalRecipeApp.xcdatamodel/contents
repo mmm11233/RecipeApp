@@ -9,7 +9,7 @@
     </entity>
     <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
-        <attribute name="isMarked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isMarked" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="shoppingItem" attributeType="String"/>
     </entity>
 </model>

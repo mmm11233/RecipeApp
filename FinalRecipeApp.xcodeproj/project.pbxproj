@@ -57,6 +57,7 @@
 		39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */; };
 		39DE5B0E2B72BCAB00AAA8E2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */; };
 		39F1CE662BB31CEE00C586CE /* UITableView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */; };
+		39F1CE6A2BB320C200C586CE /* ShopingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F1CE692BB320C200C586CE /* ShopingItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyView.swift"; sourceTree = "<group>"; };
+		39F1CE692BB320C200C586CE /* ShopingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopingItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				39832BEF2B5A9522007232FA /* Category.swift */,
 				39C69AFF2B5FD19E000EA66C /* DishModel.swift */,
+				39F1CE692BB320C200C586CE /* ShopingItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F1CE6A2BB320C200C586CE /* ShopingItem.swift in Sources */,
 				39DE5B0E2B72BCAB00AAA8E2 /* MapViewModel.swift in Sources */,
 				39832C072B5F0F76007232FA /* MainView.swift in Sources */,
 				39DE5AF92B71667000AAA8E2 /* NotificationCenter+Extensions.swift in Sources */,

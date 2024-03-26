@@ -27,11 +27,13 @@ final class ShoppingRepository  {
     }
     
     //MARK: - Methods
-    func saveShoppingItem(item: String, success: () -> ()) {
+    func saveShoppingItem(item: ShopingItem, success: () -> ()) {
         let entity = NSEntityDescription.entity(forEntityName: "ShoppingList", in: context)
         let newItem = NSManagedObject(entity: entity!, insertInto: context)
-        newItem.setValue(item, forKey: "shoppingItem")
-        
+        newItem.setValue(item.id, forKey: "id")
+        newItem.setValue(item.title, forKey: "shoppingItem")
+        newItem.setValue(item.isMarked, forKey: "isMarked")
+
         do {
             try context.save()
             success()
@@ -40,9 +42,9 @@ final class ShoppingRepository  {
         }
     }
     
-    func deleteItem(item: String, success: () -> ()) {
+    func deleteItem(item: ShopingItem, success: () -> ()) {
         let fetchRequest: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "shoppingItem == %@", item)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", item.id)
         
         do {
             let matchingItems = try context.fetch(fetchRequest)
@@ -62,27 +64,28 @@ final class ShoppingRepository  {
         }
     }
     
-    func fetchItems() -> [String] {
+    func fetchItems() -> [ShopingItem] {
         do {
             let fetchRequest: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
             let items = try context.fetch(fetchRequest)
-            return items.map({ $0.shoppingItem! })
+            return items.map({ $0.toShopingItem() })
         } catch {
             print("Error fetching favorite dishes: \(error.localizedDescription)")
         }
         return []
     }
     
-    func updateItem(oldItem: String, newItem: String, success: () -> ()) {
+    func updateItem(oldItem: ShopingItem, newItem: ShopingItem, success: () -> ()) {
         let fetchRequest: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "shoppingItem == %@", oldItem)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", oldItem.id)
         
         do {
             let matchingItems = try context.fetch(fetchRequest)
             
             if let itemToUpdate = matchingItems.first {
-                itemToUpdate.setValue(newItem, forKey: "shoppingItem")
-                
+                itemToUpdate.setValue(newItem.title, forKey: "shoppingItem")
+                itemToUpdate.setValue(newItem.isMarked, forKey: "isMarked")
+
                 do {
                     try context.save()
                     success()

@@ -87,7 +87,7 @@ class ShoppingListViewController: UIViewController {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
+        tableView.separatorInset = .init(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         tableView.register(ShoppingListTableViewCell.self, forCellReuseIdentifier: "ShoppingListTableViewCell")
     }
     
@@ -173,6 +173,12 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
 }
 
 extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
+    func markButtonTapped(cell: ShoppingListTableViewCell, isMarked: Bool) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            viewModel.update(indexPath: indexPath, isMarked: isMarked)
+        }
+    }
+    
     func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             viewModel.update(indexPath: indexPath, newValue: newValue)

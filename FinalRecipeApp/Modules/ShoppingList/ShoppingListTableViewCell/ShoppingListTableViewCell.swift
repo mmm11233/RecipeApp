@@ -9,6 +9,7 @@ import UIKit
 
 protocol ShoppingListTableViewCellDelegate: AnyObject {
     func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String)
+    func markButtonTapped(cell: ShoppingListTableViewCell, isMarked: Bool)
 }
 
 final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
@@ -49,16 +50,10 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         return button
     }()
     
-    @objc func markButtonTapped(_ sender: UIButton) {
-        
+    @objc private func markButtonTapped(_ sender: UIButton) {
         isMarked.toggle()
         sender.isSelected = isMarked
-        
-        if isMarked {
-            sender.setImage(ImageBook.Icons.checkMarkFill, for: .normal)
-        } else {
-            sender.setImage(ImageBook.Icons.checkMark, for: .normal)
-        }
+        delegate?.markButtonTapped(cell: self, isMarked: isMarked)
     }
     
     // MARK: - Init
@@ -84,8 +79,9 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
     }
     
     // MARK: - Configure
-    func configure(with item: String) {
-        textField.text = item
+    func configure(with item: ShopingItem) {
+        textField.text = item.title
+        markButton.isSelected = item.isMarked
     }
     
     // MARK: - Methods
@@ -128,6 +124,7 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.shoopingItemdDidChange(cell: self, newValue: textField.text ?? "")
+        endEditing(true)
         return true
     }
 }

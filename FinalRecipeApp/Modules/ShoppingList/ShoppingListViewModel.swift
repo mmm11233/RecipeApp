@@ -14,8 +14,9 @@ protocol ShoppingListViewModel {
     
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
-    func item(at index: Int) -> String
+    func item(at index: Int) -> ShopingItem
     func save(item: String)
+    func update(indexPath: IndexPath, isMarked: Bool)
     func update(indexPath: IndexPath, newValue: String)
     func delete(indexPath: IndexPath)
 }
@@ -29,7 +30,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     private let noEntriesFountSubject: PassthroughSubject<String?, Never> = .init()
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { noEntriesFountSubject.eraseToAnyPublisher() }
 
-    private var shoppingItems: [String] = []
+    private var shoppingItems: [ShopingItem] = []
     
     // MARK: - Methods
     func viewDidLoad() {
@@ -40,22 +41,35 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
         shoppingItems.count
     }
     
-    func item(at index: Int) -> String {
+    func item(at index: Int) -> ShopingItem {
         shoppingItems[index]
     }
     
     func save(item: String) {
         ShoppingRepository.shared.saveShoppingItem(
-            item: item,
+            item: .init(title: item, isMarked: false),
             success: { [weak self] in
                 self?.fetchShoppingItems()
             })
     }
     
+    
+    func update(indexPath: IndexPath, isMarked: Bool) {
+        let oldValue = item(at: indexPath.row)
+        let newValue = ShopingItem(title: oldValue.title, isMarked: isMarked)
+        
+        ShoppingRepository.shared.updateItem(oldItem: oldValue,
+                                             newItem: newValue,
+                                             success: { [weak self] in
+            self?.fetchShoppingItems()
+        })
+    }
+    
     func update(indexPath: IndexPath, newValue: String) {
         let oldValue = item(at: indexPath.row)
+        let newValue = ShopingItem(title: newValue, isMarked: oldValue.isMarked)
 
-        if oldValue != newValue {
+        if oldValue.title != newValue.title {
             ShoppingRepository.shared.updateItem(oldItem: oldValue,
                                                  newItem: newValue,
                                                  success: { [weak self] in
@@ -78,6 +92,6 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
         shoppingItems = ShoppingRepository.shared.fetchItems()
         itemsDidUpdateSubject.send()
         
-        shoppingItems.isEmpty ? noEntriesFountSubject.send("There is no items") : nil
+        shoppingItems.isEmpty ? noEntriesFountSubject.send("There is no items") : noEntriesFountSubject.send(nil)
     }
 }
