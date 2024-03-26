@@ -14,6 +14,18 @@ class ShoppingListViewController: UIViewController {
     private var viewModel: ShoppingListViewModel
     private var subscribers = Set<AnyCancellable>()
     
+    private lazy var noEntriesLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = ColorBook.black
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "There is no items"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     init(viewModel: ShoppingListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -44,9 +56,14 @@ class ShoppingListViewController: UIViewController {
     
     // MARK: - Methods
     private func setupBindings() {
-        viewModel.itemsDidUpdate
+        viewModel.itemsDidUpdatePublisher
             .sink { [weak self] in
                 self?.tableView.reloadData()
+            }.store(in: &subscribers)
+        
+        viewModel.noEntriesFoundPublisher
+            .sink { [weak self] text in
+                self?.updateNoEntriesFoundLabel(text: text)
             }.store(in: &subscribers)
     }
     
@@ -75,7 +92,7 @@ class ShoppingListViewController: UIViewController {
     }
     
     @objc func save() {
-        let alertController = UIAlertController(title: "Add shopping items", message: "write items in the textField", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Add shopping item", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter text"
@@ -90,11 +107,18 @@ class ShoppingListViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        alertController.addTextField(configurationHandler: nil)
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    private func updateNoEntriesFoundLabel(text: String?) {
+        if let text = text {
+            tableView.setEmptyView(title: text)
+        } else {
+            tableView.restoreEmptyView()
+        }
     }
 }
 

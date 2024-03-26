@@ -56,6 +56,7 @@
 		39DE5B062B72BB1E00AAA8E2 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = 39DE5B052B72BB1E00AAA8E2 /* GoogleMapsM4B */; };
 		39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */; };
 		39DE5B0E2B72BCAB00AAA8E2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */; };
+		39F1CE662BB31CEE00C586CE /* UITableView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
 		39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				39832BF72B5AB4A0007232FA /* UIView+ShadowView.swift */,
 				398E4BD62B6FC33900BE6310 /* UIViewController+Loader.swift */,
 				39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */,
+				39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				392D35812B66564700D29787 /* DetailsViewController.swift in Sources */,
 				398E4BD32B6FBA4D00BE6310 /* CategoriesDetailsViewModel.swift in Sources */,
 				398E4B6F2B6B99A000BE6310 /* FavouritesViewController.swift in Sources */,
+				39F1CE662BB31CEE00C586CE /* UITableView+EmptyView.swift in Sources */,
 				39D6EADF2BB0B23A00E28BBC /* RecipeTabBarController.swift in Sources */,
 				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				392DCEEF2B7A3338009A5492 /* ImageBook.swift in Sources */,

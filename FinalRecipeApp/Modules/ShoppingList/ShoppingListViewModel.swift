@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 protocol ShoppingListViewModel {
-    var itemsDidUpdate: PassthroughSubject<Void, Never> { get }
+    var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { get }
+    var noEntriesFoundPublisher: AnyPublisher<String?, Never> { get }
     
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
@@ -22,8 +23,12 @@ protocol ShoppingListViewModel {
 final class ShoppingListViewModelImpl: ShoppingListViewModel {
     
     // MARK: - Properties
-    let itemsDidUpdate: PassthroughSubject<Void, Never> = .init()
+    private let itemsDidUpdateSubject: PassthroughSubject<Void, Never> = .init()
+    var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { itemsDidUpdateSubject.eraseToAnyPublisher() }
     
+    private let noEntriesFountSubject: PassthroughSubject<String?, Never> = .init()
+    var noEntriesFoundPublisher: AnyPublisher<String?, Never> { noEntriesFountSubject.eraseToAnyPublisher() }
+
     private var shoppingItems: [String] = []
     
     // MARK: - Methods
@@ -71,6 +76,8 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
 
     private func fetchShoppingItems() {
         shoppingItems = ShoppingRepository.shared.fetchItems()
-        itemsDidUpdate.send()
+        itemsDidUpdateSubject.send()
+        
+        shoppingItems.isEmpty ? noEntriesFountSubject.send("There is no items") : nil
     }
 }
