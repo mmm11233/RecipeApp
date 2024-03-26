@@ -31,7 +31,6 @@ class ShoppingListViewController: UIViewController {
         return tableView
     }()
     
-    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +84,9 @@ class ShoppingListViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
             guard let textField = alertController.textFields?.first, let sthToAdd = textField.text else { return }
             print("Text to add:", sthToAdd)
-            viewModel.save(item: sthToAdd)
+            if !sthToAdd.isEmpty {
+                viewModel.save(item: sthToAdd)
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
@@ -106,14 +107,16 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.item(at: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
-        
-        if let shoppingListViewControllerCell = cell as? ShoppingListTableViewCell {
-            shoppingListViewControllerCell.configure(with: item)
-            return shoppingListViewControllerCell
+
+        if let shoppingListCell = cell as? ShoppingListTableViewCell {
+            shoppingListCell.configure(with: item)
+            shoppingListCell.delegate = self
+            return shoppingListCell
         }
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let modifyAction = UIContextualAction(style: .normal, title:  "Delete", handler: { _, _, _ in
             DispatchQueue.main.async {
@@ -128,7 +131,6 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func showDeleteWarning(for indexPath: IndexPath) {
-        //Create the alert controller and actions
         let alert = UIAlertController(title: "Warning Title", message: "Warning Message", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -139,11 +141,17 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
             }
         }
         
-        //Add the actions to the alert controller
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
         
-        //Present the alert controller
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
+    func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            viewModel.update(indexPath: indexPath, newValue: newValue)
+        }
     }
 }

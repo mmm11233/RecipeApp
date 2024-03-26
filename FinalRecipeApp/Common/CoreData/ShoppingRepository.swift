@@ -72,4 +72,27 @@ final class ShoppingRepository  {
         }
         return []
     }
+    
+    func updateItem(oldItem: String, newItem: String, success: () -> ()) {
+        let fetchRequest: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "shoppingItem == %@", oldItem)
+        
+        do {
+            let matchingItems = try context.fetch(fetchRequest)
+            
+            if let itemToUpdate = matchingItems.first {
+                itemToUpdate.setValue(newItem, forKey: "shoppingItem")
+                
+                do {
+                    try context.save()
+                    success()
+                } catch {
+                    print("Updating item failed: \(error.localizedDescription)")
+                }
+            }
+        } catch {
+            print("Error fetching item to update: \(error.localizedDescription)")
+        }
+    }
+
 }

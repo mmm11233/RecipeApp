@@ -15,6 +15,7 @@ protocol ShoppingListViewModel {
     func numberOfRowsInSection() -> Int
     func item(at index: Int) -> String
     func save(item: String)
+    func update(indexPath: IndexPath, newValue: String)
     func delete(indexPath: IndexPath)
 }
 
@@ -46,6 +47,18 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
             })
     }
     
+    func update(indexPath: IndexPath, newValue: String) {
+        let oldValue = item(at: indexPath.row)
+
+        if oldValue != newValue {
+            ShoppingRepository.shared.updateItem(oldItem: oldValue,
+                                                 newItem: newValue,
+                                                 success: { [weak self] in
+                self?.fetchShoppingItems()
+            })
+        }
+    }
+    
     func delete(indexPath: IndexPath) {
         let item = item(at: indexPath.row)
         
@@ -55,7 +68,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
                 self?.fetchShoppingItems()
             })
     }
-    
+
     private func fetchShoppingItems() {
         shoppingItems = ShoppingRepository.shared.fetchItems()
         itemsDidUpdate.send()
