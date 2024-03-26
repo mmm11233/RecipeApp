@@ -29,7 +29,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     
     private let noEntriesFountSubject: PassthroughSubject<String?, Never> = .init()
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { noEntriesFountSubject.eraseToAnyPublisher() }
-
+    
     private var shoppingItems: [ShopingItem] = []
     
     // MARK: - Methods
@@ -68,7 +68,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     func update(indexPath: IndexPath, newValue: String) {
         let oldValue = item(at: indexPath.row)
         let newValue = ShopingItem(title: newValue, isMarked: oldValue.isMarked)
-
+        
         if oldValue.title != newValue.title {
             ShoppingRepository.shared.updateItem(oldItem: oldValue,
                                                  newItem: newValue,
@@ -87,7 +87,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
                 self?.fetchShoppingItems()
             })
     }
-
+    
     private func fetchShoppingItems() {
         shoppingItems = ShoppingRepository.shared.fetchItems()
         itemsDidUpdateSubject.send()

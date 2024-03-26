@@ -58,7 +58,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
                 }
             }.store(in: &subscribers)
         
-        viewModel.dishesDidLoad
+        viewModel.dishesDidLoadPublisher
             .sink { [weak self] in
                 self?.collectionView.reloadData()
                 self?.dismissCollectionViewViewLoader()
@@ -87,7 +87,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DishesComponentCell", for: indexPath) as! DishCollectionViewCell
         cell.configure(model: .init(dish: viewModel.item(at: indexPath.row),
                                     favouriteButtonIsHidden: false,
-                                    favouriteButtonTapPublisher: viewModel.favouriteButtonTapPublisher))
+                                    favouriteButtonTapPublisher: viewModel.favouriteButtonTapSubject))
         
         return cell
     }

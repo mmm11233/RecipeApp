@@ -66,7 +66,7 @@ final class CategoriesViewController: UIViewController {
                 }
             }.store(in: &subscribers)
         
-        viewModel.categoriesDidLoad
+        viewModel.categoriesDidLoadPublisher
             .sink { [weak self] in
                 self?.tableView.reloadData()
             }.store(in: &subscribers)

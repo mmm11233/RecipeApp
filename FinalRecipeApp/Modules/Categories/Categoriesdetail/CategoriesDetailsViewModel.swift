@@ -11,9 +11,10 @@ import CoreData
 import UIKit
 
 protocol CategoriesDetailsViewModel {
-    var dishesDidLoad: PassthroughSubject<Void, Never> { get }
-    var isLoading: CurrentValueSubject<Bool, Never> { get }
-    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> { get }
+    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { get }
+    var isLoading: AnyPublisher<Bool, Never> { get }
+    var favouriteButtonTapSubject: PassthroughSubject<Dish, Never> { get }
+    
     var selectedCategoryType: CategoryType {get set}
     
     func viewDidLoad()
@@ -27,9 +28,15 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     //MARK: - Properties
     private var subscribers = Set<AnyCancellable>()
-    var dishesDidLoad: PassthroughSubject<Void, Never> = .init()
-    var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
-    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
+    
+    private let dishesDidLoadSubject: PassthroughSubject<Void, Never> = .init()
+    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { dishesDidLoadSubject.eraseToAnyPublisher() }
+
+    private let isLoadingSubject: CurrentValueSubject<Bool, Never> = .init(false)
+    var isLoading: AnyPublisher<Bool, Never> { isLoadingSubject.eraseToAnyPublisher() }
+
+    var favouriteButtonTapSubject: PassthroughSubject<Dish, Never> = .init()
+
     var selectedCategoryType: CategoryType
     
     private var dishesService: DishesService
@@ -78,7 +85,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     
     // MARK: Requests
     private func setupBindings() {
-        favouriteButtonTapPublisher
+        favouriteButtonTapSubject
             .sink { dish in
                 let existingDishes = FavouritesRepository.shared.fetchDishes()
                 
@@ -91,16 +98,16 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     }
     
     private func fetchDishes() {
-        isLoading.send(true)
+        isLoadingSubject.send(true)
         
         dishesService.fetchDishes(completion: { [weak self] result in
             guard let self else { return }
-            isLoading.send(false)
+            isLoadingSubject.send(false)
             
             switch result {
             case .success(let dishes):
                 self.dishes = dishes
-                dishesDidLoad.send()
+                dishesDidLoadSubject.send()
             case .failure(let error):
                 print(error.localizedDescription)
             }

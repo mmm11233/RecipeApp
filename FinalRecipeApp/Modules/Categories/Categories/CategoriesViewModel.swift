@@ -9,8 +9,8 @@ import UIKit
 import Combine
 
 protocol CategoriesViewModel {
-    var categoriesDidLoad: PassthroughSubject<Void, Never> { get }
-    var isLoading: CurrentValueSubject<Bool, Never> { get }
+    var categoriesDidLoadPublisher: AnyPublisher<Void, Never>  { get }
+    var isLoading: AnyPublisher<Bool, Never> { get }
     
     func viewDidLoad()
     func refreshData()
@@ -23,8 +23,12 @@ protocol CategoriesViewModel {
 final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Properties
-    var categoriesDidLoad: PassthroughSubject<Void, Never> = .init()
-    var isLoading: CurrentValueSubject<Bool, Never> = .init(false)
+    private let categoriesDidLoadSubject: PassthroughSubject<Void, Never> = .init()
+    var categoriesDidLoadPublisher: AnyPublisher<Void, Never> { categoriesDidLoadSubject.eraseToAnyPublisher() }
+
+    private let isLoadingSubject: CurrentValueSubject<Bool, Never> = .init(false)
+    var isLoading: AnyPublisher<Bool, Never> { isLoadingSubject.eraseToAnyPublisher() }
+
     
     private var categories: [Category] = []
     private var categoriesService: CategoriesService
@@ -59,15 +63,15 @@ final class CategoriesViewModelImpl: CategoriesViewModel {
     
     // MARK: - Requests
     private func fetchCategories() {
-        isLoading.send(true)
+        isLoadingSubject.send(true)
         
         categoriesService.fetchCategories(completion: { [weak self] result in
-            self?.isLoading.send(false)
+            self?.isLoadingSubject.send(false)
             
             switch result {
             case .success(let categories):
                 self?.categories = categories
-                self?.categoriesDidLoad.send()
+                self?.categoriesDidLoadSubject.send()
             case .failure(let error):
                 print(error.localizedDescription)
             }

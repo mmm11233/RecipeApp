@@ -111,7 +111,7 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
             background.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
             textField.topAnchor.constraint(equalTo: background.topAnchor, constant: 8),
-            textField.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 8),
+            textField.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 16),
             textField.trailingAnchor.constraint(equalTo: markButton.leadingAnchor, constant: -8),
             textField.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -8),
             
