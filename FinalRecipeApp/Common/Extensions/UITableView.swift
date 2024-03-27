@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: UITableView + Empty View
+// MARK: UITableView
 extension UITableView {
     func setEmptyView(title: String) {
         let titleLabel: UILabel = {
@@ -33,5 +33,11 @@ extension UITableView {
     func restoreEmptyView() {
         self.backgroundView = nil
         self.separatorStyle = .singleLine
+    }
+    
+    func isLastVisibleCell(at indexPath: IndexPath) -> Bool {
+        guard let lastIndexPath = indexPathsForVisibleRows?.last else { return false }
+
+        return lastIndexPath == indexPath
     }
 }

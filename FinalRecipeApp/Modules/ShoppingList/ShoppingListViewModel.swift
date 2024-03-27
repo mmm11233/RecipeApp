@@ -13,8 +13,11 @@ protocol ShoppingListViewModel {
     var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { get }
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { get }
     var moveTableViewRowPublisher: AnyPublisher<(IndexPath, IndexPath), Never> { get }
+
+    var viewIsNeedAnimation: Bool { get }
     
     func viewDidLoad()
+    func viewDidAppear()
     
     func numberOfRowsInSection() -> Int
     func item(at index: Int) -> ShopingItem
@@ -46,9 +49,16 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
             _shoppingItems = newValue
         }
     }
+    
+    var viewIsNeedAnimation: Bool = true
+    
     // MARK: Life Cycle
     func viewDidLoad() {
         fetchShoppingItems()
+    }
+    
+    func viewDidAppear() {
+        viewIsNeedAnimation = false
     }
     
     // MARK: Table View
@@ -115,6 +125,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     }
     
     func delete(indexPath: IndexPath) {
+        viewIsNeedAnimation = true
         let item = item(at: indexPath.row)
         
         ShoppingRepository.shared.deleteItem(

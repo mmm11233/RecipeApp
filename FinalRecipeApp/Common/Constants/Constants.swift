@@ -2,7 +2,7 @@
 //  Constants.swift
 //  FinalRecipeApp
 //
-//  Created by Rezo Joglidze on 27.03.24.
+//  Created by Mariam Joglidze on 27.03.24.
 //
 
 import Foundation

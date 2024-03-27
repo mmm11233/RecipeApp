@@ -14,6 +14,7 @@ final class ShoppingListViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.isUserInteractionEnabled = true
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -55,6 +56,11 @@ final class ShoppingListViewController: UIViewController {
         setupConstraints()
         setupBindings()
         viewModel.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
     }
     
     // MARK: Setup
@@ -165,6 +171,14 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if viewModel.viewIsNeedAnimation {
+            let animation = AnimationFactory.makeMoveUpWithBounce(rowHeight: cell.frame.height, duration: 1.0, delayFactor: 0.05)
+            let animator = Animator(animation: animation)
+            animator.animate(cell: cell, at: indexPath, in: tableView)
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

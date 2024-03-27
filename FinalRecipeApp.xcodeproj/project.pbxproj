@@ -56,10 +56,12 @@
 		39DE5B062B72BB1E00AAA8E2 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = 39DE5B052B72BB1E00AAA8E2 /* GoogleMapsM4B */; };
 		39DE5B0A2B72BBFB00AAA8E2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */; };
 		39DE5B0E2B72BCAB00AAA8E2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */; };
-		39F1CE662BB31CEE00C586CE /* UITableView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */; };
 		39F1CE6A2BB320C200C586CE /* ShopingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F1CE692BB320C200C586CE /* ShopingItem.swift */; };
 		A96ECF522BB4436A007CC422 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECF512BB4436A007CC422 /* Constants.swift */; };
 		A976099C2BB47870009D2D23 /* DishComponentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976099B2BB47870009D2D23 /* DishComponentModel.swift */; };
+		A976099E2BB48FDC009D2D23 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976099D2BB48FDC009D2D23 /* Animator.swift */; };
+		A97609A12BB4900D009D2D23 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97609A02BB4900D009D2D23 /* AnimationFactory.swift */; };
+		A97609A32BB490B7009D2D23 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97609A22BB490B7009D2D23 /* UITableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,10 +111,12 @@
 		39DE5AFB2B7171A300AAA8E2 /* FavouritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesRepository.swift; sourceTree = "<group>"; };
 		39DE5B082B72BBFB00AAA8E2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		39DE5B0D2B72BCAB00AAA8E2 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyView.swift"; sourceTree = "<group>"; };
 		39F1CE692BB320C200C586CE /* ShopingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopingItem.swift; sourceTree = "<group>"; };
 		A96ECF512BB4436A007CC422 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A976099B2BB47870009D2D23 /* DishComponentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishComponentModel.swift; sourceTree = "<group>"; };
+		A976099D2BB48FDC009D2D23 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		A97609A02BB4900D009D2D23 /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
+		A97609A22BB490B7009D2D23 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,7 +228,7 @@
 				39832BF72B5AB4A0007232FA /* UIView+ShadowView.swift */,
 				398E4BD62B6FC33900BE6310 /* UIViewController+Loader.swift */,
 				39DE5AF82B71667000AAA8E2 /* NotificationCenter+Extensions.swift */,
-				39F1CE652BB31CEE00C586CE /* UITableView+EmptyView.swift */,
+				A97609A22BB490B7009D2D23 /* UITableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -258,6 +262,7 @@
 		398E4BD52B6FBED600BE6310 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A976099F2BB49006009D2D23 /* Animation */,
 				A96ECF532BB4436E007CC422 /* Constants */,
 				39DE5AFD2B7171B400AAA8E2 /* CoreData */,
 				39DE5AF42B71650C00AAA8E2 /* Components */,
@@ -443,6 +448,15 @@
 			path = DishComponentView;
 			sourceTree = "<group>";
 		};
+		A976099F2BB49006009D2D23 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				A976099D2BB48FDC009D2D23 /* Animator.swift */,
+				A97609A02BB4900D009D2D23 /* AnimationFactory.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -534,6 +548,7 @@
 				39D6EAD02BAAEB9800E28BBC /* OnboardingViewModel.swift in Sources */,
 				39832BF02B5A9522007232FA /* Category.swift in Sources */,
 				39D6EAE72BB0BB5700E28BBC /* ShoppingListViewModel.swift in Sources */,
+				A976099E2BB48FDC009D2D23 /* Animator.swift in Sources */,
 				39832BEE2B5A8C5E007232FA /* CategoryTableViewCell.swift in Sources */,
 				39D6EACB2BAA1E7C00E28BBC /* OnboardingViewController.swift in Sources */,
 				39D6EAD22BAAEC9E00E28BBC /* OnboardignCollectionViewModel.swift in Sources */,
@@ -552,6 +567,7 @@
 				39D6EAE92BB1C5FE00E28BBC /* ShoppingRepository.swift in Sources */,
 				39D6EAE22BB0B6A100E28BBC /* ShoppingListTableViewCell.swift in Sources */,
 				39D6EADC2BB0AFDB00E28BBC /* UserDefaults.swift in Sources */,
+				A97609A32BB490B7009D2D23 /* UITableView.swift in Sources */,
 				398E4BCC2B6F993400BE6310 /* DetailsViewModel.swift in Sources */,
 				398E4BD72B6FC33900BE6310 /* UIViewController+Loader.swift in Sources */,
 				398E4B722B6BDF9C00BE6310 /* FinalRecipeApp.xcdatamodeld in Sources */,
@@ -559,11 +575,11 @@
 				392D35812B66564700D29787 /* DetailsViewController.swift in Sources */,
 				398E4BD32B6FBA4D00BE6310 /* CategoriesDetailsViewModel.swift in Sources */,
 				398E4B6F2B6B99A000BE6310 /* FavouritesViewController.swift in Sources */,
-				39F1CE662BB31CEE00C586CE /* UITableView+EmptyView.swift in Sources */,
 				A96ECF522BB4436A007CC422 /* Constants.swift in Sources */,
 				39D6EADF2BB0B23A00E28BBC /* RecipeTabBarController.swift in Sources */,
 				39832BFD2B5D4DEE007232FA /* HeaderView.swift in Sources */,
 				392DCEEF2B7A3338009A5492 /* ImageBook.swift in Sources */,
+				A97609A12BB4900D009D2D23 /* AnimationFactory.swift in Sources */,
 				39832BD32B57BBFF007232FA /* SceneDelegate.swift in Sources */,
 				39832BF22B5A9D12007232FA /* CategoriesViewController.swift in Sources */,
 				39C69B002B5FD19E000EA66C /* DishModel.swift in Sources */,

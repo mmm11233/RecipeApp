@@ -2,7 +2,7 @@
 //  NetworkReachabilityService.swift
 //  FinalRecipeApp
 //
-//  Created by Rezo Joglidze on 12.02.24.
+//  Created by Mariam Joglidze on 12.02.24.
 //
 
 import UIKit
