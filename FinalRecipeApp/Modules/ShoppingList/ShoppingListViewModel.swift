@@ -56,7 +56,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     
     func update(indexPath: IndexPath, isMarked: Bool) {
         let oldValue = item(at: indexPath.row)
-        let newValue = ShopingItem(title: oldValue.title, isMarked: isMarked)
+        let newValue = ShopingItem(title: oldValue.title, isMarked: !isMarked)
         
         ShoppingRepository.shared.updateItem(oldItem: oldValue,
                                              newItem: newValue,

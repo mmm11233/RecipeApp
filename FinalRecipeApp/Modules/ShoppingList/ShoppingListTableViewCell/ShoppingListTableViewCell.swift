@@ -15,7 +15,6 @@ protocol ShoppingListTableViewCellDelegate: AnyObject {
 final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
     
     // MARK: - Properties
-    private var isMarked: Bool = false
     weak var delegate: ShoppingListTableViewCellDelegate?
     
     private let background: UIView = {
@@ -44,16 +43,13 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         button.backgroundColor = ColorBook.primaryWhite
         button.layer.cornerRadius = 7.0
         button.layer.masksToBounds = true
-        button.isSelected = isMarked
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
     @objc private func markButtonTapped(_ sender: UIButton) {
-        isMarked.toggle()
-        sender.isSelected = isMarked
-        delegate?.markButtonTapped(cell: self, isMarked: isMarked)
+        delegate?.markButtonTapped(cell: self, isMarked: sender.isSelected)
     }
     
     // MARK: - Init
