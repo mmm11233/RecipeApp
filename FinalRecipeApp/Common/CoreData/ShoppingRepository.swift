@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
+// MARK: Shopping Repository
 final class ShoppingRepository  {
-    
-    // MARK: - Properties
+    // MARK: Properties
     static let shared = ShoppingRepository()
     
     private let container: NSPersistentContainer
@@ -19,14 +19,14 @@ final class ShoppingRepository  {
         container.viewContext
     }
     
-    // MARK: - Init
+    // MARK: - Initializer
     private init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         self.container = appDelegate.persistentContainer
     }
     
-    //MARK: - Methods
+    //MARK: Methods
     func saveShoppingItem(item: ShopingItem, success: () -> ()) {
         let entity = NSEntityDescription.entity(forEntityName: "ShoppingList", in: context)
         let newItem = NSManagedObject(entity: entity!, insertInto: context)

@@ -8,13 +8,15 @@
 import Foundation
 import NetSwift
 
+// MARK: Categories Service
 protocol CategoriesService {
     func fetchCategories(completion: @escaping (Result<[Category], Error>) -> Void)
 }
 
-class CategoriesServiceImpl: CategoriesService {
+// MARK: Categories Service Impl
+final class CategoriesServiceImpl: CategoriesService {
     func fetchCategories(completion: @escaping (Result<[Category], Error>) -> Void) {
-        let urlString = "https://raw.githubusercontent.com/mmm11233/RecipesAppMockData/main/categories.json"
+        let urlString = "\(Constants.baseAPIURL)/main/categories.json"
         guard let URL = URL(string: urlString) else { return }
         
         NetworkManager.shared.fetchDecodableData(from: URL, responseType: CategoryResponseModel.self, completion: {

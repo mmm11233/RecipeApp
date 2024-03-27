@@ -7,20 +7,11 @@
 import UIKit
 import Combine
 
+// MARK: - Categories View Controller
 final class CategoriesViewController: UIViewController {
-    
-    // MARK: - Properties
+    // MARK: Properties
     private let viewModel: CategoriesViewModel
     private var subscribers = Set<AnyCancellable>()
-    
-    init(viewModel: CategoriesViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -36,7 +27,17 @@ final class CategoriesViewController: UIViewController {
         return headerView
     }()
     
-    // MARK: - LifeCycle
+    // MARK: Initalizer
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -46,7 +47,7 @@ final class CategoriesViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupView() {
         headerView.configure(title: "Categories")
         
@@ -90,7 +91,7 @@ final class CategoriesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.register(CategrorieTableViewCell.self, forCellReuseIdentifier: "CategrorieTableViewCell")
+        tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategrorieTableViewCell")
     }
     
     private func setupRefreshControl() {
@@ -99,16 +100,17 @@ final class CategoriesViewController: UIViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(sender:)), for: .valueChanged)
     }
     
-    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
-        viewModel.refreshData()
-    }
-    
     private func dismissTableViewViewLoader() {
         tableView.refreshControl?.endRefreshing()
     }
+    
+    // MARK: User Interaction
+    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
+        viewModel.refreshData()
+    }
 }
 
-// MARK: - Extensions
+// MARK: Table View Data Source And Delegate
 extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRowsInSection()
@@ -118,7 +120,7 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         let category = viewModel.item(at: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategrorieTableViewCell", for: indexPath)
         
-        if let categoriesViewControllerCell = cell as? CategrorieTableViewCell {
+        if let categoriesViewControllerCell = cell as? CategoryTableViewCell {
             categoriesViewControllerCell.configure(with: category)
             return categoriesViewControllerCell
         }

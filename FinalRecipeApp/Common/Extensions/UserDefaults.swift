@@ -7,8 +7,8 @@
 
 import Foundation
 
+// MARK: User Defaults
 extension UserDefaults {
-    
     struct Keys {
         static let isOnboardingAlreadyCompleted = "isOnboardingAlreadyCompleted"
     }

@@ -10,9 +10,10 @@ import NetSwift
 import CoreData
 import Combine
 
+// MARK: - Main View Model
 final class MainViewModel: ObservableObject {
     
-    //MARK: - Properties
+    //MARK: Properties
     private var subscribers = Set<AnyCancellable>()
     
     private let dishesService: DishesService
@@ -28,7 +29,7 @@ final class MainViewModel: ObservableObject {
     
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
     
-    //MARK: - Init
+    //MARK: - Initializer
     init(dishesService: DishesService) {
         self.dishesService = dishesService
         setupBindigs()

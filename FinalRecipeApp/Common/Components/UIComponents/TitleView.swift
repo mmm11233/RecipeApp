@@ -7,21 +7,21 @@
 
 import SwiftUI
 
+// MARK: - Title View
 struct TitleView: View {
-    
-    // MARK: - Properties
+    // MARK: Properties
     private let title: String
     
+    // MARK: Initalizer
     init(title: String) {
         self.title = title
     }
     
-    // MARK: - Body
+    // MARK: Body
     var body: some View {
         titleView
     }
     
-    // MARK: - views
     private var titleView: some View {
         Text(title)
             .fontWeight(.semibold)

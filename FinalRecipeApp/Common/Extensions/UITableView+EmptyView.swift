@@ -7,9 +7,10 @@
 
 import UIKit
 
+// MARK: UITableView + Empty View
 extension UITableView {
     func setEmptyView(title: String) {
-        var titleLabel: UILabel = {
+        let titleLabel: UILabel = {
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.textColor = UIColor.black

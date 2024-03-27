@@ -7,8 +7,9 @@
 
 import UIKit
 
+// MARK: - Onboarding Collection View Model
 struct OnboardingCollectionViewModel {
+    // MARK: Properties
     let title: String
     let image: UIImage
 }
-

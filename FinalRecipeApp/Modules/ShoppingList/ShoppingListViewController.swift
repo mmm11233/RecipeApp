@@ -8,11 +8,16 @@
 import UIKit
 import Combine
 
-class ShoppingListViewController: UIViewController {
-    
-    // MARK: - Properties
-    private var viewModel: ShoppingListViewModel
-    private var subscribers = Set<AnyCancellable>()
+// MARK: - Shopping List View Controller
+final class ShoppingListViewController: UIViewController {
+    // MARK: Properties
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.isUserInteractionEnabled = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
     
     private lazy var noEntriesLabel: UILabel = {
         let label = UILabel()
@@ -26,6 +31,11 @@ class ShoppingListViewController: UIViewController {
         return label
     }()
     
+    private var subscribers = Set<AnyCancellable>()
+    
+    private let viewModel: ShoppingListViewModel
+    
+    // MARK: Initalizer
     init(viewModel: ShoppingListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,15 +45,8 @@ class ShoppingListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.isUserInteractionEnabled = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
-    }()
     
-    // MARK: - LifeCycle
+    // MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +57,7 @@ class ShoppingListViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupBindings() {
         viewModel.itemsDidUpdatePublisher
             .sink { [weak self] in
@@ -91,6 +94,15 @@ class ShoppingListViewController: UIViewController {
         tableView.register(ShoppingListTableViewCell.self, forCellReuseIdentifier: "ShoppingListTableViewCell")
     }
     
+    private func updateNoEntriesFoundLabel(text: String?) {
+        if let text = text {
+            tableView.setEmptyView(title: text)
+        } else {
+            tableView.restoreEmptyView()
+        }
+    }
+    
+    // MARK: User Interaction
     @objc func save() {
         let alertController = UIAlertController(title: "Add shopping item", message: nil, preferredStyle: .alert)
         
@@ -113,16 +125,25 @@ class ShoppingListViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func updateNoEntriesFoundLabel(text: String?) {
-        if let text = text {
-            tableView.setEmptyView(title: text)
-        } else {
-            tableView.restoreEmptyView()
+    func showDeleteWarning(for indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Warning Title", message: "Warning Message", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            DispatchQueue.main.async {
+                self.viewModel.delete(indexPath: indexPath)
+            }
         }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
-// MARK: - Extensions
+// MARK: Table View DataSource And Delegate
 extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRowsInSection()
@@ -131,7 +152,7 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.item(at: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
-
+        
         if let shoppingListCell = cell as? ShoppingListTableViewCell {
             shoppingListCell.configure(with: item)
             shoppingListCell.delegate = self
@@ -153,25 +174,9 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
         
         return UISwipeActionsConfiguration(actions: [modifyAction])
     }
-    
-    func showDeleteWarning(for indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Warning Title", message: "Warning Message", preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            DispatchQueue.main.async {
-                self.viewModel.delete(indexPath: indexPath)
-            }
-        }
-        
-        alert.addAction(cancelAction)
-        alert.addAction(deleteAction)
-        
-        present(alert, animated: true, completion: nil)
-    }
 }
 
+// MARK: Shopping List Table View Cell Delegate
 extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
     func markButtonTapped(cell: ShoppingListTableViewCell, isMarked: Bool) {
         if let indexPath = tableView.indexPath(for: cell) {
@@ -179,7 +184,7 @@ extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
         }
     }
     
-    func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
+    func shoppingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             viewModel.update(indexPath: indexPath, newValue: newValue)
         }

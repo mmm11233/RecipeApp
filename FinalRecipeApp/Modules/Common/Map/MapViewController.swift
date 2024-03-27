@@ -8,14 +8,14 @@
 import UIKit
 import GoogleMaps
 
-class MapViewController: UIViewController {
-    
-    // MARK: - Properties
+// MARK: - Map View Controller
+final class MapViewController: UIViewController {
+    // MARK: Properties
     private let viewModel: MapViewModel
     
+    // MARK: Initalizer
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,14 +23,13 @@ class MapViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
+    // MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupMap()
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupMap() {
         let mapView = GMSMapView()
         

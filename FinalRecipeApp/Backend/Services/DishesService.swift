@@ -8,14 +8,15 @@
 import Foundation
 import NetSwift
 
+// MARK: Dishes Service
 protocol DishesService {
     func fetchDishes(completion: @escaping (Result<[Dish], Error>) -> Void)
 }
 
-class DishesServiceImpl: DishesService {
-    
+// MARK: Dishes Service Impl
+final class DishesServiceImpl: DishesService {
     func fetchDishes(completion: @escaping (Result<[Dish], Error>) -> Void) {
-        let urlString = "https://raw.githubusercontent.com/mmm11233/RecipesAppMockData/main/dishes"
+        let urlString = "\(Constants.baseAPIURL)/main/dishes"
         guard let URL = URL(string: urlString) else { return }
         
         NetworkManager.shared.fetchDecodableData(from: URL, responseType: DisheData.self, completion: {

@@ -8,22 +8,25 @@
 import UIKit
 import Combine
 
+// MARK: Shopping List View Model
 protocol ShoppingListViewModel {
     var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { get }
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { get }
     
     func viewDidLoad()
+    
     func numberOfRowsInSection() -> Int
     func item(at index: Int) -> ShopingItem
+    
     func save(item: String)
     func update(indexPath: IndexPath, isMarked: Bool)
     func update(indexPath: IndexPath, newValue: String)
     func delete(indexPath: IndexPath)
 }
 
+// MARK: Shopping List View Model Impl
 final class ShoppingListViewModelImpl: ShoppingListViewModel {
-    
-    // MARK: - Properties
+    // MARK: Properties
     private let itemsDidUpdateSubject: PassthroughSubject<Void, Never> = .init()
     var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { itemsDidUpdateSubject.eraseToAnyPublisher() }
     
@@ -32,11 +35,12 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     
     private var shoppingItems: [ShopingItem] = []
     
-    // MARK: - Methods
+    // MARK: Life Cycle
     func viewDidLoad() {
         fetchShoppingItems()
     }
     
+    // MARK: Table View
     func numberOfRowsInSection() -> Int {
         shoppingItems.count
     }
@@ -45,6 +49,7 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
         shoppingItems[index]
     }
     
+    // MARK: Request
     func save(item: String) {
         ShoppingRepository.shared.saveShoppingItem(
             item: .init(title: item, isMarked: false),
@@ -52,7 +57,6 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
                 self?.fetchShoppingItems()
             })
     }
-    
     
     func update(indexPath: IndexPath, isMarked: Bool) {
         let oldValue = item(at: indexPath.row)

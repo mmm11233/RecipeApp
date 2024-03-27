@@ -7,11 +7,11 @@
 import UIKit
 import Combine
 
-final class CategoriesDetailsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    //MARK: - Properties
-    private let viewModel: CategoriesDetailsViewModel
+// MARK: - Categories Details View Controller
+final class CategoriesDetailsViewController: UICollectionViewController {
+    //MARK: Properties
     private var subscribers = Set<AnyCancellable>()
+    private let viewModel: CategoriesDetailsViewModel
     
     //MARK: - Init
     init(viewModel: CategoriesDetailsViewModel) {
@@ -37,7 +37,7 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    // MARK: - Methods
+    // MARK: - Setup
     private func setupView() {
         view.backgroundColor = ColorBook.white
         title = viewModel.selectedCategoryType.rawValue
@@ -71,14 +71,18 @@ final class CategoriesDetailsViewController: UICollectionViewController, UIColle
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(sender:)), for: .valueChanged)
     }
     
-    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
-        viewModel.reloadData()
-    }
-    
     private func dismissCollectionViewViewLoader() {
         collectionView.refreshControl?.endRefreshing()
     }
     
+    // MARK: User Interaction
+    @objc private func refreshControlValueChanged(sender: UIRefreshControl) {
+        viewModel.reloadData()
+    }
+}
+
+// MARK: Collection View Delegate Flow Layout
+extension CategoriesDetailsViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfItemsInSection()
     }

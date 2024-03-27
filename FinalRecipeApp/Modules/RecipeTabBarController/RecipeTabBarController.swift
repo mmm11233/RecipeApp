@@ -8,15 +8,17 @@
 import UIKit
 import SwiftUI
 
+// MARK: - Recipe Tab Bar Controller
 final class RecipeTabBarController: UITabBarController {
     
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTabBarController()
     }
     
-    // MARK: Configure Tab Bar
+    // MARK: Configuration
     private func configureTabBarController() {
         // MARK: Main View
         let mainView = MainView(viewModel: MainViewModel(dishesService: DishesServiceImpl()))

@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+// MARK: Favourites Repository
 final class FavouritesRepository  {
     
     // MARK: - Properties
@@ -19,7 +20,7 @@ final class FavouritesRepository  {
         container.viewContext
     }
     
-    // MARK: - Init
+    // MARK: Initializer
     private init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         

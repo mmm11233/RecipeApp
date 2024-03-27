@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class CategrorieTableViewCell: UITableViewCell {
-    
-    // MARK: - Properties
+// MARK: - Category Table View Cell
+final class CategoryTableViewCell: UITableViewCell {
+    // MARK: Properties
     private let background: UIView = {
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ final class CategrorieTableViewCell: UITableViewCell {
         return image
     }()
     
-    // MARK: - Init
+    // MARK: Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -48,7 +48,7 @@ final class CategrorieTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - PrepareForReuse
+    // MARK: - Prepare For Reuse
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -56,13 +56,13 @@ final class CategrorieTableViewCell: UITableViewCell {
         categoryImage.image = nil
     }
     
-    // MARK: - Configure
+    // MARK: Configuration
     func configure(with model: Category) {
         categoryName.text = model.type.rawValue
         categoryImage.image = model.type.image
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupView() {
         background.backgroundColor = ColorBook.lightGray
         background.layer.cornerRadius = 20

@@ -4,11 +4,13 @@
 //
 //  Created by Mariam Joglidze on 02.02.24.
 //
+
 import Foundation
 import UIKit
 import CoreData
 import Combine
 
+// MARK: - Favourites View Model
 protocol FavouritesViewModel {
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> { get }
     
@@ -21,19 +23,20 @@ protocol FavouritesViewModel {
     func didSelectRowAt(at index: Int, from viewController: UIViewController)
 }
 
+// MARK: - Favourites View Model Impl
 final class FavouritesViewModelImpl: FavouritesViewModel {
-    
     //MARK: - Properties
     var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never> = .init()
     private var subscribers = Set<AnyCancellable>()
     private var dishes: [Dish] = []
     
-    //MARK: - Methods
+    //MARK: - Life Cycle
     func viewDidLoad() {
         updateDataSource()
         setupBindings()
     }
     
+    // MARK: Methods
     private func setupBindings() {
         favouriteButtonTapPublisher
             .sink { dish in
@@ -46,13 +49,14 @@ final class FavouritesViewModelImpl: FavouritesViewModel {
     }
     
     func numberOfItemsInSection() -> Int {
-        return dishes.count
+        dishes.count
     }
     
     func item(at index: Int) -> Dish {
         dishes[index]
     }
     
+    // MARK: User Interaction
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
         let vc  = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index], mapButtonIsHidden: true))
         viewController.navigationController?.pushViewController(vc, animated: true)
