@@ -68,6 +68,11 @@ final class ShoppingListViewController: UIViewController {
             .sink { [weak self] text in
                 self?.updateNoEntriesFoundLabel(text: text)
             }.store(in: &subscribers)
+        
+        viewModel.moveTableViewRowPublisher
+            .sink { [weak self] (fromIndex, toIndex) in
+                self?.tableView.moveRow(at: fromIndex, to: toIndex)
+            }.store(in: &subscribers)
     }
     
     private func setupView() {

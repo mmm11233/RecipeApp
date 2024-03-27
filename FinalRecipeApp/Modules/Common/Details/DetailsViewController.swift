@@ -193,10 +193,12 @@ final class DetailsViewController: UIViewController {
         viewModel.downloadImage(from: url, completion: { [weak self] image in
             guard let self else { return }
             
-            if let image {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
                 imageView.image = image
+                stopLoading()
             }
-            stopLoading()
         })
     }
     

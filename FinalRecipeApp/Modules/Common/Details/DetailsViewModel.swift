@@ -56,8 +56,9 @@ final class DetailsViewModelImpl: DetailsViewModel {
         URLSession.shared.dataTask(with: url) { data, _, _ in
             if let data = data {
                 completion((UIImage(data: data)))
+            } else {
+                completion(nil)
             }
-            completion(nil)
         }.resume()
     }
 }

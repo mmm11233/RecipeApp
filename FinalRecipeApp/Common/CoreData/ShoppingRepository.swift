@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-// MARK: Shopping Repository
+// MARK: - Shopping Repository
 final class ShoppingRepository  {
     // MARK: Properties
     static let shared = ShoppingRepository()
@@ -19,7 +19,7 @@ final class ShoppingRepository  {
         container.viewContext
     }
     
-    // MARK: - Initializer
+    // MARK: Initializer
     private init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         

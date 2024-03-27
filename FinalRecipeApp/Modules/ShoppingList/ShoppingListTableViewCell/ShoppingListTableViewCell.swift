@@ -118,6 +118,7 @@ final class ShoppingListTableViewCell: UITableViewCell {
     // MARK: User Interaction
     @objc private func markButtonTapped(_ sender: UIButton) {
         delegate?.markButtonTapped(cell: self, isMarked: sender.isSelected)
+        sender.isSelected.toggle()
     }
 }
 

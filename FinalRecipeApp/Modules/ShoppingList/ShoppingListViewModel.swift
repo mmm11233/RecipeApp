@@ -12,6 +12,7 @@ import Combine
 protocol ShoppingListViewModel {
     var itemsDidUpdatePublisher: AnyPublisher<Void, Never> { get }
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { get }
+    var moveTableViewRowPublisher: AnyPublisher<(IndexPath, IndexPath), Never> { get }
     
     func viewDidLoad()
     
@@ -33,8 +34,18 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
     private let noEntriesFountSubject: PassthroughSubject<String?, Never> = .init()
     var noEntriesFoundPublisher: AnyPublisher<String?, Never> { noEntriesFountSubject.eraseToAnyPublisher() }
     
-    private var shoppingItems: [ShopingItem] = []
+    private let moveTableViewRowSubject: PassthroughSubject<(IndexPath, IndexPath), Never> = .init()
+    var moveTableViewRowPublisher: AnyPublisher<(IndexPath, IndexPath), Never> { moveTableViewRowSubject.eraseToAnyPublisher() }
     
+    private var _shoppingItems: [ShopingItem] = []
+    private var shoppingItems: [ShopingItem] {
+        get {
+            _shoppingItems.sorted(by: { !$0.isMarked && $1.isMarked })
+        }
+        set {
+            _shoppingItems = newValue
+        }
+    }
     // MARK: Life Cycle
     func viewDidLoad() {
         fetchShoppingItems()
@@ -65,8 +76,29 @@ final class ShoppingListViewModelImpl: ShoppingListViewModel {
         ShoppingRepository.shared.updateItem(oldItem: oldValue,
                                              newItem: newValue,
                                              success: { [weak self] in
-            self?.fetchShoppingItems()
+            guard let self else { return }
+            shoppingItems = ShoppingRepository.shared.fetchItems()
+            sendMoveTableViewRowSubjectIfNeeded(from: indexPath, newItem: newValue)
         })
+    }
+    
+    private func sendMoveTableViewRowSubjectIfNeeded(from fromIndex: IndexPath, newItem: ShopingItem) {
+        var toIndex: IndexPath? {
+            if newItem.isMarked {
+                if let nonMarkedLastIndex = shoppingItems.lastIndex(where: { !$0.isMarked }) {
+                    return IndexPath(row: nonMarkedLastIndex + 1, section: .zero)
+                }
+            } else {
+                if let markedLastIndex = shoppingItems.firstIndex(where: { $0.isMarked }) {
+                    return IndexPath(row: markedLastIndex - 1, section: .zero)
+                }
+            }
+            return nil
+        }
+        
+        if let toIndex {
+            moveTableViewRowSubject.send((fromIndex, toIndex))
+        }
     }
     
     func update(indexPath: IndexPath, newValue: String) {

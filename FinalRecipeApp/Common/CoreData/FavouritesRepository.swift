@@ -8,10 +8,10 @@
 import UIKit
 import CoreData
 
-// MARK: Favourites Repository
+// MARK: - Favourites Repository
 final class FavouritesRepository  {
     
-    // MARK: - Properties
+    // MARK: Properties
     static let shared = FavouritesRepository()
     
     private let container: NSPersistentContainer
