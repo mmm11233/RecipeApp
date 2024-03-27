@@ -42,7 +42,7 @@ final class RecipeTabBarController: UITabBarController {
         shoppingListVC.tabBarItem = UITabBarItem(title: "Shopping List", image: ImageBook.Icons.pencil, tag: 3)
         
         // MARK: Tab Bar Configuration
-        viewControllers = [shoppingListNavigationController, favouritesNavigationController, categoriesNavigationController,mainVC]
+        viewControllers = [mainVC, favouritesNavigationController, categoriesNavigationController, shoppingListNavigationController]
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ColorBook.black as Any]
