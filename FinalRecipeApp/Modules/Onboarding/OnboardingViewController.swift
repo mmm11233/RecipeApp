@@ -7,9 +7,10 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+// MARK: Onboarding View Controller
+final class OnboardingViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Properties
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
