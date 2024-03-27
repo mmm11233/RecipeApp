@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Color Book
 struct ColorBook {
     
     private init() {}

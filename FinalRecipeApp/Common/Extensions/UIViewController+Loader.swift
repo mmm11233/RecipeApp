@@ -7,9 +7,8 @@
 
 import UIKit
 
+// MARK: UIViewController + Loader
 extension UIViewController {
-    
-    // MARK: - Methods
     private var activityIndicatorTag: Int {
         return 99999999
     }

@@ -10,23 +10,26 @@ import SwiftUI
 import GoogleMaps
 import Combine
 
+// MARK: Scene Delegate
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
-    private var subscribers = Set<AnyCancellable>()
+    // MARK: Properties
     var window: UIWindow?
     
+    private var subscribers = Set<AnyCancellable>()
+    
+    // MARK: UI Window Scene Delegate
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        
         self.window?.rootViewController = createRootViewController()
-        window?.makeKeyAndVisible()
         
         if let apiKey = ProcessInfo.processInfo.environment["GOOGLE_MAP_API_KEY"] {
             GMSServices.provideAPIKey(apiKey)
         }
         addInternetConnectionObserver()
+        
+        window?.makeKeyAndVisible()
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -37,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NetworkReachabilityService.shared.stopObserving()
     }
     
+    // MARK: Configuration
     private func createRootViewController() -> UIViewController {
         if UserDefaults.isOnboardingAlreadyCompleted {
             RecipeTabBarController()

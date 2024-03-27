@@ -8,12 +8,12 @@ import SwiftUI
 import UIKit
 import Combine
 
-class DishCollectionViewCell: UICollectionViewCell {
-    
-    // MARK: - Properties
+// MARK: Dish Collection View Cell
+final class DishCollectionViewCell: UICollectionViewCell {
+    // MARK: Properties
     private var hostingController: UIHostingController<DishComponentView>?
     
-    // MARK: - Init
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupHostingController()
@@ -23,7 +23,7 @@ class DishCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupHostingController() {
         let dishesComponentView = DishComponentView(model: .init(dish: .mock, favouriteButtonIsHidden: false))
         let hostingController = UIHostingController(rootView: dishesComponentView)
@@ -39,7 +39,8 @@ class DishCollectionViewCell: UICollectionViewCell {
         self.hostingController = hostingController
     }
     
-    func configure(model: DishComponentViewModel) {
+    // MARK: Configuration
+    func configure(model: DishComponentModel) {
         hostingController?.rootView.model = model
     }
 }

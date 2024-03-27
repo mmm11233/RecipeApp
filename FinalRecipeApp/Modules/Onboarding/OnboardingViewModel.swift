@@ -7,25 +7,28 @@
 
 import UIKit
 
+// MARK: - Onboarding View Model
 protocol OnboardingViewModel {
-    var currentPage: Int { get set }
     var items: [OnboardingCollectionViewModel] { get }
-    var backgroundColor: UIColor { get }
 
-    func setup()
+    func viewDidLoad()
+    func backgroundColor(at index: Int) -> UIColor
     func mainButtonTapped(from viewController: UIViewController)
 }
 
+// MARK: - Onboarding View Model Impl
 final class OnboardingViewModelImpl: OnboardingViewModel {
-    var currentPage: Int = 0
+    // MARK: Properties
     var items: [OnboardingCollectionViewModel] = []
     
-    var backgroundColor: UIColor {
-        Constants.colorsDataSource[currentPage]
+    // MARK: Lifecycle
+    func viewDidLoad() {
+        updateDataSource()
     }
     
-    func setup() {
-        updateDataSource()
+    // MARK: Methods
+    func backgroundColor(at index: Int) -> UIColor {
+        Constants.colorsDataSource[index]
     }
     
     private func updateDataSource() {
@@ -38,6 +41,8 @@ final class OnboardingViewModelImpl: OnboardingViewModel {
             .init(title: "დასერჩე კერძი ინგრედიენტების მიხედვით", image: ImageBook.Images.onBoardingSixth),
         ]
     }
+    
+    // MARK: User Interaction
     func mainButtonTapped(from viewController: UIViewController) {
         UserDefaults.isOnboardingAlreadyCompleted = true
         
@@ -48,6 +53,7 @@ final class OnboardingViewModelImpl: OnboardingViewModel {
     }
 }
 
+// MARK: - Private Constants
 private extension OnboardingViewModelImpl {
     enum Constants {
         static let colorsDataSource: [UIColor] = [

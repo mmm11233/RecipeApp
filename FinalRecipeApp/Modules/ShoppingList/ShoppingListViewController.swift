@@ -8,11 +8,17 @@
 import UIKit
 import Combine
 
-class ShoppingListViewController: UIViewController {
-    
-    // MARK: - Properties
-    private var viewModel: ShoppingListViewModel
-    private var subscribers = Set<AnyCancellable>()
+// MARK: - Shopping List View Controller
+final class ShoppingListViewController: UIViewController {
+    // MARK: Properties
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.isUserInteractionEnabled = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
     
     private lazy var noEntriesLabel: UILabel = {
         let label = UILabel()
@@ -26,6 +32,11 @@ class ShoppingListViewController: UIViewController {
         return label
     }()
     
+    private var subscribers = Set<AnyCancellable>()
+    
+    private let viewModel: ShoppingListViewModel
+    
+    // MARK: Initalizer
     init(viewModel: ShoppingListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,15 +46,8 @@ class ShoppingListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.isUserInteractionEnabled = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
-    }()
     
-    // MARK: - LifeCycle
+    // MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +58,12 @@ class ShoppingListViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
-    // MARK: - Methods
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewDidAppear()
+    }
+    
+    // MARK: Setup
     private func setupBindings() {
         viewModel.itemsDidUpdatePublisher
             .sink { [weak self] in
@@ -64,6 +73,11 @@ class ShoppingListViewController: UIViewController {
         viewModel.noEntriesFoundPublisher
             .sink { [weak self] text in
                 self?.updateNoEntriesFoundLabel(text: text)
+            }.store(in: &subscribers)
+        
+        viewModel.moveTableViewRowPublisher
+            .sink { [weak self] (fromIndex, toIndex) in
+                self?.tableView.moveRow(at: fromIndex, to: toIndex)
             }.store(in: &subscribers)
     }
     
@@ -91,6 +105,15 @@ class ShoppingListViewController: UIViewController {
         tableView.register(ShoppingListTableViewCell.self, forCellReuseIdentifier: "ShoppingListTableViewCell")
     }
     
+    private func updateNoEntriesFoundLabel(text: String?) {
+        if let text = text {
+            tableView.setEmptyView(title: text)
+        } else {
+            tableView.restoreEmptyView()
+        }
+    }
+    
+    // MARK: User Interaction
     @objc func save() {
         let alertController = UIAlertController(title: "Add shopping item", message: nil, preferredStyle: .alert)
         
@@ -113,47 +136,6 @@ class ShoppingListViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func updateNoEntriesFoundLabel(text: String?) {
-        if let text = text {
-            tableView.setEmptyView(title: text)
-        } else {
-            tableView.restoreEmptyView()
-        }
-    }
-}
-
-// MARK: - Extensions
-extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfRowsInSection()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.item(at: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
-
-        if let shoppingListCell = cell as? ShoppingListTableViewCell {
-            shoppingListCell.configure(with: item)
-            shoppingListCell.delegate = self
-            return shoppingListCell
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let modifyAction = UIContextualAction(style: .normal, title:  "Delete", handler: { _, _, _ in
-            DispatchQueue.main.async {
-                self.showDeleteWarning(for: indexPath)
-            }
-        })
-        
-        modifyAction.image = UIImage(named: "delete")
-        modifyAction.backgroundColor = .purple
-        
-        return UISwipeActionsConfiguration(actions: [modifyAction])
-    }
-    
     func showDeleteWarning(for indexPath: IndexPath) {
         let alert = UIAlertController(title: "Warning Title", message: "Warning Message", preferredStyle: .alert)
         
@@ -172,6 +154,48 @@ extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate
     }
 }
 
+// MARK: Table View DataSource And Delegate
+extension ShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.numberOfRowsInSection()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = viewModel.item(at: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableViewCell", for: indexPath)
+        
+        if let shoppingListCell = cell as? ShoppingListTableViewCell {
+            shoppingListCell.configure(with: item)
+            shoppingListCell.delegate = self
+            return shoppingListCell
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if viewModel.viewIsNeedAnimation {
+            let animation = AnimationFactory.makeMoveUpWithBounce(rowHeight: cell.frame.height, duration: 1.0, delayFactor: 0.05)
+            let animator = Animator(animation: animation)
+            animator.animate(cell: cell, at: indexPath, in: tableView)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let modifyAction = UIContextualAction(style: .normal, title:  "Delete", handler: { _, _, _ in
+            DispatchQueue.main.async {
+                self.showDeleteWarning(for: indexPath)
+            }
+        })
+        
+        modifyAction.image = UIImage(named: "delete")
+        modifyAction.backgroundColor = .purple
+        
+        return UISwipeActionsConfiguration(actions: [modifyAction])
+    }
+}
+
+// MARK: Shopping List Table View Cell Delegate
 extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
     func markButtonTapped(cell: ShoppingListTableViewCell, isMarked: Bool) {
         if let indexPath = tableView.indexPath(for: cell) {
@@ -179,7 +203,7 @@ extension ShoppingListViewController: ShoppingListTableViewCellDelegate {
         }
     }
     
-    func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
+    func shoppingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String) {
         if let indexPath = tableView.indexPath(for: cell) {
             viewModel.update(indexPath: indexPath, newValue: newValue)
         }

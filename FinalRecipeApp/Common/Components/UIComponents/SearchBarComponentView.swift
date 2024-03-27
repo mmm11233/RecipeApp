@@ -7,16 +7,15 @@
 
 import SwiftUI
 
+// MARK: Search Bar Component View
 struct SearchBarComponentView: View {
-    
-    // MARK: - Properties
+    // MARK: Properties
     @Binding var searchText: String
     @State private var isSearching: Bool = false
     
-    
-    // MARK: - Body
+    // MARK: Body
     var body: some View {
-        conentView
+        contentView
             .padding(.vertical, 10)
             .padding(.horizontal, 14)
             .background(Color(ColorBook.lightGray))
@@ -25,8 +24,8 @@ struct SearchBarComponentView: View {
             .padding(.trailing, 30)
     }
     
-    // MARK: - Views
-    private var conentView: some View {
+    // MARK: Views
+    private var contentView: some View {
         HStack {
             Image(uiImage: ImageBook.Icons.searchIcon)
                 .foregroundColor(Color(ColorBook.gray))

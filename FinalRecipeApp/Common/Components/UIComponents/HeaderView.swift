@@ -7,9 +7,9 @@
 
 import UIKit
 
+// MARK: Header View
 final class HeaderView: UIView {
-    
-    // MARK: - Properties
+    // MARK: Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 25)
@@ -19,7 +19,7 @@ final class HeaderView: UIView {
         return label
     }()
     
-    // MARK: - Init
+    // MARK: Initiazlier
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -30,11 +30,12 @@ final class HeaderView: UIView {
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: Configuration
     func configure(title: String) {
         titleLabel.text = title
     }
     
+    // MARK: Setup
     private func setupUI() {
         addSubview(titleLabel)
         

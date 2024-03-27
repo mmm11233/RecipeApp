@@ -9,12 +9,14 @@ import UIKit
 import CoreData
 import GoogleMaps
 
+// MARK: - App Delegate
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    // MARK: Properties
     var window: UIWindow?
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "FinalRecipeApp")
+        let container = NSPersistentContainer(name: Constants.finalRecipeCoreDataModel)
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -24,24 +26,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     var managedObjectContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        persistentContainer.viewContext
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        setupCoreData()
+    // MARK: Application Delegate
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        configureCoreData()
         return true
     }
     
-    private func setupCoreData() {
-        persistentContainer = NSPersistentContainer(name: "FinalRecipeApp")
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    // MARK: Configuration
+    private func configureCoreData() {
+        persistentContainer = NSPersistentContainer(name: Constants.finalRecipeCoreDataModel)
         persistentContainer.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
-    }
-    
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 }

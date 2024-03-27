@@ -7,9 +7,10 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+// MARK: Onboarding View Controller
+final class OnboardingViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: Properties
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -47,7 +48,7 @@ class OnboardingViewController: UIViewController {
     
     var viewModel: OnboardingViewModel
     
-    // MARK: - Inits
+    // MARK: - Initializers
     init(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -57,23 +58,23 @@ class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.setup()
+        viewModel.viewDidLoad()
         setupUI()
         setupCollectionView()
         setupConstraints()
     }
     
-    // MARK: - Configure
+    // MARK: Setup
     private func setupUI() {
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         view.addSubview(mainButton)
         
-        view.backgroundColor = viewModel.backgroundColor
+        view.backgroundColor = viewModel.backgroundColor(at: .zero)
         pageControl.numberOfPages = viewModel.items.count
         pageControl.currentPageIndicatorTintColor = ColorBook.orange
         pageControl.pageIndicatorTintColor = ColorBook.black.withAlphaComponent(0.16)
@@ -102,29 +103,24 @@ class OnboardingViewController: UIViewController {
         ])
     }
     
-    private func updateBackgroundColor() {
+    // MARK: Configuration
+    private func updateBackgroundColor(at index: Int) {
         let transition = CATransition()
         transition.duration = 0.5
         transition.type = .fade
         view.layer.removeAllAnimations()
         view.layer.add(transition, forKey: nil)
         
-        view.backgroundColor = viewModel.backgroundColor
+        view.backgroundColor = viewModel.backgroundColor(at: index)
     }
     
-    func pageControlAction() {
-        viewModel.currentPage = pageControl.currentPage
-        updateBackgroundColor()
-        let indexPath = IndexPath(item: viewModel.currentPage, section: 0)
-        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-    }
-    
+    // MARK: User Interaction
     @objc func mainButtonTapped(_ sender: UIButton) {
         viewModel.mainButtonTapped(from: self)
     }
 }
 
-//MARK: - Extensions
+// MARK: Collection View Data Source And Delegate
 extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.items.count
@@ -140,7 +136,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -148,9 +144,8 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
         
         if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
-            viewModel.currentPage = indexPath.row
-            updateBackgroundColor()
-            pageControl.currentPage = viewModel.currentPage
+            updateBackgroundColor(at: indexPath.row)
+            pageControl.currentPage = indexPath.row
         }
     }
 }

@@ -7,9 +7,11 @@
 
 import UIKit
 
+// MARK: Image Book
 struct ImageBook {
     private init() { }
     
+    // MARK: Images
     struct Images {
         static var defaultPhoto: UIImage = .init(systemName: "photo")!
         static var ellipseCollor: UIImage = .init(named: "EllipseColor")!
@@ -23,6 +25,7 @@ struct ImageBook {
         static var onBoardingSixth: UIImage = .init(named: "Onboarding6")!
     }
     
+    // MARK: Icons
     struct Icons {
         static var breakfast: UIImage = .init(named: "Breakfast")!
         static var bullet: UIImage = .init(systemName: "list.bullet")!

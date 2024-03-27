@@ -8,10 +8,11 @@
 import UIKit
 import SwiftUI
 
-class OnboardingCollectionViewCell: UICollectionViewCell {
+// MARK: Onboarding Collection View Cell
+final class OnboardingCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - Properties
-    private var imageView: UIImageView = {
+    // MARK: Properties
+    private let imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +31,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    // MARK: - Inits
+    // MARK: initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
@@ -42,13 +43,14 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Configure
+        
+    // MARK: Configuration
     func configure(with model: OnboardingCollectionViewModel) {
         titleLabel.text = model.title
         imageView.image = model.image
     }
     
+    // MARK: Setup
     private func addSubviews() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
@@ -68,10 +70,4 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         
         titleLabel.setContentCompressionResistancePriority(.init(1000), for: .vertical)
     }
-}
-
-#Preview {
-    let cell = OnboardingCollectionViewCell()
-    cell.configure(with: .init(title: "12", image: ImageBook.Images.onBoardingSecond))
-    return cell
 }

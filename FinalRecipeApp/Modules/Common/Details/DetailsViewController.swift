@@ -7,20 +7,9 @@
 import UIKit
 import SwiftUI
 
-class DetailsViewController: UIViewController {
-    
-    // MARK: - Properties
-    private let viewModel: DetailsViewModel
-    
-    init(viewModel: DetailsViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+// MARK: Details View Controller
+final class DetailsViewController: UIViewController {
+    // MARK: Properties
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
@@ -103,7 +92,19 @@ class DetailsViewController: UIViewController {
         return button
     }()
     
-    // MARK: - LifeCycle
+    private let viewModel: DetailsViewModel
+    
+    // MARK: Initalizer
+    init(viewModel: DetailsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -112,7 +113,7 @@ class DetailsViewController: UIViewController {
         configureViews()
     }
     
-    // MARK: - Configure
+    // MARK: Configuration
     private func configureViews() {
         if let imageURL = URL(string: viewModel.selectedDish.pictureURL) {
             startLoading()
@@ -124,6 +125,7 @@ class DetailsViewController: UIViewController {
         }
     }
     
+    // MARK: Setup
     private func setupView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         view.backgroundColor = ColorBook.white
@@ -187,30 +189,28 @@ class DetailsViewController: UIViewController {
         activityIndicator.removeFromSuperview()
     }
     
-    // MARK: - Actions
+    private func downloadImage(from url: URL) {
+        viewModel.downloadImage(from: url, completion: { [weak self] image in
+            guard let self else { return }
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+
+                imageView.image = image
+                stopLoading()
+            }
+        })
+    }
+    
+    // MARK: User Interaction
     @objc func mapButtonTapped(_ sender: UIButton) {
         viewModel.mapButtonTapped(from: self)
     }
-    
-    private func downloadImage(from url: URL) {
-        URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
-            if let data = data,
-               let image = UIImage(data: data) {
-                
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                    self?.stopLoading()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.stopLoading()
-                }
-            }
-        }.resume()
-    }
 }
 
+// MARK: - Details View
 struct DetailsView: View {
+    //MARK: Properties
     var viewModel: DetailsViewModel
     
     var body: some View {
@@ -219,6 +219,7 @@ struct DetailsView: View {
     }
 }
 
+// MARK: View Controller Representable
 struct UIKitDetailsViewControllerRepresentable: UIViewControllerRepresentable {
     var viewModel: DetailsViewModel
     

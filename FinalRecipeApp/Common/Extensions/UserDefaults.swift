@@ -2,13 +2,13 @@
 //  UserDefaults.swift
 //  FinalRecipeApp
 //
-//  Created by Rezo Joglidze on 24.03.24.
+//  Created by Mariam Joglidze on 24.03.24.
 //
 
 import Foundation
 
+// MARK: User Defaults
 extension UserDefaults {
-    
     struct Keys {
         static let isOnboardingAlreadyCompleted = "isOnboardingAlreadyCompleted"
     }

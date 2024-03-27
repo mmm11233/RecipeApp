@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Category Type
 enum CategoryType: String, Decodable {
     case Breakfast
     case Lunch
@@ -29,10 +30,12 @@ enum CategoryType: String, Decodable {
     }
 }
 
+// MARK: - Category
 struct Category: Decodable {
     let type: CategoryType
 }
 
+// MARK: Category Response Model
 struct CategoryResponseModel: Decodable {
     let categories: [Category]
 }

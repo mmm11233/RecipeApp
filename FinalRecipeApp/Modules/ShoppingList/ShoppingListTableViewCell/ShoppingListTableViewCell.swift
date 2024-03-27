@@ -7,16 +7,15 @@
 
 import UIKit
 
+// MARK: Shopping List Table View Cell Delegate
 protocol ShoppingListTableViewCellDelegate: AnyObject {
-    func shoopingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String)
+    func shoppingItemdDidChange(cell: ShoppingListTableViewCell, newValue: String)
     func markButtonTapped(cell: ShoppingListTableViewCell, isMarked: Bool)
 }
 
-final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
-    
-    // MARK: - Properties
-    weak var delegate: ShoppingListTableViewCellDelegate?
-    
+// MARK: - Shopping List Table View Cell Delegate
+final class ShoppingListTableViewCell: UITableViewCell {
+    // MARK: Properties
     private let background: UIView = {
         let view: UIView = .init()
         view.isUserInteractionEnabled = true
@@ -25,7 +24,7 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         return view
     }()
     
-    private var textField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont(name: "Futura Condensed Medium", size: 20)
         textField.textColor = ColorBook.primaryBlack
@@ -33,8 +32,8 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         
         return textField
     }()
-
-    private lazy var markButton: UIButton = {
+    
+    private let markButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(markButtonTapped), for: .touchUpInside)
         button.setImage(ImageBook.Icons.checkMark, for: .normal)
@@ -48,11 +47,9 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         return button
     }()
     
-    @objc private func markButtonTapped(_ sender: UIButton) {
-        delegate?.markButtonTapped(cell: self, isMarked: sender.isSelected)
-    }
+    weak var delegate: ShoppingListTableViewCellDelegate?
     
-    // MARK: - Init
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -67,20 +64,20 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - PrepareForReuse
+    // MARK: PrepareForReuse
     override func prepareForReuse() {
         super.prepareForReuse()
         
         textField.text = nil
     }
     
-    // MARK: - Configure
+    // MARK: Configuration
     func configure(with item: ShopingItem) {
         textField.text = item.title
         markButton.isSelected = item.isMarked
     }
     
-    // MARK: - Methods
+    // MARK: Setup
     private func setupView() {
         background.backgroundColor = ColorBook.lightGray
         background.layer.cornerRadius = 20
@@ -118,8 +115,17 @@ final class ShoppingListTableViewCell: UITableViewCell, UITextFieldDelegate{
         ])
     }
     
+    // MARK: User Interaction
+    @objc private func markButtonTapped(_ sender: UIButton) {
+        delegate?.markButtonTapped(cell: self, isMarked: sender.isSelected)
+        sender.isSelected.toggle()
+    }
+}
+
+// MARK: Text Field Delegate
+extension ShoppingListTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.shoopingItemdDidChange(cell: self, newValue: textField.text ?? "")
+        delegate?.shoppingItemdDidChange(cell: self, newValue: textField.text ?? "")
         endEditing(true)
         return true
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: Notification Center
 extension Notification.Name {
     static let updateFavourites = Notification.Name("update_favourites")
     static let noInternetConnection = Notification.Name("no_internet_connection")

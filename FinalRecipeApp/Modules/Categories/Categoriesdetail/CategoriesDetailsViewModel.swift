@@ -10,31 +10,34 @@ import Combine
 import CoreData
 import UIKit
 
+// MARK: - Categories Details View Model
 protocol CategoriesDetailsViewModel {
-    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { get }
     var isLoading: AnyPublisher<Bool, Never> { get }
+    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { get }
     var favouriteButtonTapSubject: PassthroughSubject<Dish, Never> { get }
     
     var selectedCategoryType: CategoryType {get set}
     
     func viewDidLoad()
+    
     func reloadData()
     func numberOfItemsInSection() -> Int
-    func didSelectRowAt(at index: Int, from viewController: UIViewController)
     func item(at index: Int) -> Dish
+    
+    func didSelectRowAt(at index: Int, from viewController: UIViewController)
 }
 
+// MARK: - Categories Details View Model Impl
 final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
-    
-    //MARK: - Properties
+    //MARK: Properties
     private var subscribers = Set<AnyCancellable>()
     
-    private let dishesDidLoadSubject: PassthroughSubject<Void, Never> = .init()
-    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { dishesDidLoadSubject.eraseToAnyPublisher() }
-
     private let isLoadingSubject: CurrentValueSubject<Bool, Never> = .init(false)
     var isLoading: AnyPublisher<Bool, Never> { isLoadingSubject.eraseToAnyPublisher() }
 
+    private let dishesDidLoadSubject: PassthroughSubject<Void, Never> = .init()
+    var dishesDidLoadPublisher: AnyPublisher<Void, Never> { dishesDidLoadSubject.eraseToAnyPublisher() }
+   
     var favouriteButtonTapSubject: PassthroughSubject<Dish, Never> = .init()
 
     var selectedCategoryType: CategoryType
@@ -52,7 +55,7 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
         }
     }
     
-    //MARK: - Init
+    //MARK: Initializers
     init(dishesService: DishesService,
          fileteredType: CategoryType) {
         self.dishesService = dishesService
@@ -61,11 +64,12 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
         setupBindings()
     }
     
-    //MARK: - Methods
+    // MARK: Life Cycle
     func viewDidLoad() {
         fetchDishes()
     }
     
+    // MARK: Data Source Methods
     func reloadData() {
         fetchDishes()
     }
@@ -75,15 +79,16 @@ final class CategoriesDetailsViewModelImpl: CategoriesDetailsViewModel {
     }
     
     func item(at index: Int) -> Dish {
-        return dishes[index]
+        dishes[index]
     }
     
+    // MARK: User Interaction
     func didSelectRowAt(at index: Int, from viewController: UIViewController) {
         let vc = DetailsViewController(viewModel: DetailsViewModelImpl(selectedDish: dishes[index], mapButtonIsHidden: false))
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: Requests
+    // MARK: Request
     private func setupBindings() {
         favouriteButtonTapSubject
             .sink { dish in

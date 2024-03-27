@@ -6,29 +6,15 @@
 //
 
 import SwiftUI
-import Combine
 
-struct DishComponentViewModel {
-    let dish: Dish
-    let favouriteButtonIsHidden: Bool
-    var favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil
-    
-    init(dish: Dish, 
-         favouriteButtonIsHidden: Bool,
-         favouriteButtonTapPublisher: PassthroughSubject<Dish, Never>? = nil) {
-        self.dish = dish
-        self.favouriteButtonIsHidden = favouriteButtonIsHidden
-        self.favouriteButtonTapPublisher = favouriteButtonTapPublisher
-    }
-}
-
+// MARK: Dish Component View
 struct DishComponentView: View {
-    
-    // MARK: - Properties
-    var model: DishComponentViewModel
+    // MARK: Properties
     @State private var isFavourite: Bool = false
     
-    // MARK: - Body
+    var model: DishComponentModel
+    
+    // MARK: Body
     var body: some View {
         
         VStack(alignment: .center) {
@@ -48,12 +34,7 @@ struct DishComponentView: View {
         }
         .background(Color(ColorBook.white))
     }
-}
-
-// MARK: - Components
-extension DishComponentView {
     
-    // MARK: - Views
     private var heartButton: some View {
         Button(action: {
             self.isFavourite.toggle()

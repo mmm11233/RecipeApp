@@ -4,19 +4,20 @@
 //
 //  Created by Mariam Joglidze on 01.02.24.
 //
+
 import UIKit
 import Combine
 
-final class FavouritesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+// MARK: Favourites View Controller
+final class FavouritesViewController: UICollectionViewController {
     
-    //MARK: - Properties
+    //MARK: Properties
     private var subscribers = Set<AnyCancellable>()
     private let viewModel: FavouritesViewModel
     
-    //MARK: - Init
+    //MARK: - Initializer
     init(viewModel: FavouritesViewModel) {
         self.viewModel = viewModel
-        
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -24,7 +25,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - LifeCycle
+    //MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -33,7 +34,7 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
         viewModel.viewDidLoad()
     }
     
-    //MARK: - Methods
+    //MARK: - Setup
     private func setupView() {
         title = "Favourited"
         view.backgroundColor = ColorBook.white
@@ -52,7 +53,10 @@ final class FavouritesViewController: UICollectionViewController, UICollectionVi
     private func setupCollectionView() {
         collectionView.register(DishCollectionViewCell.self, forCellWithReuseIdentifier: "DishesComponentCell")
     }
-    
+}
+
+// MARK: Collection View Delegate Flow Layout
+extension FavouritesViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfItemsInSection()
     }
